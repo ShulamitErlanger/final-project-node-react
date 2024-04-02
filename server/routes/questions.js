@@ -1,0 +1,10 @@
+const express=require("express")
+const router=express.Router()
+const verifyJWT=require('../middleware/verifyJWT')
+const verifyAdmin=require('../middleware/verifyAdmin')
+const {addQuestion,updateQuestion,deleteQuestion,chooseSeg}=require('../controllers/questionController')
+router.put('/add',[verifyJWT,verifyAdmin],addQuestion)
+router.put('/update',[verifyJWT,verifyAdmin],updateQuestion)
+router.put('/delete',[verifyJWT,verifyAdmin],deleteQuestion)
+router.put('/chooseSeg',[verifyJWT,verifyAdmin],chooseSeg)
+module.exports=router
