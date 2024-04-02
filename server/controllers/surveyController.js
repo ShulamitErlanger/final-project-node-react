@@ -11,7 +11,7 @@ const addSurvey=async(req,res)=>{
    
        return res.status(201).json({success:true,
             message:`survey ${survey.title} created successfuly`,
-            data:survey._id
+            data:survey
             })
    }
        return res.status(200).json({message:'required field is missing'})  
