@@ -24,17 +24,16 @@ function App() {
   return (
     <>
       <div style={{position:'sticky', top:'10'}}>
-        {/* <Orders /> */}
-       {/* <Diagram/> */}
         <BaseNavBar />
       </div>
         <Routes> 
         <Route path="/" element={<HomePage />} />
           <Route path='/Surveys' element={<Surveys />} />
           <Route path='/login' element={<Start />} />
-          <Route path='/UserSurveys' element={<UserSurveys /*myUser={myUser}sex={myUser.sex} sector={myUser.sector} birthDate={myUser.birthDate}*//>} />
+          <Route path='/UserSurveys' element={<UserSurveys/>} />
           <Route path='/surveySegmentation' element={<SegmentSurveys />} />
           <Route path='/segments' element={<Segments />} />
+          <Route path='/NavBar' element={<NavBar/>} />
           <Route path='/UsersNavBar' element={<UsersNavBar/>} />
           <Route path='/we' element={<About /*myUser={myUser}*//>} />
 

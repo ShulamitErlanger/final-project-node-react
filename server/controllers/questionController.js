@@ -13,6 +13,7 @@ const addQuestion=async(req,res)=>{
     const MyUpdateSurvey=await survey.save()
        return res.status(200).json({success:true,
             message:`question was added successfuly`,
+            data:survey
             })
     }
 

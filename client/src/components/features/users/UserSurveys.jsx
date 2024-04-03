@@ -20,6 +20,7 @@ isError,
 error,
 refetch
 } = useGetSurveysQuery({status:status})
+console.log(surveys);
 let filteredSurveys
 filteredSurveys=surveys?.filter(s=>s.sex==myUser.sex || s.sex=='' && s.sector==myUser.sector || s.sector=='' && s.birthDate>=myUser.birthDate||s.birthDate=='')
 const [visible1,setVisible1]=useState(false)

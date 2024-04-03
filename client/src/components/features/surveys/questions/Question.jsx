@@ -12,7 +12,7 @@ import { Button } from 'primereact/button';
 const Question=(props)=> {
     const [updateQuestionFunc, {isError, error, isSuccess,data}] =useUpdateQuestionMutation()
     const [deleteQuestionFunc, {isError1, error1, isSuccess1,data1}] =useDeleteQuestionMutation()
-    const [addAnswerFunc,{isError2,error2,isSuccess2,data2}]=useAddAnswerMutation()
+    const [addAnswerFunc,{isError:addAnsIsError,error:addAnsError,isSuccess:addAnsIsSuccess,data:questionsAns}]=useAddAnswerMutation()
     const {question,survey,refetch}=props   
     const [text, setText] = useState('');
     const update=()=>{
@@ -68,13 +68,9 @@ const Question=(props)=> {
             <StyleClass nodeRef={toggleBtnRef} selector="@next" toggleClassName="p-disabled" />
             <Button ref={toggleBtnRef} icon={icon} onClick={()=>{update();changeIcon()}}/>&nbsp;&nbsp;
             <InputText ref={body}onChange={()=>console.log(body.current.value)} defaultValue={body.current.value}/>
-        </div>
-       
-
-                
+        </div>          
             </div> }>
-       
-                {question.answers.map(a=>
+                {questionsAns?.answers?.map(a=>
                 <p className="m-0">
                     <Answer question={question} survey={survey} answer={a}refetch={refetch}/>
                  </p> 
@@ -82,7 +78,6 @@ const Question=(props)=> {
              </AccordionTab>
              </Accordion>
         </div>
-    
     )
 }
 export default Question
