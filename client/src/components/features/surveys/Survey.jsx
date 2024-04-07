@@ -6,11 +6,13 @@ import {useChangeStatusMutation, useUpdateSurveyMutation } from "./surveyApiSlic
 import { InputText } from "primereact/inputtext"
 import { StyleClass } from 'primereact/styleclass';
 import { Dropdown } from 'primereact/dropdown';        
+import { Slider } from "primereact/slider"
 const Survey=(props)=>{
     const {survey,refetch,setVisible}=props
-    const [selectedSex, setSelectedSex] = useState({name:null,code:''});
-    const [selectedSector, setSelectedSector] = useState({name:null,code:''});
-    const [selectedAge, setSelectedAge] = useState({name:null,code:''});
+    console.log(survey.sex);
+    const [selectedSex, setSelectedSex] = useState({name:survey.sex,code:''});
+    const [selectedSector, setSelectedSector] = useState({name:survey.sector,code:''});
+    const [selectedAge, setSelectedAge] = useState({name:survey.age,code:''});
     const [selectedBirthDate, setSelectedBirthDate] = useState(Date);
     const title=useRef(survey.title)
     const [text,setText]=useState(survey.title)
@@ -23,16 +25,14 @@ const Survey=(props)=>{
        };
 
     const addQuestion=()=>{
-        addQuestionFunc({_id:survey.data,body:text}).then(()=>refetch())
+        addQuestionFunc({_id:survey._id,body:text}).then(()=>refetch())
      }
 
-    const edit = async (e) => {
-            //e.preventDefault();
-       
-        await updateSurveyFunc({_id:survey._id,title:title.current.value}).then(()=>refetch())
-    
-       
-    };
+     const edit = async (e) => {
+        //e.preventDefault();
+        console.log(selectedSex.name);
+    await updateSurveyFunc({_id:survey._id,title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,birthDate:selectedBirthDate,age:ages}).then(()=>refetch()) 
+}
     const toggleBtnRef = useRef(null);
     let [icon,setIcon] =useState('pi pi-save')
     const changeIcon=()=>{
@@ -49,19 +49,20 @@ const Survey=(props)=>{
         { name: "דתי לאומי", code: '13' },
         { name: 'חרדי', code: '14' }
     ];
-    const age = [
-        { name: "0-10", code: 10 },
-        { name: '10-20', code: 20 },
-        { name: "20-30", code: 30 },
-        { name: '30-40', code: 40 },
-        { name: "40-50", code: 50 },
-        { name: '50-60', code: 60 },
-        { name: "60-70", code: 70 },
-        { name: '70-80', code: 80 },
-        { name: "80-90", code: 90 },
-        { name: '90-100', code: 100 },
-        { name: "100-120", code: 120 }
-        ];
+    const [ages, setAges] = useState(survey.age);
+    // const age = [
+    //     { name: "0-10", code: 10 },
+    //     { name: '10-20', code: 20 },
+    //     { name: "20-30", code: 30 },
+    //     { name: '30-40', code: 40 },
+    //     { name: "40-50", code: 50 },
+    //     { name: '50-60', code: 60 },
+    //     { name: "60-70", code: 70 },
+    //     { name: '70-80', code: 80 },
+    //     { name: "80-90", code: 90 },
+    //     { name: '90-100', code: 100 },
+    //     { name: "100-120", code: 120 }
+    //     ];
 
     const selectedCountryTemplate = (option, props) => {
         if (option) {
@@ -94,21 +95,26 @@ const Survey=(props)=>{
             <InputText ref={title}onChange={(e)=>setText(e.value)} defaultValue={title.current.value}/>
         </div>
         <div className="card flex justify-content-center">
-            <Dropdown value={selectedSex} onChange={(e) => setSelectedSex(e.value)} options={sex} optionLabel="name" placeholder="Select a sex" 
-                filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
+            <Dropdown value={selectedSex} onChange={(e) => setSelectedSex(e.value)} options={sex} optionLabel="name" placeholder={selectedSex.name||"Select a sex"} 
+                filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem"/>
         </div>  
+       
         <div className="card flex justify-content-center">
-            <Dropdown value={selectedAge} onChange={async(e) => {setSelectedAge(e.value);await d.setFullYear(d.getFullYear()-(e.value.code));await setSelectedBirthDate(d); console.log(d)}} options={age} optionLabel="name" placeholder="Select a age" 
+            <Dropdown value={selectedSector} onChange={(e) => setSelectedSector(e.value)} options={sector} optionLabel="name" placeholder={selectedSector.name||"Select a sector" }
                 filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
         </div> 
         <div className="card flex justify-content-center">
-            <Dropdown value={selectedSector} onChange={(e) => setSelectedSector(e.value)} options={sector} optionLabel="name" placeholder="Select a sector" 
-                filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
-        </div>   
+            <div className="w-14rem">
+                <label>Select an ages range</label>
+                <InputText value={ages} onChange={(e) => setAges(e.target.value)} className="w-full" disabled/>
+                <Slider value={ages} onChange={(e) => setAges(e.value)} className="w-14rem" range step={10}min={0}max={120}/>
+            </div>
+        </div>
        </div>
         {survey?.questions.map(q=><Question question={q} survey={survey}refetch={refetch}/>)}
         <Button onClick={()=>{addQuestion()}} icon="pi pi-plus" rounded /> 
         <Button onClick={()=>{changestatus();setVisible(false)}} icon="pi pi-send" rounded/> 
+        <Button onClick={edit} icon="pi pi-save" rounded /> 
         </>
     )
 }

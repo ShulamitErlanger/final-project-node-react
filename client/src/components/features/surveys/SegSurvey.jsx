@@ -12,7 +12,7 @@ import SegQuestion from "./SegQuestion";
 import { useChangeStatusMutation } from "./surveyApiSlice";
 import { useChooseSegQuestionMutation } from "./questions/questionApiSlice";
 const SegSurvey=(props)=>{
-    const {survey,refetch,setVisible}=props
+    const {survey,refetch,setVisible1}=props
     const [saveDisable,setSaveDisable]=useState(false)
     let [select, setSelect] = useState(survey.questions.map(q=>{return {_id:q._id,select:q.segmentation.kind}}));
     let [text, setText] = useState(survey.questions.map(q=>{return{_id:q._id,text:q.segmentation.note}}));
@@ -33,7 +33,7 @@ const SegSurvey=(props)=>{
         <h1>{survey.title}</h1>
         {survey?.questions.map(q=> <SegQuestion select={select}setSelect={setSelect} text={text} setText={setText} question={q}/>)}
         <Button onClick={chooseSegment} icon="pi pi-save" rounded /> 
-        <Button onClick={async()=>{await chooseSegment(); await changeStatus();setVisible(false)}} icon="pi pi-send" rounded /> 
+        <Button onClick={async()=>{await chooseSegment(); await changeStatus();setVisible1(false)}} icon="pi pi-send" rounded /> 
         </> 
     )
 }

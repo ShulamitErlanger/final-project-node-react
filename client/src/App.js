@@ -21,26 +21,56 @@ import UsersNavBar from './components/UsersNavBar';
 import About from './About';
 
 function App() {
+  const [loginSuccess,setLoginSuccess]=useState(false)
+  const [admin,setAdmin]=useState(false)
   return (
+    // <>
+    //   <div style={{position:'sticky', top:'10'}}>
+    //    {!loginSuccess&& <BaseNavBar/>
+    //    &&<Routes> 
+    //       <Route path='/login' element={<Start setAdmin={setAdmin}/>} />
+    //       <Route path='/NavBar' element={<NavBar/>} />
+    //       <Route path='/UsersNavBar' element={<UsersNavBar/>} />
+    //       <Route path='/we' element={<About/>} />
+    //     </Routes>
+    // }
+    //     {loginSuccess&&admin?
+    //     <Routes> 
+    //       <Route path='/Surveys' element={<Surveys />} />
+    //       <Route path='/UserSurveys' element={<UserSurveys/>} />
+    //       <Route path='/surveySegmentation' element={<SegmentSurveys />} />
+    //       <Route path='/segments' element={<Segments />} />
+    //       <Route path='/NavBar' element={<NavBar/>} />
+    //       <Route path='/UsersNavBar' element={<UsersNavBar/>} />
+    //       <Route path='/we' element={<About/>&&<NavBar/>} />
+    //     </Routes>:null }
+
+    //    { loginSuccess&&!admin?
+    //    <Routes> 
+    //     <Route path="/" element={<HomePage />} />
+    //     <Route path='/UserSurveys' element={<UserSurveys/>} />
+    //     <Route path='/segments' element={<Segments />} />
+    //     <Route path='/NavBar' element={<UsersNavBar/>} />
+    //     <Route path='/we' element={<About /*myUser={myUser}*//>&&<NavBar/>} />
+    //    </Routes> :null}
+    //   </div>
+      
+       
+      
+    // </>
     <>
-      <div style={{position:'sticky', top:'10'}}>
-        <BaseNavBar />
-      </div>
-        <Routes> 
-        <Route path="/" element={<HomePage />} />
-          <Route path='/Surveys' element={<Surveys />} />
-          <Route path='/login' element={<Start />} />
-          <Route path='/UserSurveys' element={<UserSurveys/>} />
-          <Route path='/surveySegmentation' element={<SegmentSurveys />} />
+    <BaseNavBar/>
+    <Routes> 
+    <Route path='/login' element={<Start setAdmin={setAdmin}/>} />
+           <Route path='/Surveys' element={<Surveys />} />
+           <Route path='/UserSurveys' element={<UserSurveys/>} />
+           <Route path='/surveySegmentation' element={<SegmentSurveys />} />
           <Route path='/segments' element={<Segments />} />
           <Route path='/NavBar' element={<NavBar/>} />
-          <Route path='/UsersNavBar' element={<UsersNavBar/>} />
-          <Route path='/we' element={<About /*myUser={myUser}*//>} />
-
-        </Routes> 
-      
+         <Route path='/UsersNavBar' element={<UsersNavBar/>} />
+           <Route path='/we' element={<About/>&&<NavBar/>} />
+         </Routes>
     </>
-    
   );
 }
 

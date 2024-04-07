@@ -47,7 +47,7 @@ return (
     {surveys.map((s)=><SurveyItem survey={s}refetch={refetch}/>)}
             <Dialog visible={visibleNew} style={{ width: '50vw', height:'200vw' }} onHide={() => setVisibleNew(false)}>
                 <p className="m-0">
-                    <AddSurvey setvisible={setVisibleNew} refetch={refetch}/>
+                    <AddSurvey setVisibleNew={setVisibleNew} refetch={refetch}/>
                 </p>
             </Dialog> 
             <ScrollTop />

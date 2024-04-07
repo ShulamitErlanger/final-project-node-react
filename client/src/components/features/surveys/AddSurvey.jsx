@@ -6,9 +6,10 @@ import { InputText } from "primereact/inputtext"
 import { StyleClass } from "primereact/styleclass"
 import { useAddSurveyMutation, useChangeStatusMutation, useUpdateSurveyMutation } from "./surveyApiSlice"
 import { useAddQuestionMutation } from "./questions/questionApiSlice"
+import { Slider } from "primereact/slider"
 
 const AddSurvey=(props)=>{
-    const {refetch,setVisible}=props
+    const {refetch,setVisibleNew}=props
     const [ed,setEd]=useState(false)
     const [quest,setQuest]=useState(false) 
     const [selectedSex, setSelectedSex] = useState({name:null,code:''});
@@ -66,19 +67,20 @@ const AddSurvey=(props)=>{
         { name: "לא משתייך", code: '14' },
         { name: 'מסורתי', code: '15' }
     ];
-    const age = [
-        { name: "0-10", code: 10 },
-        { name: '10-20', code: 20 },
-        { name: "20-30", code: 30 },
-        { name: '30-40', code: 40 },
-        { name: "40-50", code: 50 },
-        { name: '50-60', code: 60 },
-        { name: "60-70", code: 70 },
-        { name: '70-80', code: 80 },
-        { name: "80-90", code: 90 },
-        { name: '90-100', code: 100 },
-        { name: "100-120", code: 120 }
-        ];
+    const [ages, setAges] = useState([0,120]);
+    // const age = [
+    //     { name: "0-10", code: 10 },
+    //     { name: '10-20', code: 20 },
+    //     { name: "20-30", code: 30 },
+    //     { name: '30-40', code: 40 },
+    //     { name: "40-50", code: 50 },
+    //     { name: '50-60', code: 60 },
+    //     { name: "60-70", code: 70 },
+    //     { name: '70-80', code: 80 },
+    //     { name: "80-90", code: 90 },
+    //     { name: '90-100', code: 100 },
+    //     { name: "100-120", code: 120 }
+    //     ];
 
     const selectedCountryTemplate = (option, props) => {
         if (option) {
@@ -114,8 +116,11 @@ const AddSurvey=(props)=>{
                 filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
         </div>  
         <div className="card flex justify-content-center">
-            <Dropdown value={selectedAge} onChange={async(e) => {setSelectedAge(e.value);await d.setFullYear(d.getFullYear()-(e.value.code));await setSelectedBirthDate(d); console.log(d)}} options={age} optionLabel="name" placeholder="Select a age" 
-                filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
+            <div className="w-14rem">
+                <label>Select an ages range</label>
+                <InputText value={ages} onChange={(e) => setAges(e.target.value)} className="w-full" disabled/>
+                <Slider value={ages} onChange={(e) => setAges(e.value)} className="w-14rem" range step={10}min={0}max={120}/>
+            </div>
         </div> 
         <div className="card flex justify-content-center">
             <Dropdown value={selectedSector} onChange={(e) => setSelectedSector(e.value)} options={sector} optionLabel="name" placeholder="Select a sector" 
@@ -124,7 +129,7 @@ const AddSurvey=(props)=>{
        </div>
         {surveyQuestion?.data?.questions?.map(q=><Question question={q} survey={surveyQuestion.data}refetch={refetch}/>)} 
         <Button onClick={addQuestion} icon="pi pi-plus" rounded /> 
-        <Button onClick={()=>{changestatus();setVisible(false)}} icon="pi pi-send" rounded/> 
+        <Button onClick={()=>{changestatus();setVisibleNew(false)}} icon="pi pi-send" rounded/> 
         <Button onClick={edit} icon="pi pi-save" rounded /> 
 
         </>

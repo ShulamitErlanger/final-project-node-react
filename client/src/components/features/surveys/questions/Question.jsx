@@ -16,7 +16,7 @@ const Question=(props)=> {
     const {question,survey,refetch}=props   
     const [text, setText] = useState('');
     const update=()=>{
-        updateQuestionFunc({_id:survey._id,questionId:question._id,body:text}).then(()=>refetch())
+        updateQuestionFunc({_id:survey._id,questionId:question._id,body:body.current.value}).then(()=>refetch())
     }
     const del=()=>{
         deleteQuestionFunc({_id:survey._id,questionId:question._id}).then(()=>refetch())
@@ -70,7 +70,7 @@ const Question=(props)=> {
             <InputText ref={body}onChange={()=>console.log(body.current.value)} defaultValue={body.current.value}/>
         </div>          
             </div> }>
-                {questionsAns?.answers?.map(a=>
+                {question?.answers?.map(a=>
                 <p className="m-0">
                     <Answer question={question} survey={survey} answer={a}refetch={refetch}/>
                  </p> 

@@ -11,13 +11,13 @@ import { useGetUserQuery } from './features/users/userApiSlice';
 
 //import { useNavigate } from 'react-router-dom';
 //z6o1f2n5a8t8p2a5a5n3e1a7h
-const Start=()=>{
-
+const Start=(props)=>{
+    const {setAdmin}=props
     const username=useRef()
     const password=useRef()
     const[register,setRegister]=useState(false)
-    const [loginFunc, {isError, error, isSuccess,data}] = useLoginMutation();
-   const[loginSuccess,setLoginSuccess]=useState(false)
+    const [loginFunc, {isError, error, isSuccess:loginSuccess,data}] = useLoginMutation();
+
         const dispatch = useDispatch()
         const navigate = useNavigate()
 
@@ -30,10 +30,13 @@ const Start=()=>{
             refetch:userRefetch
             } = useGetUserQuery({id:''})
         useEffect(()=>{
-        if(isSuccess){
+        if(loginSuccess){
         dispatch(setToken(data))
-            if(userIsSuccess)
-            myUser.roles=='admin'?navigate('/NavBar'):navigate('/UsersNavBar')
+            if(userIsSuccess){
+                myUser.roles=='admin'?setAdmin(true):setAdmin(false)
+                navigate('/NavBar')
+            }
+            
             //navigate('/UsersNavBar')
         // {<UsersNavBar/>}
         // setLoginSuccess(true)
@@ -44,7 +47,7 @@ console.log(data.password);
     else{
 
     }
-        },[isSuccess,userIsSuccess])
+        },[loginSuccess,userIsSuccess])
     
     const handleSubmit = async (e) => {
         

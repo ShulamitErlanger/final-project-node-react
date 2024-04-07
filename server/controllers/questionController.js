@@ -39,6 +39,8 @@ const addQuestion=async(req,res)=>{
 
 const updateQuestion=async(req,res)=>{
     const {_id,questionId,body}=req.body
+    console.log(body);
+    console.log('----------------------------------------');
     if(!body)
     return res.status(409).json({message:`Required field is missing`})
     const survey=await Survey.findById(_id).exec()

@@ -150,7 +150,7 @@ const getSurveyById=async(req,res)=>{
 
 }
 const updateSurvey=async(req,res)=>{
-    const {_id,title,color,sex,sector,birthDate}=req.body
+    const {_id,title,color,sex,sector,age,birthDate}=req.body
    console.log("yes i am ");
    sex?console.log(sex):console.log('!sex');;
    const survey=await Survey.findById(_id).exec()
@@ -185,6 +185,8 @@ const updateSurvey=async(req,res)=>{
             console.log('*****************'+birthDate);
             survey.birthDate=birthDate
         }
+        if(age)
+            survey.age=age
         const MyUpdatesurvey=await survey.save()
         return res.status(201).json({success:true,
             message:`survey ${survey.title}updated successfuly`,

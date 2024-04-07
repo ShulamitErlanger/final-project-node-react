@@ -130,7 +130,7 @@ const items = [
         <Dialog
             visible={visible1} style={{ width: '50vw' }} onHide={() => setVisible1(false)}>
             <p className="m-0">
-                <SegSurvey refetch={refetch}survey={survey}setVisible={visible1}/>
+                <SegSurvey refetch={refetch}survey={survey}setVisible1={setVisible1}/>
             </p>
         </Dialog>
         </>

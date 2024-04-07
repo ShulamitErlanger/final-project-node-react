@@ -43,7 +43,7 @@ const getUserById=async(req,res)=>{
     //     id=req.user._id
     // } 
     
-    // console.log(id);
+     console.log(id);
         
     const user=await User.findById({_id:id},{password:0}).lean()
     console.log(user);
