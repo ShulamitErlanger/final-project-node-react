@@ -110,4 +110,5 @@ const changeAnswerData=async(req,res)=>{
         message:`survey ${survey.title}updated successfuly`
         })
     }
+
 module.exports={addAnswer,updateAnswer,deleteAnswer,changeAnswerData}

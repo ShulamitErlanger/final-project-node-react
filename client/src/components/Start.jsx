@@ -33,8 +33,8 @@ const Start=(props)=>{
         if(loginSuccess){
         dispatch(setToken(data))
             if(userIsSuccess){
-                myUser.roles=='admin'?setAdmin(true):setAdmin(false)
-                navigate('/NavBar')
+                myUser.roles=='admin'?navigate('/NavBar'):navigate('/UsersNavBar')//setAdmin(true):setAdmin(false)
+                //navigate('/NavBar')
             }
             
             //navigate('/UsersNavBar')

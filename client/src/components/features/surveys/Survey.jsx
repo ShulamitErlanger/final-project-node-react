@@ -12,10 +12,14 @@ const Survey=(props)=>{
     console.log(survey.sex);
     const [selectedSex, setSelectedSex] = useState({name:survey.sex,code:''});
     const [selectedSector, setSelectedSector] = useState({name:survey.sector,code:''});
-    const [selectedAge, setSelectedAge] = useState({name:survey.age,code:''});
-    const [selectedBirthDate, setSelectedBirthDate] = useState(Date);
+    // const [selectedAge, setSelectedAge] = useState({name:survey.age,code:''});
+    // const [selectedBirthDate, setSelectedBirthDate] = useState(Date);
     const title=useRef(survey.title)
     const [text,setText]=useState(survey.title)
+   
+    let [questions,setQuestions]=useState(survey.questions)
+    let [newQuestions,setNewQuestions]=useState([])
+   
     const [addQuestionFunc,{isError2,error2,isSuccess2,data:s}]=useAddQuestionMutation()
     const [changeStatusFunc, {isError1, error1, isSuccess1,data1}] =useChangeStatusMutation()
     const [updateSurveyFunc, {isError3, error3, isSuccess3,data3}] = useUpdateSurveyMutation()
@@ -25,13 +29,16 @@ const Survey=(props)=>{
        };
 
     const addQuestion=()=>{
-        addQuestionFunc({_id:survey._id,body:text}).then(()=>refetch())
+        setQuestions([...questions,{body:'',answers:[{body:' '}]}])
+        //addQuestionFunc({_id:survey._id,body:' '}).then(()=>)
+        refetch()
      }
 
-     const edit = async (e) => {
+    const edit = async (e) => {
+
         //e.preventDefault();
-        console.log(selectedSex.name);
-    await updateSurveyFunc({_id:survey._id,title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,birthDate:selectedBirthDate,age:ages}).then(()=>refetch()) 
+       // console.log(selectedSex.name);
+    await updateSurveyFunc({_id:survey._id,title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,age:ages,questions:questions}).then(()=>refetch()) 
 }
     const toggleBtnRef = useRef(null);
     let [icon,setIcon] =useState('pi pi-save')
@@ -50,19 +57,6 @@ const Survey=(props)=>{
         { name: 'חרדי', code: '14' }
     ];
     const [ages, setAges] = useState(survey.age);
-    // const age = [
-    //     { name: "0-10", code: 10 },
-    //     { name: '10-20', code: 20 },
-    //     { name: "20-30", code: 30 },
-    //     { name: '30-40', code: 40 },
-    //     { name: "40-50", code: 50 },
-    //     { name: '50-60', code: 60 },
-    //     { name: "60-70", code: 70 },
-    //     { name: '70-80', code: 80 },
-    //     { name: "80-90", code: 90 },
-    //     { name: '90-100', code: 100 },
-    //     { name: "100-120", code: 120 }
-    //     ];
 
     const selectedCountryTemplate = (option, props) => {
         if (option) {
@@ -89,11 +83,11 @@ const Survey=(props)=>{
         <>
 <div className="card">
         <div>
-          
-            <StyleClass nodeRef={toggleBtnRef} selector="@next" toggleClassName="p-disabled" />
-            <Button ref={toggleBtnRef} icon={icon} onClick={()=>{changeIcon();edit()}}/>&nbsp;&nbsp;
-            <InputText ref={title}onChange={(e)=>setText(e.value)} defaultValue={title.current.value}/>
+            {/* <StyleClass nodeRef={toggleBtnRef} selector="@next" toggleClassName="p-disabled" />
+            <Button ref={toggleBtnRef} icon={icon} onClick={()=>{changeIcon();edit()}}/>&nbsp;&nbsp; */}
+            <InputText ref={title} defaultValue={title.current}/>
         </div>
+
         <div className="card flex justify-content-center">
             <Dropdown value={selectedSex} onChange={(e) => setSelectedSex(e.value)} options={sex} optionLabel="name" placeholder={selectedSex.name||"Select a sex"} 
                 filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem"/>
@@ -103,6 +97,7 @@ const Survey=(props)=>{
             <Dropdown value={selectedSector} onChange={(e) => setSelectedSector(e.value)} options={sector} optionLabel="name" placeholder={selectedSector.name||"Select a sector" }
                 filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
         </div> 
+
         <div className="card flex justify-content-center">
             <div className="w-14rem">
                 <label>Select an ages range</label>
@@ -111,10 +106,10 @@ const Survey=(props)=>{
             </div>
         </div>
        </div>
-        {survey?.questions.map(q=><Question question={q} survey={survey}refetch={refetch}/>)}
+        {questions?.map((q,i)=><Question question={q} questions={questions} index={i}survey={survey} refetch={refetch}/>)}
         <Button onClick={()=>{addQuestion()}} icon="pi pi-plus" rounded /> 
         <Button onClick={()=>{changestatus();setVisible(false)}} icon="pi pi-send" rounded/> 
-        <Button onClick={edit} icon="pi pi-save" rounded /> 
+        <Button onClick={()=>{edit();setVisible(false);}} icon="pi pi-save" rounded /> 
         </>
     )
 }

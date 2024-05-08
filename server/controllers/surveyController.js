@@ -1,12 +1,22 @@
 const Survey = require("../models/Survey");
 const addSurvey=async(req,res)=>{
-    let {title,color} = req.body
+    let {title,sex,sector,age,questions} = req.body
     console.log("add survey");
     if (!title) {
         console.log('!title');
         return res.status(400).json({message:'required field is missing'})
         }
-    const survey = await Survey.create({title,color})
+        if(questions){
+            questions.forEach(q => {
+                if(!q.body)
+                    return res.status(400).json({message:'required field is missing'})
+                q.answers?.forEach(a=>{
+                    if(!a.body)
+                        return res.status(400).json({message:'required field is missing'})
+                })
+            });
+        }
+    const survey = await Survey.create({title,sex,sector,age,questions})
     if(survey){
        return res.status(201).json({success:true,
             message:`survey ${survey.title}created successfuly`,
@@ -20,121 +30,23 @@ const addSurvey=async(req,res)=>{
 const getAllSurveys=async(req,res)=>{
 
     const {status}=req.query
-    /*,sector,sex,birthDate*/
-    // let sexx;
-    // console.log(sex);
-    // sex==='נקבה'?sexx='זכר':sexx='נקבה';
-    // console.log(sexx);
-
-    
-
-// let sectorr=['חרדי','דתי לאומי','מסורתי','לא משתייך','חילוני'];
-// sectorr=sectorr.filter(sect=>sect!=sector)
-
-
     let surveys=null
     if(status)
     {
-    //    if(sector!=''||sex!=''||birthDate!='')
-    //     {
-    //         console.log('permission');
-    //         if(sector)
-    //         {
-    //             console.log('sector');
-
-    //             if(sex)
-    //             {
-    //                 console.log('sex');
-
-    //                 if(birthDate)
-    //                 {
-    //                     console.log('birthDate');
-                        
-    //                     surveys=await Survey.find({status}).lean()
-    //                     console.log('sector '+sectorr[0]);
-    //                     console.log('sex '+sexx);
-
-    //                     surveys=surveys.filter(s=>s.sector!=sectorr[0]&&s.sector!=sectorr[1]&&s.sector!=sectorr[2]&&s.sector!=sectorr[3]&&s.sex!=sexx&&s.birthDate>birthDate)
-    //                     console.log('1'+surveys);
-
-    //                 }
-    //                 else{
-    //                     surveys=await Survey.find({status}).lean()
-    //                     console.log('sector '+sectorr[0]);
-    //                     console.log('sex '+sexx);
-    //                     surveys=surveys.filter(s=>s.sector!=sectorr[0]&&s.sector!=sectorr[1]&&s.sector!=sectorr[2]&&s.sector!=sectorr[3]&&s.sex!==sexx)
-    //                     console.log('2'+surveys);
-
-    //                 }
-    //             }
-    //             else{
-    //                 if(birthDate)
-    //                 {
-    //                     console.log('birthDate');
-
-    //                     surveys=await Survey.find({status,sector,birthDate}).lean()
-    //                     console.log('3'+surveys);
-
-    //                 }
-    //                 else{
-    //                     surveys=await Survey.find({status,sector}).lean()
-    //                     console.log('4'+surveys);
-
-    //                 }
-    //             }
-    //         }
-    //         else{
-    //             if(sex)
-    //             {
-    //                 console.log('sex');
-    //                 if(birthDate)
-    //                 {
-    //                     console.log('birthDate');
-
-    //                     surveys=await Survey.find({status,sex,birthDate}).lean()
-    //                     console.log('5'+surveys);
-
-    //                 }
-    //                 else{
-    //                     surveys=await Survey.find({status,sex}).lean()
-    //                     console.log('6'+surveys);
-
-    //                 }
-    //             }
-    //             else{
-    //                 if(birthDate)
-    //                 {console.log('birthDate');
-    //                     surveys=await Survey.find({status,birthDate}).lean()
-    //                     console.log('7'+surveys);
-
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     else{
-            surveys=await Survey.find({status}).lean()
-        }
-
-        
-    // }  
+         surveys=await Survey.find({status}).lean()
+    }
     else
     {
         surveys=await Survey.find().lean()
-        console.log('8'+surveys);
-
     }
-        
-
 
     if(!surveys)
     {
-        console.log('nooooooooooooooooooooooooooooooooooooooooooooo');
-        console.log('3');
-
+       // console.log('nooooooooooooooooooooooooooooooooooooooooooooo');
+       // console.log('3');
         return res.status(401).json({message:"not found"})
     }
-    console.log(surveys[0]);
-
+   // console.log(surveys[0]);
     return res.json(surveys)
 }
 const getSurveyById=async(req,res)=>{
@@ -146,13 +58,13 @@ const getSurveyById=async(req,res)=>{
             return  res.status(401).json({message:"not found"})
     }
         return res.json(survey)
-    
-
 }
+
 const updateSurvey=async(req,res)=>{
-    const {_id,title,color,sex,sector,age,birthDate}=req.body
+    const {_id,title,color,sex,sector,age,questions}=req.body
    console.log("yes i am ");
-   sex?console.log(sex):console.log('!sex');;
+   console.log('------------------------------');
+   console.log(_id);
    const survey=await Survey.findById(_id).exec()
 
     if(!survey){
@@ -181,12 +93,14 @@ const updateSurvey=async(req,res)=>{
             return res.status(401).json({message:"status is not valid"})
         survey.sector=sector
         }
-        if(birthDate){
-            console.log('*****************'+birthDate);
-            survey.birthDate=birthDate
-        }
+        // if(birthDate){
+        //   //  console.log('*****************'+birthDate);
+        //     survey.birthDate=birthDate
+        // }
         if(age)
             survey.age=age
+        if(questions)
+            survey.questions=questions
         const MyUpdatesurvey=await survey.save()
         return res.status(201).json({success:true,
             message:`survey ${survey.title}updated successfuly`,
@@ -223,12 +137,12 @@ if(!survey){
 
 const changeStatus=async(req,res)=>{
     const {_id,status}=req.body
-   console.log('welcome');
+  // console.log('welcome');
     const survey=await Survey.findById(_id).exec()
 
     if(!survey){
 
-        console.log('!survey');
+       //console.log('!survey');
 
     return res.status(401).json({message:"not found"})
     }
@@ -236,12 +150,12 @@ const changeStatus=async(req,res)=>{
     
         if(status){
             
-            console.log(status);
+         //   console.log(status);
             const arr1=["creating","in process","closed","completed" ]
             const s=arr1.find(s=>s==status)
             if(!s)
             {
-                console.log('!s');
+             //   console.log('!s');
 
                  return res.status(401).json({message:"status is not valid"})
             }
@@ -250,7 +164,7 @@ const changeStatus=async(req,res)=>{
         
        
         const MyUpdatesurvey=await survey.save()
-        console.log('after');
+       // console.log('after');
         return res.status(201).json({success:true,
             message:`survey ${survey.title} updated successfuly`,
             })}

@@ -30,7 +30,8 @@ const surveySchema=new mongoose.Schema({
     },
     sector:{
         type:String,
-        enum:["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך"],
+        enum:["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך","לא נבחר"],
+        default:"לא נבחר"
         
     },
     color:{

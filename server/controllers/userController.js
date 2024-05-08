@@ -43,10 +43,10 @@ const getUserById=async(req,res)=>{
     //     id=req.user._id
     // } 
     
-     console.log(id);
+   //  console.log(id);
         
     const user=await User.findById({_id:id},{password:0}).lean()
-    console.log(user);
+  //  console.log(user);
     if(!user)
     {
             return  res.status(401).json({message:"not found"})
@@ -54,8 +54,8 @@ const getUserById=async(req,res)=>{
     if(user._id==req.user._id){
         return res.json(user)
     }
-    console.log(user._id);
-    console.log(req.user._id);
+  //  console.log(user._id);
+  //  console.log(req.user._id);
     return res.status(405).json({message:"unaouthorisedid"})
 }
 const updateUser=async(req,res)=>{

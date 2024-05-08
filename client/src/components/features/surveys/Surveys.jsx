@@ -37,7 +37,7 @@ const onSortChange = (event) => {
 const header = () => {
     return <Dropdown options={sortOptions} value={sortKey} optionLabel="label" placeholder="Sort By Price"
      onChange={onSortChange} 
-    className="w-full sm:w-14rem" />;
+    className="w-full sm:w-14rem"/>;
 };
 
 

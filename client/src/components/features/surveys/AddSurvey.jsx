@@ -8,30 +8,37 @@ import { useAddSurveyMutation, useChangeStatusMutation, useUpdateSurveyMutation 
 import { useAddQuestionMutation } from "./questions/questionApiSlice"
 import { Slider } from "primereact/slider"
 
+
 const AddSurvey=(props)=>{
     const {refetch,setVisibleNew}=props
     const [ed,setEd]=useState(false)
     const [quest,setQuest]=useState(false) 
-    const [selectedSex, setSelectedSex] = useState({name:null,code:''});
-    const [selectedSector, setSelectedSector] = useState({name:null,code:''});
-    const [selectedAge, setSelectedAge] = useState({name:null,code:''});
-    const [selectedBirthDate, setSelectedBirthDate] = useState(Date);
+    const [selectedSex, setSelectedSex] = useState({name:null,code:''})
+    const [selectedSector, setSelectedSector] = useState({name:null,code:''})
+  //const [selectedAge, setSelectedAge] = useState({name:null,code:''});
+  //const [selectedBirthDate, setSelectedBirthDate] = useState(Date)
     const title=useRef('')
     const [text,setText]=useState('')
+    let [questions,setQuestions]=useState([])
     const [addSurveyFunc,{data:survey={},isError:addSurveyIsError,error:addSurveyError,isSuccess:addSurveyIsSuccess}]=useAddSurveyMutation()
     const [addQuestionFunc,{isError:addQuestionIsError,error:addQuestionError,isSuccess:addQuestionIsSuccess,data:surveyQuestion}]=useAddQuestionMutation()
     const [changeStatusFunc, {isError:changeStatusIsError, error:changeStatusError, isSuccess:changeStatusIsSuccess,data:changeStatus}] =useChangeStatusMutation()
     const [updateSurveyFunc, {isError:updateSurveyIsError, error:updateSurveyError, isSuccess:updateSurveyIsSuccess,data:updatesurvey}] = useUpdateSurveyMutation()
    
     const add = async (e) => { 
-            //e.preventDefault();         
-       await addSurveyFunc({title:title.current.value}).then(()=>refetch())
-       setEd(true)
+            //e.preventDefault(); 
+            console.log(questions);        
+       await addSurveyFunc({title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,age:ages,questions:questions}).then(()=>refetch())
+     // await  console.log(survey);
+     // await edit()
+      // await updateSurveyFunc({_id:survey._id,title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,age:ages}).then(()=>refetch()) 
+       setVisibleNew(false)
     }
     const edit = async (e) => {
+        console.log(survey);
                 //e.preventDefault();
-                console.log(selectedSex.name);
-            await updateSurveyFunc({_id:survey.data._id,title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,birthDate:selectedBirthDate}).then(()=>refetch()) 
+            await updateSurveyFunc({_id:survey.data._id,title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,age:ages}).then(()=>refetch()) 
+            setVisibleNew(false)
         }
     const changestatus = (e) => {
       // e.preventDefault();
@@ -39,13 +46,11 @@ const AddSurvey=(props)=>{
        }
 
     const addQuestion=async()=>{
-        await addQuestionFunc({_id:survey.data._id,body:'enter question'}).then(()=>refetch())
-        console.log(survey?.data?.questions);
-        setQuest(true)
+       setQuestions([...questions,{body:'',answers:[{body:' '}]}])
+       //await addQuestionFunc({_id:survey.data._id,body:'enter question'}).then(()=>refetch())
+       // console.log(survey?.data?.questions);
+       setQuest(true)
     }
-    
-   
-
     const toggleBtnRef = useRef(null);
     let [icon,setIcon] =useState('pi pi-save')
     const changeIcon=()=>{
@@ -55,7 +60,7 @@ const AddSurvey=(props)=>{
         ed===false?add():edit()
         changeIcon()
     }
-    const d=new Date()
+    //const d=new Date()
     const sex = [
         { name: 'זכר', code: '1' },
         { name: 'נקבה', code: '2' }
@@ -68,20 +73,7 @@ const AddSurvey=(props)=>{
         { name: 'מסורתי', code: '15' }
     ];
     const [ages, setAges] = useState([0,120]);
-    // const age = [
-    //     { name: "0-10", code: 10 },
-    //     { name: '10-20', code: 20 },
-    //     { name: "20-30", code: 30 },
-    //     { name: '30-40', code: 40 },
-    //     { name: "40-50", code: 50 },
-    //     { name: '50-60', code: 60 },
-    //     { name: "60-70", code: 70 },
-    //     { name: '70-80', code: 80 },
-    //     { name: "80-90", code: 90 },
-    //     { name: '90-100', code: 100 },
-    //     { name: "100-120", code: 120 }
-    //     ];
-
+  
     const selectedCountryTemplate = (option, props) => {
         if (option) {
             return (
@@ -108,7 +100,6 @@ const AddSurvey=(props)=>{
         <div className="card" >
         <div>
             <StyleClass nodeRef={toggleBtnRef} selector="@next" toggleClassName="p-disabled" />
-            <Button ref={toggleBtnRef} icon={icon} onClick={()=>{icon==='pi pi-save'?checkType():changeIcon()}}/>&nbsp;&nbsp;
             <InputText ref={title} onChange={(e)=>setText(e.value)} defaultValue={title.current.value}/>
         </div>
         <div className="card flex justify-content-center">
@@ -126,12 +117,11 @@ const AddSurvey=(props)=>{
             <Dropdown value={selectedSector} onChange={(e) => setSelectedSector(e.value)} options={sector} optionLabel="name" placeholder="Select a sector" 
                 filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
         </div>
-       </div>
-        {surveyQuestion?.data?.questions?.map(q=><Question question={q} survey={surveyQuestion.data}refetch={refetch}/>)} 
-        <Button onClick={addQuestion} icon="pi pi-plus" rounded /> 
+        </div>
+        {questions?.map((q,i)=><Question question={q}questions={questions}index={i}/*survey={surveyQuestion.data}*/ refetch={refetch}/>)} 
+        <Button onClick={async()=>{addQuestion()}} icon="pi pi-plus" rounded /> 
         <Button onClick={()=>{changestatus();setVisibleNew(false)}} icon="pi pi-send" rounded/> 
-        <Button onClick={edit} icon="pi pi-save" rounded /> 
-
+        <Button onClick={add} icon="pi pi-save"disabled={text!=null} rounded /> 
         </>
     )
 }
