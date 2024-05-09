@@ -8,11 +8,12 @@ import { SpeedDial } from 'primereact/speeddial';
 import {useAddAnswerMutation}from '../answers/answerApiSlice'
 import { StyleClass } from 'primereact/styleclass';
 import { Button } from 'primereact/button';
+import SegQuestion from '../SegQuestion';
 const Question=(props)=> {
     const [updateQuestionFunc, {isError, error, isSuccess,data}] =useUpdateQuestionMutation()
     //const [deleteQuestionFunc, {isError1, error1, isSuccess1,data1}] =useDeleteQuestionMutation()
     //const [addAnswerFunc,{isError:addAnsIsError,error:addAnsError,isSuccess:addAnsIsSuccess,data:questionsAns}]=useAddAnswerMutation()
-    const {question,index,survey,refetch}=props
+    const {question,index,survey,refetch,setQuestions}=props
     let {questions}=props 
    
    // const [text, setText] = useState();
@@ -20,18 +21,19 @@ const Question=(props)=> {
         updateQuestionFunc({_id:survey._id,questionId:question._id,body:body.current.value}).then(()=>refetch())
     }
     const del=()=>{
-        console.log('index:',index);
+       // console.log('index:',index);
         questions.splice(index,1);
         //deleteQuestionFunc({_id:survey._id,questionId:question._id}).then(()=>refetch())
     }
     const addAnswer=()=>{
-        console.log(questions);
+       // console.log(questions);
         questions[index].answers=[...questions[index].answers,{body:' '}]
         //addAnswerFunc({_id:survey._id,questionId:question._id,body:'enter answer'}).then(()=>refetch())
      }
-    console.log(question.body,' 6666666666666666666666');
+   // console.log(question.body,' 6666666666666666666666');
     const body=useRef(question.body)
-    console.log(body.current/*.value*/,' 55555555555555555555');
+    // questions[index].body=body.current.value
+   // console.log(body.current/*.value*/,' 55555555555555555555');
     const toast = useRef(null);
    
     
@@ -75,20 +77,22 @@ const Question=(props)=> {
             <StyleClass nodeRef={toggleBtnRef} selector="@next" toggleClassName="p-disabled" />
             {/* <Button ref={toggleBtnRef} icon={icon} onClick={()=>{update();changeIcon()}}/>&nbsp;&nbsp; */}
             <InputText defaultValue={body.current} ref={body}
-             onChange={()=>{
-                console.log(body.current.value,' 000000000000000000');
-                console.log(questions[index],' 111111111111111111');
+                onChange={()=>{
+                //console.log(body.current.value,' 000000000000000000');
+               // console.log(questions[index],' 111111111111111111');
                 if(questions)
-                    questions[index].body=body.current.value;
-                }} />
-           
+                   questions[index].body=body.current.value;
+                //setQuestions(questions)
+
+                }} 
+                />           
         </div>          
             </div> }>
                
                 {question?.answers?.map((a,i)=>
                 <p className="m-0">
                     <Answer question={question} questions={questions} qIndex={index} index={i} survey={survey} answer={a} refetch={refetch}/>
-                 </p> 
+                </p> 
                   )}
              </AccordionTab>
              </Accordion>

@@ -2,22 +2,32 @@ const Survey = require("../models/Survey");
 const addQuestion=async(req,res)=>{
    // console.log('arrive q');
     const {_id,body,answers} = req.body
-   // console.log(_id,' ',body);
-    if(!body)
+    console.log('---------------------');
+    console.log(answers);
+    console.log('---------------------');
+    if(!body){
+        console.log('!body');
         return res.status(409).json({message:`Required field is missing`})
+    }
+        
     const survey=await Survey.findById(_id).exec()
     if (!survey) 
+    {
+        console.log(!survey);
         return res.status(400).json({message:`There No survey with id: ${_id}`})
-    const arr=[...survey.questions,{body}]
-    survey.questions=arr
-    let index=arr.length-1
-    if(answers){
-        if(survey.questions[index].body===body)
-        {
-            answers.forEach(a=>addAnswer(_id,survey.questions[index]._id,a))
-        }
-
     }
+        
+    const arr=[...survey.questions,{body:body,answers:answers}]
+    survey.questions=arr
+    console.log(survey.questions);
+   // let index=arr.length-1
+    // if(answers){
+    //     if(survey.questions[index].body===body)
+    //     {
+    //         answers.forEach(a=>addAnswer(_id,survey.questions[index]._id,a))
+    //     }
+
+    // }
     const MyUpdateSurvey=await survey.save()
        return res.status(200).json({success:true,
             message:`question was added successfuly`,

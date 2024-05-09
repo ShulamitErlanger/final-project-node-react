@@ -24,14 +24,14 @@ const surveySchema=new mongoose.Schema({
     },
     sex:{
         type:String,
-        enum:["זכר","נקבה"],
+        enum:["זכר","נקבה","לא מוגבל"],
 
 
     },
     sector:{
         type:String,
-        enum:["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך","לא נבחר"],
-        default:"לא נבחר"
+        enum:["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך","לא מוגבל"],
+        default:"לא מוגבל"
         
     },
     color:{

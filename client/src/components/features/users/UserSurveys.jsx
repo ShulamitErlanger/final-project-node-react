@@ -25,9 +25,11 @@ const{
     const y2=new Date().getFullYear()
     const age=(y2-y1)
     let filteredSurveys
-    filteredSurveys=surveys?.filter(s=>s.sex==myUser?.sex || s.sex=='' && s.sector==myUser.sector || s.sector=='' && s.age[0]<=age&&s.age[1]>=age||s.birthDate=='')
+    filteredSurveys=surveys?.filter(s=>(s.sex==myUser?.sex || s.sex=='לא מוגבל' )&& (s.sector==myUser.sector || s.sector=='לא מוגבל') && s.age[0]<=age&&s.age[1]>=age)
     if (isLoading) return <h1>Loading</h1>
     if(isError) return <h2>{error}</h2>
+
+
     return (
         <div className="cardSurvey">
             {filteredSurveys?.map((s)=><SurveyItem refetch ={refetch} survey={s}/>)}

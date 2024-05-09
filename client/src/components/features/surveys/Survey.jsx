@@ -9,7 +9,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { Slider } from "primereact/slider"
 const Survey=(props)=>{
     const {survey,refetch,setVisible}=props
-    console.log(survey.sex);
+    //console.log(survey.sex);
     const [selectedSex, setSelectedSex] = useState({name:survey.sex,code:''});
     const [selectedSector, setSelectedSector] = useState({name:survey.sector,code:''});
     // const [selectedAge, setSelectedAge] = useState({name:survey.age,code:''});
@@ -17,9 +17,9 @@ const Survey=(props)=>{
     const title=useRef(survey.title)
     const [text,setText]=useState(survey.title)
    
-    let [questions,setQuestions]=useState(survey.questions)
-    let [newQuestions,setNewQuestions]=useState([])
-   
+    let [questions,setQuestions]=useState(survey.questions.map(q=>{return{_id:q._id,body:q.body,answers:q.answers.map(a=>{return{_id:a._id,body:a.body,createdAt:a.createdAt}}),createdAt:q.createdAt}}))
+    //let [newQuestions,setNewQuestions]=useState([])
+    //let [allQuestions,setAllQuestions]=useState([...questions,newQuestions])
     const [addQuestionFunc,{isError2,error2,isSuccess2,data:s}]=useAddQuestionMutation()
     const [changeStatusFunc, {isError1, error1, isSuccess1,data1}] =useChangeStatusMutation()
     const [updateSurveyFunc, {isError3, error3, isSuccess3,data3}] = useUpdateSurveyMutation()
@@ -29,16 +29,18 @@ const Survey=(props)=>{
        };
 
     const addQuestion=()=>{
-        setQuestions([...questions,{body:'',answers:[{body:' '}]}])
+        setQuestions([...questions,{_id:null,body:'qbody',answers:[{_id:null,body:'abody',createdAt:null}],createdAt:null}])
         //addQuestionFunc({_id:survey._id,body:' '}).then(()=>)
         refetch()
      }
 
     const edit = async (e) => {
-
         //e.preventDefault();
        // console.log(selectedSex.name);
-    await updateSurveyFunc({_id:survey._id,title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,age:ages,questions:questions}).then(()=>refetch()) 
+       //console.log(newQuestions);
+    await updateSurveyFunc({_id:survey._id,title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,age:ages,questions:questions/*,newQuestions:newQuestions*/}).then(()=>refetch()) 
+   // await newQuestions.forEach(async q=>{await addQuestionFunc({_id:survey._id,body:q.body,answers:q.answers});console.log(q.body,' 1111111111111');})
+    refetch()
 }
     const toggleBtnRef = useRef(null);
     let [icon,setIcon] =useState('pi pi-save')
@@ -47,10 +49,12 @@ const Survey=(props)=>{
     }
     const d=new Date()
     const sex = [
-        { name: 'זכר', code: '1' },
-        { name: 'נקבה', code: '2' }
+        { name: 'לא מוגבל', code: '1' },
+        { name: 'זכר', code: '2' },
+        { name: 'נקבה', code: '3' }
     ];
     const sector = [
+        { name: 'לא מוגבל', code: '10' },
         { name: "לא משתייך", code: '11' },
         { name: 'מסורתי', code: '12' },
         { name: "דתי לאומי", code: '13' },
@@ -106,7 +110,8 @@ const Survey=(props)=>{
             </div>
         </div>
        </div>
-        {questions?.map((q,i)=><Question question={q} questions={questions} index={i}survey={survey} refetch={refetch}/>)}
+        {questions?.map((q,i)=><Question question={q} questions={questions}setQuestions={setQuestions} index={i}survey={survey} refetch={refetch}/>)}
+        {/* {newQuestions?.map((q,i)=><Question question={q} questions={newQuestions} index={i}survey={survey} refetch={refetch}/>)} */}
         <Button onClick={()=>{addQuestion()}} icon="pi pi-plus" rounded /> 
         <Button onClick={()=>{changestatus();setVisible(false)}} icon="pi pi-send" rounded/> 
         <Button onClick={()=>{edit();setVisible(false);}} icon="pi pi-save" rounded /> 

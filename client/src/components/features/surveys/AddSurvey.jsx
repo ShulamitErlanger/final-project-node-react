@@ -23,7 +23,7 @@ const AddSurvey=(props)=>{
     const [addSurveyFunc,{data:survey={},isError:addSurveyIsError,error:addSurveyError,isSuccess:addSurveyIsSuccess}]=useAddSurveyMutation()
     const [addQuestionFunc,{isError:addQuestionIsError,error:addQuestionError,isSuccess:addQuestionIsSuccess,data:surveyQuestion}]=useAddQuestionMutation()
     const [changeStatusFunc, {isError:changeStatusIsError, error:changeStatusError, isSuccess:changeStatusIsSuccess,data:changeStatus}] =useChangeStatusMutation()
-    const [updateSurveyFunc, {isError:updateSurveyIsError, error:updateSurveyError, isSuccess:updateSurveyIsSuccess,data:updatesurvey}] = useUpdateSurveyMutation()
+    const [updateSurveyFunc,{isError:updateSurveyIsError, error:updateSurveyError, isSuccess:updateSurveyIsSuccess,data:updatesurvey}] = useUpdateSurveyMutation()
    
     const add = async (e) => { 
             //e.preventDefault(); 
@@ -46,7 +46,7 @@ const AddSurvey=(props)=>{
        }
 
     const addQuestion=async()=>{
-       setQuestions([...questions,{body:'',answers:[{body:' '}]}])
+       setQuestions([...questions,{body:' ',answers:[{body:' '}]}])
        //await addQuestionFunc({_id:survey.data._id,body:'enter question'}).then(()=>refetch())
        // console.log(survey?.data?.questions);
        setQuest(true)

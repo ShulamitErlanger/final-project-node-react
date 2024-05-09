@@ -62,15 +62,11 @@ const getSurveyById=async(req,res)=>{
 
 const updateSurvey=async(req,res)=>{
     const {_id,title,color,sex,sector,age,questions}=req.body
-   console.log("yes i am ");
-   console.log('------------------------------');
-   console.log(_id);
    const survey=await Survey.findById(_id).exec()
 
     if(!survey){
     return res.status(401).json({message:"not found"})
     }
-  
         if(title){
             survey.title=title
         }
@@ -85,7 +81,6 @@ const updateSurvey=async(req,res)=>{
             return res.status(401).json({message:"status is not valid"})
             survey.sex=sex
         }
-        
         if(sector){
         const arr1=["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך"]
         const sec=arr1.find(sector=>sector==sector)
@@ -93,14 +88,24 @@ const updateSurvey=async(req,res)=>{
             return res.status(401).json({message:"status is not valid"})
         survey.sector=sector
         }
-        // if(birthDate){
-        //   //  console.log('*****************'+birthDate);
-        //     survey.birthDate=birthDate
-        // }
         if(age)
             survey.age=age
-        if(questions)
+       
+        //console.log(survey.questions);
+        if(questions){
+            console.log('-----------------------');
+           // console.log(survey.questions[0].body);
+            // {console.log('88888888888888888888888');
             survey.questions=questions
+            console.log(survey.questions[1]);
+        //console.log(survey.questions);
+        // if(questions)
+        //     survey.questions=questions
+        // if(newQuestions)
+        //     survey.questions=[...survey.questions,newQuestions]
+        console.log('---------------------------');
+        //console.log(survey.questions);
+        console.log(survey.questions[0]);}
         const MyUpdatesurvey=await survey.save()
         return res.status(201).json({success:true,
             message:`survey ${survey.title}updated successfuly`,
