@@ -142,7 +142,7 @@ if(!survey){
 
 const changeStatus=async(req,res)=>{
     const {_id,status}=req.body
-  // console.log('welcome');
+   console.log(status);
     const survey=await Survey.findById(_id).exec()
 
     if(!survey){

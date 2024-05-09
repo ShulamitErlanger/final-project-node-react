@@ -62,15 +62,16 @@ const AddSurvey=(props)=>{
     }
     //const d=new Date()
     const sex = [
-        { name: 'זכר', code: '1' },
-        { name: 'נקבה', code: '2' }
+        { name: 'לא מוגבל', code: '1' },
+        { name: 'זכר', code: '2' },
+        { name: 'נקבה', code: '3' }
     ];
-    const sector = [ 
-        { name: "דתי לאומי", code: '11' },
-        { name: 'חילוני', code: '12' },
-        { name: 'חרדי', code: '13' },
-        { name: "לא משתייך", code: '14' },
-        { name: 'מסורתי', code: '15' }
+    const sector = [
+        { name: 'לא מוגבל', code: '10' },
+        { name: "לא משתייך", code: '11' },
+        { name: 'מסורתי', code: '12' },
+        { name: "דתי לאומי", code: '13' },
+        { name: 'חרדי', code: '14' }
     ];
     const [ages, setAges] = useState([0,120]);
   

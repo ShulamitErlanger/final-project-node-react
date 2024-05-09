@@ -13,7 +13,6 @@ const UserSurvey=(props)=>{
  }
  const [ChangeAnswerDataFunc, {isError, error, isSuccess,data}] =useChangeAnswerDataMutation()
 const answer = (e) => {
-    console.log(select[0].select,select[1].select);
     if(select){
      select.map(q=>ChangeAnswerDataFunc({_id:survey._id,questionId:q._id,answerId:select[select.indexOf(select.find(i=>i._id==q._id))].select}).then(()=>refetch()))}
      else{

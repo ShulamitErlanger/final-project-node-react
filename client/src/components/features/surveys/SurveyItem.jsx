@@ -12,16 +12,18 @@ import { Divider } from 'primereact/divider';
 import DeleteDialog from './DeleteDialog';
 import { useChangeStatusMutation } from './surveyApiSlice';
 import SegSurvey from './SegSurvey';
+import Segment from '../users/Segment';
 
 const SurveyItem=(props)=> {
     const {refetch,survey}=props
     const [visible,setVisible]=useState(false)
     const [visible1,setVisible1]=useState(false)
+    const [visible2,setVisible2]=useState(false)
     const [del,setDel]=useState(false)
     const status=["creating","in process","closed","completed"]
     const [activeIndex, setActiveIndex] = useState(status.indexOf(survey.status));
     const [changeStatusFunc, {isError, error, isSuccess,data}] =useChangeStatusMutation()
-   const changestatus = (e) => {
+   const changestatus = () => {
       // e.preventDefault();
        changeStatusFunc({_id:survey._id,status:"closed"}).then(()=>refetch())
        };
@@ -35,31 +37,37 @@ const SurveyItem=(props)=> {
             <span
             className="inline-flex align-items-center justify-content-center align-items-center border-circle border-primary border-1 h-3rem w-3rem z-1 cursor-pointer"
             style={{ backgroundColor: backgroundColor, color: textColor, marginTop: '-25px' }}
-        // onClick={() => setActiveIndex(itemIndex)}
+         onClick={() => statusFunc()}
         >
             <i className={`${item.icon} text-xl`} />
         </span>
         );
 };
+const statusFunc=()=>{
+    survey.status==='creating'?setVisible(true):
+    survey.status==='in process'?changestatus():
+    survey.status==='closed'?setVisible1(true):
+    setVisible2(true)
+}
 
 const items = [
     {
         icon: 'pi pi-wrench',
         template: (item) => itemRenderer(item, 0)
     },
-    {
-        icon: 'pi pi-lock-open',
-       template: (item) => itemRenderer(item, 1)
-    },
+    
     {
         icon: 'pi pi-lock',
-        template: (item) => itemRenderer(item, 2)
+        template: (item) => itemRenderer(item, 1)
     },
     {
         icon: 'pi pi-chart-line',
-        template: (item) => itemRenderer(item, 3)
-    }
-
+        template: (item) => itemRenderer(item, 2)
+    },
+{
+        icon: 'pi pi-eye',
+       template: (item) => itemRenderer(item, 3)
+    },
 ];
 
     const startContent = (
@@ -73,7 +81,7 @@ const items = [
 
     const centerContent = (
         <div  >
-        <Steps model={items} activeIndex={activeIndex} readOnly={true} className="m-2 pt-4"
+        <Steps model={items} activeIndex={activeIndex} readOnly={false} className="m-2 pt-4"
         />
     </div>
     );
@@ -81,13 +89,13 @@ const items = [
     const endContent = (
         <React.Fragment>
             <div className="flex align-items-center gap-3">
-                        <Button icon="pi pi-chart-bar" className="p-button-rounded" style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}disabled={survey.status != 'closed'}
+                        {/* <Button icon="pi pi-chart-bar" className="p-button-rounded" style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}disabled={survey.status != 'closed'}
                          onClick={()=>{setVisible1(true)}}></Button>
                         <Button icon="pi pi-lock" className="p-button-rounded"style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}disabled={survey.status != 'in process'}
                         onClick={changestatus}></Button> 
                         <Button icon="pi pi-file-edit" className="p-button-rounded" style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}disabled={survey.status != 'creating'}
                         onClick={()=>{setVisible(true)}}
-                        ></Button>
+                        ></Button> */}
                         <Button icon="pi pi-times" className="p-button-rounded"style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}disabled={survey.status === 'in process'}
                         onClick={()=>{setDel(true); }}></Button> 
                     </div>
@@ -98,6 +106,7 @@ const items = [
        
         <div className="card">
             <h1>{survey.title}</h1>
+            <h1>{survey.status}</h1>
              {/* <Toolbar start={startContent} center={centerContent} end={endContent} />  */}
             {/* {startContent}
             {centerContent}
@@ -131,6 +140,13 @@ const items = [
             visible={visible1} style={{ width: '50vw' }} onHide={() => setVisible1(false)}>
             <p className="m-0">
                 <SegSurvey refetch={refetch}survey={survey}setVisible1={setVisible1}/>
+            </p>
+        </Dialog>
+
+        <Dialog
+            visible={visible2} style={{ width: '50vw' }} onHide={() => setVisible2(false)}>
+            <p className="m-0">
+                <Segment refetch={refetch}survey={survey}/>
             </p>
         </Dialog>
         </>

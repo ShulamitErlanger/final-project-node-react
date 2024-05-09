@@ -25,8 +25,7 @@ const surveySchema=new mongoose.Schema({
     sex:{
         type:String,
         enum:["זכר","נקבה","לא מוגבל"],
-
-
+        default:"לא מוגבל"
     },
     sector:{
         type:String,
