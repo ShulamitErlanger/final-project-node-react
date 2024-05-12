@@ -13,6 +13,7 @@ import DeleteDialog from './DeleteDialog';
 import { useChangeStatusMutation } from './surveyApiSlice';
 import SegSurvey from './SegSurvey';
 import Segment from '../users/Segment';
+import { current } from '@reduxjs/toolkit';
 
 const SurveyItem=(props)=> {
     const {refetch,survey}=props
@@ -81,9 +82,10 @@ const items = [
 
     const centerContent = (
         <div  >
-        <Steps model={items} activeIndex={activeIndex} readOnly={false} className="m-2 pt-4"
+        <Steps model={items} activeIndex={activeIndex} readOnly={activeIndex+1} className="m-2 pt-4" 
         />
-    </div>
+{ console.log(items[activeIndex],current)
+}    </div>
     );
 
     const endContent = (
