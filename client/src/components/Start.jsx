@@ -12,7 +12,7 @@ import { useGetUserQuery } from './features/users/userApiSlice';
 //import { useNavigate } from 'react-router-dom';
 //z6o1f2n5a8t8p2a5a5n3e1a7h
 const Start=(props)=>{
-    const {setAdmin}=props
+    const {setAdmin,setLogin}=props
     const username=useRef()
     const password=useRef()
     const[register,setRegister]=useState(false)
@@ -30,10 +30,12 @@ const Start=(props)=>{
             refetch:userRefetch
             } = useGetUserQuery({id:''})
         useEffect(()=>{
-        if(loginSuccess){
+        if(loginSuccess){    
         dispatch(setToken(data))
+        navigate('/Surveys')
             if(userIsSuccess){
-                myUser.roles=='admin'?navigate('/NavBar'):navigate('/UsersNavBar')//setAdmin(true):setAdmin(false)
+                myUser.roles=='admin'?setAdmin(2):setAdmin(1)
+                //myUser.roles=='admin'?navigate('/NavBar'):navigate('/UsersNavBar')//setAdmin(true):setAdmin(false)
                 //navigate('/NavBar')
             }
             

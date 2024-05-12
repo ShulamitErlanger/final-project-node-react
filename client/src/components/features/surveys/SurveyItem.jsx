@@ -84,8 +84,7 @@ const items = [
         <div  >
         <Steps model={items} activeIndex={activeIndex} readOnly={activeIndex+1} className="m-2 pt-4" 
         />
-{ console.log(items[activeIndex],current)
-}    </div>
+   </div>
     );
 
     const endContent = (
