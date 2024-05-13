@@ -12,7 +12,7 @@ import { useGetUserQuery } from './features/users/userApiSlice';
 //import { useNavigate } from 'react-router-dom';
 //z6o1f2n5a8t8p2a5a5n3e1a7h
 const Start=(props)=>{
-    const {setAdmin,setLogin}=props
+    const {setRole}=props
     const username=useRef()
     const password=useRef()
     const[register,setRegister]=useState(false)
@@ -34,7 +34,7 @@ const Start=(props)=>{
         dispatch(setToken(data))
         navigate('/Surveys')
             if(userIsSuccess){
-                myUser.roles=='admin'?setAdmin(2):setAdmin(1)
+                myUser.roles=='admin'?setRole(2):setRole(1)
                 //myUser.roles=='admin'?navigate('/NavBar'):navigate('/UsersNavBar')//setAdmin(true):setAdmin(false)
                 //navigate('/NavBar')
             }
@@ -43,7 +43,7 @@ const Start=(props)=>{
         // {<UsersNavBar/>}
         // setLoginSuccess(true)
         
-console.log(data.password);
+
       //navigate(data.roles==='admin'?'/Surveys':'UsersNavBar')
     }
     else{

@@ -22,16 +22,15 @@ import About from './About';
 import Bar from './components/Bar';
 
 function App() {
-  const [loginSuccess,setLoginSuccess]=useState(false)
-  const [admin,setAdmin]=useState(0)
-  const [login,setLogin]=useState(false)
+ 
+  const [role,setRole]=useState(0)
+ 
   return (
     <>
-{    console.log(admin, "app")
-}    {/* <NavBar login={login} admin={admin}/> */}
-   <Bar admin={admin}/>
+    {/* <NavBar login={login} admin={admin}/> */}
+   <Bar role={role}/>
     <Routes>
-      <Route path='/login' element={<Start setAdmin={setAdmin} setLogin={setLogin}/>} />
+      <Route path='/login' element={<Start setRole={setRole}/>} />
       <Route path='/Surveys' element={<Surveys/>} />
       <Route path='/UserSurveys' element={<UserSurveys/>} />
       <Route path='/surveySegmentation' element={<SegmentSurveys />} />
