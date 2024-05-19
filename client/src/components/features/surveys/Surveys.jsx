@@ -43,7 +43,8 @@ const header = () => {
 
 return (
     <>
-      <Button onClick={()=>{setVisibleNew(true)}} icon="pi pi-plus" rounded />
+    <div /*style={{direction:'rtl'}}*/>
+      <Button icon="pi pi-plus"label='סקר חדש' onClick={()=>{setVisibleNew(true)}}  rounded />
     {surveys.map((s)=><SurveyItem survey={s}refetch={refetch}/>)}
             <Dialog visible={visibleNew} style={{ width: '50vw', height:'200vw' }} onHide={() => setVisibleNew(false)}>
                 <p className="m-0">
@@ -51,6 +52,7 @@ return (
                 </p>
             </Dialog> 
             <ScrollTop />
+            </div>
 </>
 )
 

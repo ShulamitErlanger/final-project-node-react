@@ -2,7 +2,6 @@ import { ScrollTop } from 'primereact/scrolltop';
 import { useGetSurveysQuery } from '../surveys/surveyApiSlice';
 import SurveyItem from './UserSurveyItem';
 import { useGetUserQuery } from './userApiSlice';
-import { useState } from 'react';
 const UserSurveys=()=>{
 const status="in process";
 const{

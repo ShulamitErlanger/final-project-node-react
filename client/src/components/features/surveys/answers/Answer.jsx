@@ -5,6 +5,7 @@ import { Inplace, InplaceContent, InplaceDisplay } from 'primereact/inplace';
 import { useDeleteAnswerMutation, useUpdateAnswerMutation } from './answerApiSlice';
 import { Button } from 'primereact/button';
 import { StyleClass } from 'primereact/styleclass';
+import { AutoComplete } from 'primereact/autocomplete';
 
 const Answer=(props)=> {
     const {survey,question,qIndex,index,answer,refetch}=props
@@ -24,7 +25,7 @@ const Answer=(props)=> {
     const startContent = (
         <span classclassName="p-input-icon-left">
             {/* <i classclassName="pi pi-search" /> */}
-            <Button icon='pi pi-trash' rounded onClick={del}></Button>
+            
         </span>
     );
     const toggleBtnRef = useRef(null);
@@ -38,14 +39,15 @@ const Answer=(props)=> {
             <div>
             {/* <StyleClass nodeRef={toggleBtnRef} selector="@next" toggleClassName="p-disabled" /> */}
             {/* <Button ref={toggleBtnRef} icon={icon} onClick={()=>{update();changeIcon()}}/>&nbsp;&nbsp; */}
-            <InputText ref={body} defaultValue={body.current} onChange={()=>{questions[qIndex].answers[index].body=body.current.value}}/>
+           
         </div>
         </span>
     );
 
     return (
-        <div className="card">
-            <Toolbar start={startContent} center={centerContent}/> 
+        <div className="card p-fluid" /*p-inputtext-lg"*/ dir="rtl">
+           <Button icon='pi pi-trash' rounded onClick={del}></Button>  
+           <AutoComplete ref={body} defaultValue={body.current} onChange={()=>{questions[qIndex].answers[index].body=body.current.value}}/>
         </div>
     );
 }
