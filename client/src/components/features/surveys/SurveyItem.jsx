@@ -13,6 +13,8 @@ import DeleteDialog from './DeleteDialog';
 import { useChangeStatusMutation } from './surveyApiSlice';
 import SegSurvey from './SegSurvey';
 import Segment from '../users/Segment';
+import { Card } from 'primereact/card';
+import { Toolbar } from 'primereact/toolbar';
 // import { current } from '@reduxjs/toolkit';
 
 const SurveyItem=(props)=> {
@@ -36,8 +38,8 @@ const SurveyItem=(props)=> {
         return (
             
             <span
-            className="inline-flex align-items-center justify-content-center align-items-center border-circle border-primary border-1 h-3rem w-3rem z-1 cursor-pointer"
-            style={{ backgroundColor: backgroundColor, color: textColor, marginTop: '-25px' }}
+            className="inline-flex justify-content-center align-items-center border-circle border-primary border-1 h-3rem w-3rem z-1 cursor-pointer"
+            style={{ backgroundColor: backgroundColor, color: textColor, marginTop: '-25px'}}
          onClick={() => statusFunc()}
         >
             <i className={`${item.icon} text-xl`} />
@@ -74,7 +76,7 @@ const items = [
     const startContent = (
         <React.Fragment>
            
-             <Avatar className="p-overlay-badge" icon="pi pi-user" size="large" shape="circle">
+             <Avatar className="p-overlay-badge" icon="pi pi-user" size="large" shape="circle" >
                             <Badge value={survey.count} size={'normal'}/>
                             </Avatar>
         </React.Fragment>
@@ -82,7 +84,7 @@ const items = [
 
     const centerContent = (
         <div  >
-        <Steps model={items} activeIndex={activeIndex} readOnly={activeIndex+1} className="m-2 pt-4" 
+        <Steps model={items} activeIndex={activeIndex} readOnly={activeIndex+1} className="m-2 pt-4"
         />
    </div>
     );
@@ -90,14 +92,7 @@ const items = [
     const endContent = (
         <React.Fragment>
             <div className="flex align-items-center gap-3">
-                        {/* <Button icon="pi pi-chart-bar" className="p-button-rounded" style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}disabled={survey.status != 'closed'}
-                         onClick={()=>{setVisible1(true)}}></Button>
-                        <Button icon="pi pi-lock" className="p-button-rounded"style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}disabled={survey.status != 'in process'}
-                        onClick={changestatus}></Button> 
-                        <Button icon="pi pi-file-edit" className="p-button-rounded" style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}disabled={survey.status != 'creating'}
-                        onClick={()=>{setVisible(true)}}
-                        ></Button> */}
-                        <Button icon="pi pi-times" className="p-button-rounded"style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}disabled={survey.status === 'in process'}
+                        <Button icon="pi pi-eraser"label='מחק סקר' className="p-button-rounded"style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}disabled={survey.status === 'in process'}
                         onClick={()=>{setDel(true); }}></Button> 
                     </div>
         </React.Fragment>
@@ -105,33 +100,33 @@ const items = [
    
     return (<>
        
-        <div className="card">
+        <div className="card" style={{width:'80%'}} >
+            <Card>
             <h1>{survey.title}</h1>
-          
-             {/* <Toolbar start={startContent} center={centerContent} end={endContent} />  */}
-            {/* {startContent}
-            {centerContent}
-            {endContent} */}
 
-<div className="card flex justify-content-center">
-            <p style={{width:'30%'}}>
+        <div className="card flex justify-content-center">
+        {/* <Toolbar start={startContent} center={centerContent} end={endContent}> */}
+            <div style={{width:'30%'}}>
               {startContent}
-            </p>
+            </div>
             <Divider layout="vertical" />
-            <p style={{width:'30%'}}>
+            <div style={{width:'30%'}}>
                {centerContent}
-            </p>
+            </div>
             <Divider layout="vertical" />
-            <p style={{width:'30%',marginRight:0}}>
+            <div style={{width:'30%'}}>
                 {endContent}
                  {del && <DeleteDialog visible={del} setVisible={setDel} refetch={refetch} survey={survey}/> }
-            </p>
-        </div>
+            </div>
+      
+        {/* </Toolbar> */}
+          </div>
+        </Card>
         </div>
      
          
         <Dialog
-            visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+            visible={visible} style={{ width: '70vw',height:'150vh' }} onHide={() => setVisible(false)}>
             <p className="m-0">
                 <Survey refetch={refetch}survey={survey}setVisible={setVisible}/>
             </p>

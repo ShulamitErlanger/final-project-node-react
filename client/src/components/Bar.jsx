@@ -1,7 +1,10 @@
 import React from "react";
 import { Menubar } from 'primereact/menubar';
 import {useNavigate} from "react-router-dom"
-
+import { TabPanel, TabView } from "primereact/tabview";
+import Surveys from "./features/surveys/Surveys";
+import UserSurveys from "./features/users/UserSurveys";
+import SegmentSurveys from './features/surveys/SegmentSurveys'
 const Bar = (props) => {
 
     const navigate=useNavigate()
@@ -17,19 +20,19 @@ const Bar = (props) => {
 
     const barArr =role==2? [
         {
-            label:"my surveys", 
+            label:"כל הסקרים", 
             command: myAccount
         },
         {
-            label:"user surveys", 
+            label:"סקרי משתמש", 
             command: ()=>{navigate(`/UserSurveys`)}
         },
         {
-            label:"segmentation", 
+            label:"פילוח", 
             command: ()=>{navigate(`/surveySegmentation`)}
         },
         {
-            label:"segmented", 
+            label:"סקרים מפולחים", 
             command: ()=>{navigate(`/segments`)}
         }
     ]:role==1?
@@ -52,9 +55,11 @@ const Bar = (props) => {
 
 
     return (
-        <div className="card">
-            <Menubar model={barArr} />
+        <div >
+            <Menubar model={barArr} style={{backgroundColor:'#00bbbb',position:'fixed',width:'100%',zIndex:100,top:0,left:0,borderRadius:'0px',height:'130px',fontSize:'25px',fontFamily:'Yehuda CLM',justifyContent:'center',opacity:0.95,}}/>
         </div>
     )
 }
 export default Bar
+
+

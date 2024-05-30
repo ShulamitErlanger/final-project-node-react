@@ -3,10 +3,12 @@ const bcrypt=require("bcrypt")
 const jwt= require('jsonwebtoken')
 const login=async(req,res)=>{
     const {username, password} = req.body
+    
     if (!username || !password) 
         return res.status(400).json({message:'required field is missing'})
     const user=await User.findOne({username}).lean()
     if(user){
+        
         const match = await bcrypt.compare(password,user.password)
         if(match){
             const userInfo= {_id:user._id,name:user.name,username:user.username,roles:user.roles}

@@ -8,8 +8,7 @@ import { Dialog } from 'primereact/dialog';
 
 import SegmentItem from './SegmentItem';
 import { ScrollTop } from 'primereact/scrolltop';
-const Segments=()=>{
-
+const Segments=(props)=>{
 const {data :surveys=[],isLoading,isError,error, refetch}= useGetSurveysQuery({status:"completed"})
 
 const [sortKey, setSortKey] = useState('');
@@ -46,12 +45,17 @@ const onSortChange = (event) => {
 
 return (
     <>
-      
-    {surveys.map((s)=><SegmentItem survey={s}refetch={refetch}/>)}
-       
-    
-           
-           
+      <div className="cardSurvey" style={{marginTop:'130px'}}> 
+        <div style={{ display: 'flex' }}>
+            <div style={{ flex: 1 /*,width:'80%'*/ }}>
+                
+            </div>
+            <div style={{ flex: 2/*,marginLeft:'25%'*/}}>
+                 {surveys.map((s)=><SegmentItem survey={s}refetch={refetch}/>)}
+                <ScrollTop/>
+            </div>
+        </div>
+    </div> 
             <ScrollTop />
 </>
 )

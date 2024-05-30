@@ -21,6 +21,7 @@ const SurveySegItem=(props)=>{
     return(
         <>
         <div className="card " >
+            
             <Card style={{BlockSize:'250px'}}>
             <h1>{survey.title}</h1>
 <div className="card flex justify-content-center">

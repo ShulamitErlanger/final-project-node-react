@@ -21,14 +21,8 @@ const answer = (e) => {
 };
     return(
         <>
-       {survey?.questions.map(q=><UserQuestion select={select} setSelect={setSelect} refetch={refetch} question={q} survey={survey}/>)}
-
-<Button onClick={()=>{
-    count(); answer();setVisible(false)
-    
-}} icon="pi pi-save" rounded /> 
-
-
+       {survey?.questions.map((q,i)=><UserQuestion select={select} setSelect={setSelect} refetch={refetch} question={q} survey={survey}index={i}/>)}
+        <Button onClick={()=>{count(); answer();setVisible(false)}} icon="pi pi-save" rounded /> 
         </>
     )
 }

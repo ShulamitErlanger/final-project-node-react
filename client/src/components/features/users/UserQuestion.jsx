@@ -3,14 +3,13 @@ import { RadioButton } from 'primereact/radiobutton';
 import { Card } from 'primereact/card';
 
 const UserQuestion=(props)=> {
-const {select,setSelect,refetch,question,survey}=props
-const index=select.indexOf(select.find(q=>q._id==question._id))
+const {select,setSelect,refetch,question,survey,index}=props
+//const index=select.indexOf(select.find(q=>q._id==question._id))
 let bodyAnswers=question.answers.map(a=>{return {key:a._id,name:a.body}});
 const categories = bodyAnswers
 const [selectedCategory, setSelectedCategory]=useState(select[index].select||'');
     return (
-        <div className="card">
-           
+        <div className="card">  
               <div className="card flex justify-content-center">
             <h3>{question.body} </h3>
         </div>

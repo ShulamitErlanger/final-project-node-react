@@ -25,7 +25,7 @@ const DeleteDialog=(props)=>{
 
     return (
         <div className="card flex justify-content-center">
-            <Dialog visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
+            <Dialog visible={visible} style={{ width: '20vw' }} onHide={() => setVisible(false)} footer={footerContent}>
                 <p className="m-0" style={{textAlign:'center'}}>
                     ?אתה בטוח שאתה רוצה למחוק
                 </p>

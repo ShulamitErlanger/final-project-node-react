@@ -63,11 +63,11 @@ const getSurveyById=async(req,res)=>{
 const updateSurvey=async(req,res)=>{
     const {_id,title,color,sex,sector,age,questions}=req.body
    const survey=await Survey.findById(_id).exec()
-
     if(!survey){
     return res.status(401).json({message:"not found"})
     }
         if(title){
+            
             survey.title=title
         }
         
@@ -75,23 +75,25 @@ const updateSurvey=async(req,res)=>{
             survey.color=color;
         }
         if(sex){
-            const arr=['זכר','נקבה'];
+            const arr=['זכר','נקבה','לא מוגבל'];
             const sexx=arr.find(s=>s==sex);
-            if(!sexx)
-            return res.status(401).json({message:"status is not valid"})
+            if(!sexx){
+           console.log('!sexx');
+            return res.status(401).json({message:"status is not valid"}) }
             survey.sex=sex
         }
         if(sector){
-        const arr1=["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך"]
+        const arr1=["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך",'לא מוגבל']
         const sec=arr1.find(sector=>sector==sector)
-        if(!sec)
-            return res.status(401).json({message:"status is not valid"})
+        if(!sec){console.log('!sec');
+            return res.status(401).json({message:"status is not valid"})}
         survey.sector=sector
         }
         if(age)
             survey.age=age
        
         //console.log(survey.questions);
+
         if(questions){
             console.log('-----------------------');
            // console.log(survey.questions[0].body);

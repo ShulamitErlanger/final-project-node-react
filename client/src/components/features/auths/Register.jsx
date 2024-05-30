@@ -120,7 +120,7 @@ return (
                             </label>
                             <Calendar value={date} onChange={(e) => setDate(e.value)} locale="es" inputRef={birthDate}/>
                         </div>
-                        <div className="inline-flex flex-column gap-2">
+                        <div /*className="inline-flex flex-column gap-2"*/>
                             <label htmlFor="email" className="text-primary-50 font-semibold">
                                 email
                             </label>

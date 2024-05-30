@@ -1,8 +1,8 @@
 import { ScrollTop } from 'primereact/scrolltop';
 import { useGetSurveysQuery } from '../surveys/surveyApiSlice';
-import SurveyItem from './UserSurveyItem';
+import UserSurveyItem from './UserSurveyItem';
 import { useGetUserQuery } from './userApiSlice';
-const UserSurveys=()=>{
+const UserSurveys=(props)=>{
 const status="in process";
 const{
     data:myUser,
@@ -19,21 +19,26 @@ const{
     error,
     refetch
     } = useGetSurveysQuery({status:status})
+    const token=localStorage.getItem('token')
+
     const d = new Date(myUser?.birthDate);
     const y1=d.getFullYear()
     const y2=new Date().getFullYear()
     const age=(y2-y1)
     let filteredSurveys
-    filteredSurveys=surveys?.filter(s=>(s.sex==myUser?.sex || s.sex=='לא מוגבל' )&& (s.sector==myUser.sector || s.sector=='לא מוגבל') && s.age[0]<=age&&s.age[1]>=age)
+    surveys?.forEach(s=>console.log(s.sex,' ',s.sector,' ',s.title))
+    filteredSurveys=surveys?.filter(s=>(s.sex===myUser?.sex || s.sex==='לא מוגבל')&& (s.sector===myUser.sector || s.sector==='לא מוגבל') && s.age[0]<=age&&s.age[1]>=age)
     if (isLoading) return <h1>Loading</h1>
     if(isError) return <h2>{error}</h2>
 
 
     return (
+        <>
         <div className="cardSurvey">
-            {filteredSurveys?.map((s)=><SurveyItem refetch ={refetch} survey={s}/>)}
+            {filteredSurveys?.map((s)=><UserSurveyItem refetch ={refetch} survey={s}/>)}
             <ScrollTop />
-        </div> 
+        </div>
+         </>
     )
 }
 export default UserSurveys

@@ -2,58 +2,73 @@ import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { useGetSurveysQuery } from './surveyApiSlice';
 import Survey from './Survey';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Dialog } from 'primereact/dialog';
 import SurveyItem from './SurveyItem';
 import { ScrollTop } from 'primereact/scrolltop';
 import AddSurvey from './AddSurvey';
-const Surveys=()=>{
+import { Checkbox } from 'primereact/checkbox';
+const Surveys=(props)=>{
 
 const {data :surveys=[],isLoading,isError,error, refetch}= useGetSurveysQuery({status:''})
-const [sortKey, setSortKey] = useState('');
-const [sortOrder, setSortOrder] = useState(0);
-const [sortField, setSortField] = useState('');
+
 const [visibleNew, setVisibleNew] = useState(false);
-const sortOptions = [
-    { label: 'Price High to Low', value: '!price' },
-    { label: 'Price Low to High', value: 'price' }
-];
+// const [ingredients, setIngredients] = useState([]);
+// const[filteredSurveys,setFilteredSurveys]=useState(surveys)
+// const onIngredientsChange = async(e) => {
+//     let _ingredients = [...ingredients];
 
+//     if (e.checked)
+//        await _ingredients.push(e.value);
+//     else
+//        await _ingredients.splice(_ingredients.indexOf(e.value), 1);
 
-const onSortChange = (event) => {
-    const value = event.value;
-
-    if (value.indexOf('!') === 0) {
-        setSortOrder(-1);
-        setSortField(value.substring(1, value.length));
-        setSortKey(value);
-    } else {
-        setSortOrder(1);
-        setSortField(value);
-        setSortKey(value);
-    }
-};
-
-const header = () => {
-    return <Dropdown options={sortOptions} value={sortKey} optionLabel="label" placeholder="Sort By Price"
-     onChange={onSortChange} 
-    className="w-full sm:w-14rem"/>;
-};
-
-
+//    await setIngredients(_ingredients);
+//     console.log('-----------------------');
+//     console.log(ingredients);
+//     setFilteredSurveys(surveys.filter(s=>ingredients.includes(s.status)))
+// }
 return (
     <>
-    <div /*style={{direction:'rtl'}}*/>
-      <Button icon="pi pi-plus"label='סקר חדש' onClick={()=>{setVisibleNew(true)}}  rounded />
-    {surveys.map((s)=><SurveyItem survey={s}refetch={refetch}/>)}
-            <Dialog visible={visibleNew} style={{ width: '50vw', height:'200vw' }} onHide={() => setVisibleNew(false)}>
+   
+    <div className="cardSurvey" style={{marginTop:'130px'}}> 
+        <div style={{ display: 'flex' }}>
+            <div style={{ flex: 1 /*,width:'80%'*/ }}>
+                <Button icon="pi pi-plus" style={{color:'#10bbbb', backgroundColor:'#e5e7eb', position:'fixed'}}label="&nbsp;סקר חדש&nbsp;" onClick={()=>{setVisibleNew(true)}}  rounded />
+            </div>
+            <div style={{ flex: 2/*,marginLeft:'25%'*/}}>
+            {/* <div className="card flex flex-wrap justify-content-center gap-3">
+            <div className="flex align-items-center">
+                <Checkbox inputId="creating" name="status" value="creating" onChange={onIngredientsChange} checked={ingredients.includes('creating')} />
+                <label htmlFor="creating" className="ml-2">ביצירה</label>
+            </div>
+            <div className="flex align-items-center">
+                <Checkbox inputId="in process" name="status" value="in process" onChange={onIngredientsChange} checked={ingredients.includes('in process')} />
+                <label htmlFor="in process" className="ml-2">מפורסמים</label>
+            </div>
+            <div className="flex align-items-center">
+                <Checkbox inputId="closed" name="status" value="closed" onChange={onIngredientsChange} checked={ingredients.includes('closed')} />
+                <label htmlFor="closed" className="ml-2">נעולים</label>
+            </div>
+            <div className="flex align-items-center">
+                <Checkbox inputId="completed" name="status" value="completed" onChange={onIngredientsChange} checked={ingredients.includes('completed')} />
+                <label htmlFor="completed" className="ml-2">מפולחים</label>
+            </div>
+        </div> */}
+      
+                {/* {filteredSurveys.map((s)=><SurveyItem survey={s}refetch={refetch}/>)} */}
+                {surveys.map((s)=><SurveyItem survey={s}refetch={refetch}/>)}
+                <Dialog visible={visibleNew} style={{ width: '80vw', height:'200vw' }} onHide={() => setVisibleNew(false)}>
                 <p className="m-0">
                     <AddSurvey setVisibleNew={setVisibleNew} refetch={refetch}/>
                 </p>
-            </Dialog> 
-            <ScrollTop />
+                </Dialog> 
+                <ScrollTop/>
             </div>
+        </div>
+    </div>
 </>
+
 )
 
 }

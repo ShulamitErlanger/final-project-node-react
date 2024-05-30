@@ -49,7 +49,8 @@ const getUserById=async(req,res)=>{
   //  console.log(user);
     if(!user)
     {
-            return  res.status(401).json({message:"not found"})
+        console.log('401 !user');
+            return res.status(401).json({message:"not found"})
     }
     if(user._id==req.user._id){
         return res.json(user)

@@ -8,15 +8,19 @@ import { setToken } from './features/auths/authSlice';
 import { useDispatch } from 'react-redux';
 import { Navigate, useNavigate,NavLink } from 'react-router-dom';
 import { useGetUserQuery } from './features/users/userApiSlice';
+import { useSendMailMutation } from './features/surveys/mailApiSlice';
 
 //import { useNavigate } from 'react-router-dom';
 //z6o1f2n5a8t8p2a5a5n3e1a7h
 const Start=(props)=>{
-    const {setRole}=props
     const username=useRef()
     const password=useRef()
     const[register,setRegister]=useState(false)
     const [loginFunc, {isError, error, isSuccess:loginSuccess,data}] = useLoginMutation();
+    const [sendMailFunc, {isError:sendIsError, error:sendError, isSuccess:sendIsSuccess,data:send}] = useSendMailMutation()
+    const sendeE=async()=>{
+    await sendMailFunc({ to: ["rivkam1212@gmail.com","rivkanan1212@gmail.com","37325533305@mby.co.il",'shulamit9018@gmail.com'], title: `מערכת הסקרים שלנו🖐 `, html:"hello, you welcome" })
+    }
 
         const dispatch = useDispatch()
         const navigate = useNavigate()
@@ -33,11 +37,7 @@ const Start=(props)=>{
         if(loginSuccess){    
         dispatch(setToken(data))
         navigate('/Surveys')
-            if(userIsSuccess){
-                myUser.roles=='admin'?setRole(2):setRole(1)
-                //myUser.roles=='admin'?navigate('/NavBar'):navigate('/UsersNavBar')//setAdmin(true):setAdmin(false)
-                //navigate('/NavBar')
-            }  
+           
             //navigate('/UsersNavBar')
         // {<UsersNavBar/>}
         // setLoginSuccess(true)
@@ -49,8 +49,8 @@ const Start=(props)=>{
         },[loginSuccess,userIsSuccess])
     
     const handleSubmit = async (e) => {
-        
-        e.preventDefault();
+        console.log(username.current.value);
+       // e.preventDefault();
        await loginFunc({username:username.current.value,password:password.current.value})
        
         console.log(data);
@@ -70,7 +70,7 @@ const Start=(props)=>{
                         <label className="w-6rem">Password</label>
                         <InputText ref={password} id="password" type="password" className="w-12rem" />
                     </div>
-                    <Button label="Login" icon="pi pi-user" className="w-10rem mx-auto" onClick={handleSubmit}></Button>
+                    <Button label="Login" icon="pi pi-user" className="w-10rem mx-auto" onClick={()=>{/*sendeE();*/handleSubmit()}}></Button>
                    
                 </div>
                 <div className="w-full md:w-2">

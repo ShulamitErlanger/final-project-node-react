@@ -62,7 +62,8 @@ const changeAnswerData=async(req,res)=>{
     const{_id,questionId,answerId}=req.body
     console.log(`survey: ${_id}, question: ${questionId}, answer: ${answerId}`);
     const survey=await Survey.findById(_id).exec()
-    const user=await User.findById(req.user._id).exec()
+    const user=await User.findById(req.user._id).lean()
+   
     if(!survey){
         
         return res.status(400).json({message:"No survey founds"})
@@ -92,7 +93,7 @@ const changeAnswerData=async(req,res)=>{
     user.sex=='זכר'?answer.sex.male+=1:
     answer.sex.female+=1
 
-    const age=(Date.now()-user.birthDate)/1000/60/60/24/365
+    const age=(Date.now()-user.birthDate)/1000/60/60/24/365 
     age<=10?answer.age.tens+=1:
     age>10 && age<=20? answer.age.twentys+=1:
     age>20 && age<=30? answer.age.thirdys+=1:
@@ -104,8 +105,8 @@ const changeAnswerData=async(req,res)=>{
     age>80 && age<=90? answer.age.nintys+=1:
     age>90 && age<=100? answer.age.old+=1:
     answer.age.full+=1
-
     const MyUpdatesurvey=await survey.save()
+   // console.log(MyUpdatesurvey.questions[0].answers[0]);
     return res.status(201).json({success:true,
         message:`survey ${survey.title}updated successfuly`
         })

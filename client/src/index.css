@@ -1,33 +1,50 @@
-body {
+ body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Yehuda CLM';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-weight: normal;
+  padding: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; 
+  font-weight: 400;
+  font-style: normal;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+/* code {
+  font-family: 'Yehuda CLM';
+} */
+
 html {
   font-size: 14px;
 }
 
-body {
-  font-family: var(--font-family);
-  font-weight: normal;
-  background: var(--surface-ground);
-  color: var(--text-color);
+ .card {
+ /* background: var(--surface-card);*/
   padding: 1rem;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.card {
-  background: var(--surface-card);
-  padding: 2rem;
   border-radius: 10px;
   margin-bottom: 1rem;
+}  
+ 
+div {
+    background-repeat: repeat-y;
+    background-size: cover;
+    /*font-family: "Yehuda CLM";*/
+    font-weight: 400;
+    font-style: normal;
+  } 
+
+  
+  button {
+ 
+    font-weight: 400;
+    font-style: normal;
+  }  
+
+.App{
+    background:url('../public/images/back.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
+
