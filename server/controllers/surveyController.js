@@ -1,6 +1,6 @@
 const Survey = require("../models/Survey");
 const addSurvey=async(req,res)=>{
-    let {title,sex,sector,age,questions} = req.body
+    let {title,gender,sector,age,questions} = req.body
     console.log("add survey");
     if (!title) {
         console.log('!title');
@@ -16,7 +16,7 @@ const addSurvey=async(req,res)=>{
                 })
             });
         }
-    const survey = await Survey.create({title,sex,sector,age,questions})
+    const survey = await Survey.create({title,gender,sector,age,questions})
     if(survey){
        return res.status(201).json({success:true,
             message:`survey ${survey.title}created successfuly`,
@@ -61,7 +61,7 @@ const getSurveyById=async(req,res)=>{
 }
 
 const updateSurvey=async(req,res)=>{
-    const {_id,title,color,sex,sector,age,questions}=req.body
+    const {_id,title,color,gender,sector,age,questions}=req.body
    const survey=await Survey.findById(_id).exec()
     if(!survey){
     return res.status(401).json({message:"not found"})
@@ -74,13 +74,13 @@ const updateSurvey=async(req,res)=>{
         if(color){
             survey.color=color;
         }
-        if(sex){
+        if(gender){
             const arr=['זכר','נקבה','לא מוגבל'];
-            const sexx=arr.find(s=>s==sex);
-            if(!sexx){
-           console.log('!sexx');
+            const gender2=arr.find(s=>s==gender);
+            if(!gender2){
+           
             return res.status(401).json({message:"status is not valid"}) }
-            survey.sex=sex
+            survey.gender=gender
         }
         if(sector){
         const arr1=["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך",'לא מוגבל']

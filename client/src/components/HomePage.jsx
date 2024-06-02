@@ -1,7 +1,9 @@
 const HomePage=()=>{
     return(
         <>
-       <h1> homepage!@!</h1>
+       <div style={{height:'500px'}}>
+        
+       </div>
         </>
     )
 }

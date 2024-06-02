@@ -24,29 +24,44 @@ import Bar from './components/Bar';
 import Menu from './components/features/surveys/Nav';
 import RutBar from './components/RutBar'
 import Logout from './components/LogOut';
+import { useLoginMutation } from './components/features/auths/authApiSlice';
+import { useGetUserQuery } from './components/features/users/userApiSlice';
 function App() {
- 
+  const [loginFunc, {isError, error, isSuccess,data}] = useLoginMutation();
+  const{
+      data:myUser,
+      isLoading:userIsLoading,
+      isError:userIsError,
+      error:userError,
+      isSuccess:userIsSuccess,
+      refetch:userRefetch
+      } = useGetUserQuery({id:''})
   
  
   return (
     <>
-    <div className='App'>
+    <div id='App'>
+      <div style={{position:'sticky',top:'10'}}>
     {/* <NavBar login={login} admin={admin}/> */}
    {/* <Bar role={role}/> */}
    {/* <Menu currentPage={currentPage}/> */}
-   <RutBar/>
-    <Routes>
-      <Route path='/login' element={<Start />} />
-      <Route path='/logout' element={<Logout/>} />
-      <Route path='/Surveys' element={<Surveys/>} />
-      <Route path='/UserSurveys' element={<UserSurveys />} />
-      <Route path='/surveySegmentation' element={<SegmentSurveys />} />
-      <Route path='/segments' element={<Segments />} />
-      {/* <Route path='/NavBar' element={<NavBar/>} />
-      <Route path='/UsersNavBar' element={<UsersNavBar/>} /> */}
-      <Route path='/we' element={<About />} />
-    </Routes>
-    
+   <RutBar/> 
+   </div>
+   <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/bar" element={<RutBar />} />
+          <Route path='/Surveys' element={<Surveys />} />
+          <Route path='/login' element={<Start />} />
+          <Route path='/logOut' element={<Logout/>} />
+          <Route path='/NavBar' element={<NavBar/>} />
+          <Route path='/BaseNavBar' element={<BaseNavBar/>} />
+          <Route path='/UserSurveys' element={<UserSurveys myUser={myUser}/>} />
+          <Route path='/surveySegmentation' element={<SegmentSurveys />} />
+          <Route path='/segments' element={<Segments />} />
+          <Route path='/UsersNavBar' element={<UsersNavBar myUser={myUser}/>} />
+          <Route path='/we' element={<About myUser={myUser}/>} />
+          </Routes>
+   
     </div>
     </>
   );

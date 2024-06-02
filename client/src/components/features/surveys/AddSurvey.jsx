@@ -12,7 +12,7 @@ import { classNames } from "primereact/utils"
 import SendSurvey from "./SendSurvey"
 const AddSurvey=(props)=>{
     const {refetch,setVisibleNew}=props
-    const [selectedSex, setSelectedSex] = useState()
+    const [selectedGender, setSelectedGender] = useState()
     const [selectedSector, setSelectedSector] = useState()
     const title=useRef('סקר ללא שם')
     const [text,setText]=useState('')
@@ -21,15 +21,15 @@ const AddSurvey=(props)=>{
     const [addSurveyFunc,{data:survey={},isError:addSurveyIsError,error:addSurveyError,isSuccess:addSurveyIsSuccess}]=useAddSurveyMutation()
     const add = async (e) => { 
         console.log(questions);
-       await addSurveyFunc({title:text,sex:selectedSex,sector:selectedSector,age:ages,questions:questions}).then(()=>refetch())
+       await addSurveyFunc({title:text,gender:selectedGender,sector:selectedSector,age:ages,questions:questions}).then(()=>refetch())
     }
     const addQuestion=async()=>{
        setQuestions([...questions,{body:'שאלה חדשה',answers:[{body:'תשובה חדשה'}]}])
     }
-    const sex = [
-        { label: 'לא מוגבל',icon:'pi pi-circle',command:()=>{setSelectedSex('לא מוגבל')} },
-        { label: 'זכר',command:()=>{setSelectedSex('זכר')} },
-        { label: 'נקבה',command:()=>{setSelectedSex('נקבה')}}
+    const gender = [
+        { label: 'לא מוגבל',icon:'pi pi-circle',command:()=>{setSelectedGender('לא מוגבל')} },
+        { label: 'זכר',command:()=>{setSelectedGender('זכר')} },
+        { label: 'נקבה',command:()=>{setSelectedGender('נקבה')}}
     ];
     const sector = [
         { label: 'לא מוגבל',command:()=>{setSelectedSector('לא מוגבל')} },
@@ -42,9 +42,9 @@ const AddSurvey=(props)=>{
     const [ages, setAges] = useState([0,120]);
     const items = [
         {
-            label: selectedSex||'מגדר',
+            label: selectedGender||'מגדר',
             icon: 'pi pi-user',
-            items: sex
+            items: gender
         },
         {
             label: selectedSector||'מגזר',

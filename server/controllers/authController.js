@@ -22,7 +22,7 @@ const login=async(req,res)=>{
       return  res.status(401).json({message:"unauthorized login"})
 }
 const register=async(req,res)=>{
-    const {username, password, name, birthDate, sex, sector, email} = req.body
+    const {username, password, name, birthDate, gender, sector, email} = req.body
     let roles
     if (!name || !username || !password) {
         return res.status(400).json({message:'required field is missing'})
@@ -33,7 +33,7 @@ const register=async(req,res)=>{
     if(duplicate)
       return  res.status(409).json({message:"duplicate username"})
     const hashedPwd = await bcrypt.hash(password, 10)
-    const userObject= {username,password:hashedPwd,name,birthDate,sex,sector,email,roles}
+    const userObject= {username,password:hashedPwd,name,birthDate,gender,sector,email,roles}
     const user = await User.create(userObject)
     if(user){
        return res.status(201).json({success:true,

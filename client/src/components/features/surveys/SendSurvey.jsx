@@ -24,7 +24,7 @@ const SendSurvey=(props)=>{
         const d=new Date(u.birthDate)
 
         const age=(Date.now()-d)/1000/60/60/24/365
-                return (u.sex===survey.sex || survey.sex==='לא מוגבל') &&
+                return (u.gender===survey.gender || survey.gender==='לא מוגבל') &&
         (u.sector===survey.sector || survey.sector==='לא מוגבל') && 
         (survey.age[0] <= age) &&
         (survey.age[1]>=age||survey.data.age==='')
@@ -47,7 +47,6 @@ console.log(surveysForUsers);
  
    }
    const changestatus = async (e) => {
-    // await addSurveyFunc({title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,age:ages,questions:questions}).then(()=>
    changeStatusFunc({_id:survey?._id,status:"in process"}).then(()=>refetch())
    window.location.reload(true)
    }

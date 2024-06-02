@@ -14,7 +14,7 @@ import { useChangeStatusMutation } from '../surveys/surveyApiSlice';
 import { Card } from 'primereact/card';
 
 const UserSurveyItem=(props)=> {
-    const {survey,refetch}=props
+    const {survey,refetch,user}=props
     const [visible,setVisible]=useState(false)
     const [del,setDel]=useState(false)
   
@@ -22,7 +22,7 @@ const UserSurveyItem=(props)=> {
         <React.Fragment>
             <div className="flex align-items-center gap-3">
                        
-                        <Button icon="pi pi-file-edit" className="p-button-rounded" style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}
+                        <Button icon="pi pi-file-edit" label='ענה על הסקר'className="p-button-rounded" style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}
                         onClick={()=>{setVisible(true)}}
                         ></Button>
                        
@@ -32,14 +32,14 @@ const UserSurveyItem=(props)=> {
    
     return (<>
        
-        <div className="card " >
-            <Card style={{BlockSize:'250px'}}>
+        <div className="card"id='userCard' >
+            <Card>
             <h1>{survey.title}</h1>
             
 
 <div className="card flex justify-content-center">
            
-            <Divider layout="vertical" />
+         
             <p style={{width:'30%',marginRight:0}}>
                 {endContent}
             </p>
@@ -48,10 +48,10 @@ const UserSurveyItem=(props)=> {
      
        
         <Dialog 
-            header={survey.title} 
+            header={<div>סקר <i className='pi pi-file-edit'></i></div>} 
             visible={visible} style={{ width: '50vw', height:'100vw' }} onHide={() => setVisible(false)}>
             <p className="m-0">
-                <UserSurvey refetch={refetch} survey={survey} setVisible={setVisible}/>
+                <UserSurvey refetch={refetch} survey={survey} setVisible={setVisible}user={user}/>
             </p>
         </Dialog>
 
