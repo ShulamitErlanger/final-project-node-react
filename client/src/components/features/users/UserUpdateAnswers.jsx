@@ -4,7 +4,6 @@
 //     const [ChangeAnswerData, {isError, error, isSuccess,data}] = useChangeAnswerDataMutation()
 
 //     const update = async (e) => {
-//         console.log("UpdateQuestionnnnccccccccccccccccccccccc");
 //             //e.preventDefault();
 //         await ChangeAnswerData({_id:survey._id,questionId:question._id,answerId:answer._id})
         

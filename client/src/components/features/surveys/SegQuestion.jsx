@@ -79,27 +79,19 @@ const SegQuestion=(props)=>{
         Pie() 
     }
     useEffect(()=>{
-        console.log(selectedCity);
         setD(true)
     },[[feature,selectedCity]])
-    // const sendData=()=>{
-    //     console.log('send data');
-    //     return(
-    //         <>
-    //          <Data feature={feature} labels={labels}data={data}question={question}bar={bar}pie={pie}line={line}/>
-    //          </>
-    //     )
-    // }
+
   return(
         <>
         <br/>
-        {console.log("seg q")}
+
         <Card header={<Divider layout='horizontal' />} >
         <div style={{textAlign:"center",fontFamily:'Yehuda CLM'}}>
     <h2>{question.body}</h2>
     </div>
         <div className="card flex justify-content-center">
-            <CascadeSelect value={selectedCity} onChange={ e => {console.log(selectedCity);select[index].select=e.value.cname;setSelectedCity(e.value);setSelect(select);segment(e.value.cname);}} options={countries} 
+            <CascadeSelect value={selectedCity} onChange={ e => {select[index].select=e.value.cname;setSelectedCity(e.value);setSelect(select);segment(e.value.cname);}} options={countries} 
                 optionLabel="cname" optionGroupLabel="name" optionGroupChildren={['states', 'cities']} 
                 className="w-full md:w-14rem" breakpoint="767px" placeholder={selectedCity||"Select a City"} itemTemplate={countryOptionTemplate} style={{ minWidth: '14rem'}} />
         </div>

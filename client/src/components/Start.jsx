@@ -37,11 +37,6 @@ const Start=(props)=>{
         if(loginSuccess){    
         dispatch(setToken(data))
         navigate('/Surveys')
-           
-            //navigate('/UsersNavBar')
-        // {<UsersNavBar/>}
-        // setLoginSuccess(true)
-      //navigate(data.roles==='admin'?'/Surveys':'UsersNavBar')
     }
     else{
 
@@ -49,11 +44,7 @@ const Start=(props)=>{
         },[loginSuccess,userIsSuccess])
     
     const handleSubmit = async (e) => {
-        console.log(username.current.value);
-       // e.preventDefault();
        await loginFunc({username:username.current.value,password:password.current.value})
-       
-        console.log(data);
         };
     
     return(

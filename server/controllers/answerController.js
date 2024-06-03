@@ -60,7 +60,6 @@ const deleteAnswer=async(req,res)=>{
 const changeAnswerData=async(req,res)=>{
   
     const{_id,questionId,answerId}=req.body
-    console.log(`survey: ${_id}, question: ${questionId}, answer: ${answerId}`);
     const survey=await Survey.findById(_id).exec()
     const user=await User.findById(req.user._id).lean()
    
@@ -106,7 +105,6 @@ const changeAnswerData=async(req,res)=>{
     age>90 && age<=100? answer.age.old+=1:
     answer.age.full+=1
     const MyUpdatesurvey=await survey.save()
-   // console.log(MyUpdatesurvey.questions[0].answers[0]);
     return res.status(201).json({success:true,
         message:`survey ${survey.title}updated successfuly`
         })

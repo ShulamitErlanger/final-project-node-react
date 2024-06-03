@@ -32,7 +32,6 @@ const SendSurvey=(props)=>{
     }
     useEffect(()=>{
         if(is){
-       console.log(users);
             sendE();
     
      } },[isSuccess])
@@ -40,14 +39,11 @@ const SendSurvey=(props)=>{
     
     
     surveysForUsers=await users.filter((u)=>match(u))
-         surveysForUsers=surveysForUsers.map(f=>f.email)//  {exist=u.surveys.find(us=>us._id==survey._id)
-        //     if(!exist)}
-console.log(surveysForUsers);
+         surveysForUsers=surveysForUsers.map(f=>f.email)
    await sendMailFunc({ to: [surveysForUsers], title: `מערכת הסקרים שלנו🖐 `, html:` סקר חדש מחכה לך!!!!!! הנך מוזמן/ת לענות על סקר: ${survey.title}  ` })
  
    }
    const changestatus = async (e) => {
-    // await addSurveyFunc({title:title.current.value,sex:selectedSex.name,sector:selectedSector.name,age:ages,questions:questions}).then(()=>
    changeStatusFunc({_id:survey?._id,status:"in process"}).then(()=>refetch())
    window.location.reload(true)
    }

@@ -33,14 +33,14 @@ const UserAnswer=(props)=> {
     // var [visible, setVisible] = useState(true);
 
     // const delet = (e) => {
-    //     console.log("aaaddQuestion");
+
     //         //e.preventDefault();
-    //         console.log(question._id);
+
     //         delFunc({_id:survey._id,questionId:question._id,answerId:answer._id}).then(()=>refetch())};
     
     
     
-    // console.log("answer")
+
     // const items = [
     //     {
     //         label: 'Update',

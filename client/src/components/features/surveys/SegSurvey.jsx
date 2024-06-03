@@ -19,7 +19,6 @@ const SegSurvey=(props)=>{
         <>
         <div style={{textAlign:'center',fontFamily:'Yehuda CLM'}}>
         <h1>{survey.title}</h1></div>
-        {console.log("seg s")}
         {survey?.questions.map(q=> <SegQuestion select={select}setSelect={setSelect} text={text} setText={setText} question={q}/>)}
         <br/><br/>
         <Button onClick={()=>{chooseSegment();setSend(true);}} icon="pi pi-save" label="שמור" rounded /> 

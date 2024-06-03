@@ -15,9 +15,6 @@ const UserSurvey=(props)=>{
 const answer = (e) => {
     if(select){
      select.map(q=>ChangeAnswerDataFunc({_id:survey._id,questionId:q._id,answerId:select[select.indexOf(select.find(i=>i._id==q._id))].select}).then(()=>refetch()))}
-     else{
-        console.log('no select');
-     }
 };
     return(
         <>

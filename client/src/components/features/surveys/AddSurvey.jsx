@@ -20,7 +20,6 @@ const AddSurvey=(props)=>{
     const [send,setSend]=useState(false)
     const [addSurveyFunc,{data:survey={},isError:addSurveyIsError,error:addSurveyError,isSuccess:addSurveyIsSuccess}]=useAddSurveyMutation()
     const add = async (e) => { 
-        console.log(questions);
        await addSurveyFunc({title:text,sex:selectedSex,sector:selectedSector,age:ages,questions:questions}).then(()=>refetch())
     }
     const addQuestion=async()=>{

@@ -26,7 +26,6 @@ const{
     const y2=new Date().getFullYear()
     const age=(y2-y1)
     let filteredSurveys
-    surveys?.forEach(s=>console.log(s.sex,' ',s.sector,' ',s.title))
     filteredSurveys=surveys?.filter(s=>(s.sex===myUser?.sex || s.sex==='לא מוגבל')&& (s.sector===myUser.sector || s.sector==='לא מוגבל') && s.age[0]<=age&&s.age[1]>=age)
     if (isLoading) return <h1>Loading</h1>
     if(isError) return <h2>{error}</h2>

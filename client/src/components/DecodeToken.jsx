@@ -6,7 +6,6 @@ const DecodeToken = () => {
     
     if (token) {
         const userDecode = jwtDecode(token)
-        // const {id}=userDecode
         const {roles,_id,name} = userDecode
         return {roles,_id,name}
     }

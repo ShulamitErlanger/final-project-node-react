@@ -29,7 +29,7 @@ const QuestionDialog = (props) => {
 //     const [editFunc, {isError, error, isSuccess,data}] = useUpdateQuestionMutation()
 //     var [visible, setVisible] = useState(true);
 //     const edit = (e) => {
-//         console.log("editQuestion");
+
 //     //e.preventDefault();
 //         editFunc({_id:survey._id,questionId:questionId, body:body.current.value})}
 //     edit()}

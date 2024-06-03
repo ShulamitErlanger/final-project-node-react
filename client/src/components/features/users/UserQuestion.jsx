@@ -19,7 +19,7 @@ const [selectedCategory, setSelectedCategory]=useState(select[index].select||'')
                         <span classclassName="p-input-icon-left">  
                             <Card>
                                 <div key={category.key} className="flex align-items-center">
-                                        <RadioButton inputId={category.key} name="category" value={category.key} onChange={(e) =>{select[index].select=e.value;setSelect(select);setSelectedCategory(e.value);console.log(selectedCategory);}} 
+                                        <RadioButton inputId={category.key} name="category" value={category.key} onChange={(e) =>{select[index].select=e.value;setSelect(select);setSelectedCategory(e.value);}} 
                                         checked={selectedCategory=== category.key} />
                                         <label htmlFor={category.key} className="ml-2">{category.name}</label>
                                 </div>

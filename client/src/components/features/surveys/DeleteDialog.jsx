@@ -11,8 +11,6 @@ const DeleteDialog=(props)=>{
    useDeleteSurveyMutation()
    
    const del = (e) => {
-   //e.preventDefault();
-   console.log('id:'+survey._id);
    deleteFunc({_id:survey._id}).then(()=>refetch()) 
 
    };

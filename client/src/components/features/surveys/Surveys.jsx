@@ -24,8 +24,7 @@ const [visibleNew, setVisibleNew] = useState(false);
 //        await _ingredients.splice(_ingredients.indexOf(e.value), 1);
 
 //    await setIngredients(_ingredients);
-//     console.log('-----------------------');
-//     console.log(ingredients);
+
 //     setFilteredSurveys(surveys.filter(s=>ingredients.includes(s.status)))
 // }
 return (

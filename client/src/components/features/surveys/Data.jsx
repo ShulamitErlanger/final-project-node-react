@@ -6,7 +6,6 @@ import PieSeg from "./PieSeg";
 const Data=(props)=>{
    
     const {feature,labels,question,bar,pie,line}=props
-     console.log(feature,'  ***************************');
     let {data}=JSON.parse(JSON.stringify(props))
     const [colorsGroup,setColorsGroup]=useState(['rgb(20, 220, 185)',
     'rgb(20, 200, 200)',
@@ -18,7 +17,6 @@ const Data=(props)=>{
 
     ])
     const divideData=()=>{
-        console.log("devide");
         if(feature==null){
              data = {
                 labels: labels,
