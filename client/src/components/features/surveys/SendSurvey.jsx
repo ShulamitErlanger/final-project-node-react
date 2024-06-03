@@ -24,7 +24,7 @@ const SendSurvey=(props)=>{
         const d=new Date(u.birthDate)
 
         const age=(Date.now()-d)/1000/60/60/24/365
-                return (u.sex===survey.sex || survey.sex==='לא מוגבל') &&
+                return (u.gender===survey.gender || survey.gender==='לא מוגבל') &&
         (u.sector===survey.sector || survey.sector==='לא מוגבל') && 
         (survey.age[0] <= age) &&
         (survey.age[1]>=age||survey.data.age==='')

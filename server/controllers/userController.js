@@ -1,11 +1,11 @@
 const User = require("../models/User");
 const addUser=async(req,res)=>{
-    const {username, password, name, birthDate, sex, sector, email} = req.body
+    const {username, password, name, birthDate, gender, sector, email} = req.body
     let roles
     if (!name || !username || !password) {
         return res.status(400).json({message:'required field is missing'})
         }
-    if(!sex in['זכר','נקבה']|| !sector in["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך"])
+    if(!gender in['זכר','נקבה']|| !sector in["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך"])
         return res.status(401).json({message:"not valid fields"})
     if(password===process.env.ADMIN)
         roles="admin"
@@ -13,7 +13,7 @@ const addUser=async(req,res)=>{
     if(duplicate)
        return res.status(409).json({message:"duplicate username"})
     const hashedPwd = await bcrypt.hash(password, 10)
-    const userObject= {username,password:hashedPwd,name,birthDate,sex,sector,email,roles}
+    const userObject= {username,password:hashedPwd,name,birthDate,gender,sector,email,roles}
     const user = await User.create(userObject)
     if(user){
        return res.status(201).json({success:true,
@@ -52,7 +52,7 @@ const getUserById=async(req,res)=>{
     return res.status(405).json({message:"unaouthorisedid"})
 }
 const updateUser=async(req,res)=>{
-    const {_id,username, password, name, birthDate, sex, sector, email}=req.body
+    const {_id,username, password, name, birthDate, gender, sector, email}=req.body
    const prevPass=req.user.password
     const user=await User.findById(_id).exec()
 
@@ -67,10 +67,10 @@ const updateUser=async(req,res)=>{
             user.name=name;
         if(birthDate)
             user.birthDate=birthDate;
-        if(sex)
+        if(gender)
         {
-            if(sex in['זכר','נקבה'])
-                user.sex=sex;
+            if(gender in['זכר','נקבה'])
+                user.gender=gender;
         }
         if(sector)
         {
@@ -112,6 +112,7 @@ if(!user){
 } */
 
 const addSurvey=async(req,res)=>{
+    console.log('add user survey');
     const {survey}=req.body
         const user=await User.findById(req.user._id).exec()
         if(!user)

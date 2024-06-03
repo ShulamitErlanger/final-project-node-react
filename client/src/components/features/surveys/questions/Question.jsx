@@ -20,7 +20,7 @@ const Question=(props)=> {
         refetch()
     }
     const addAnswer=()=>{
-        questions[index].answers=[...questions[index].answers,{body:' '}];
+        questions[index].answers=[...questions[index].answers,{body:'תשובה חדשה'}];
         refetch()
      }
     

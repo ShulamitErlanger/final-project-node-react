@@ -74,13 +74,13 @@ const Data=(props)=>{
                         label: 'גברים',
                         backgroundColor: 'rgb(20, 200, 200)',
                         borderColor: 'rgb(20, 200, 200)',
-                        data: (data.map(a=>a.sex.male))
+                        data: (data.map(a=>a.gender.male))
                     },
                     {
                         label: 'נשים',
                         backgroundColor: 'rgb(20, 150, 255)',
                         borderColor: 'rgb(20, 150, 255)',
-                        data: (data.map(a=>a.sex.female))
+                        data: (data.map(a=>a.gender.female))
                     }
                 ]
             };

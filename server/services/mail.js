@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail =  (to,title,body)=>{
   const mailOptions = {
-      from: 'סקר נשר <'+process.env.EMAIL_ADDRESS+'>' ,
+      from: 'הרוב קובע<'+process.env.EMAIL_ADDRESS+'>' ,
       to: to,
       subject: title,
       html: body

@@ -18,9 +18,7 @@ const Start=(props)=>{
     const[register,setRegister]=useState(false)
     const [loginFunc, {isError, error, isSuccess:loginSuccess,data}] = useLoginMutation();
     const [sendMailFunc, {isError:sendIsError, error:sendError, isSuccess:sendIsSuccess,data:send}] = useSendMailMutation()
-    const sendeE=async()=>{
-    await sendMailFunc({ to: ["rivkam1212@gmail.com","rivkanan1212@gmail.com","37325533305@mby.co.il",'shulamit9018@gmail.com'], title: `מערכת הסקרים שלנו🖐 `, html:"hello, you welcome" })
-    }
+    
 
         const dispatch = useDispatch()
         const navigate = useNavigate()
@@ -36,7 +34,12 @@ const Start=(props)=>{
         useEffect(()=>{
         if(loginSuccess){    
         dispatch(setToken(data))
-        navigate('/Surveys')
+        navigate('/')
+           
+            //navigate('/UsersNavBar')
+        // {<UsersNavBar/>}
+        // setLoginSuccess(true)
+      //navigate(data.roles==='admin'?'/Surveys':'UsersNavBar')
     }
     else{
 
@@ -61,7 +64,7 @@ const Start=(props)=>{
                         <label className="w-6rem">Password</label>
                         <InputText ref={password} id="password" type="password" className="w-12rem" />
                     </div>
-                    <Button label="Login" icon="pi pi-user" className="w-10rem mx-auto" onClick={()=>{/*sendeE();*/handleSubmit()}}></Button>
+                    <Button label="כניסה" icon="pi pi-user" className="w-10rem mx-auto" onClick={()=>{/*sendeE();*/handleSubmit()}}></Button>
                    
                 </div>
                 <div className="w-full md:w-2">
@@ -73,7 +76,7 @@ const Start=(props)=>{
                     </Divider> */}
                 </div>
                 <div className="w-full md:w-5 flex align-items-center justify-content-center py-5">
-                    <Button label="Sign Up" icon="pi pi-user-plus" severity="success" className="w-10rem" onClick={()=>{setRegister(true)}}></Button>
+                    <Button label="הרשמה" icon="pi pi-user-plus" severity="success" className="w-10rem" onClick={()=>{setRegister(true)}}></Button>
                     
                     {register && <Register/>}
                     

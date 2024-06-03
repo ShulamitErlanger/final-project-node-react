@@ -16,7 +16,7 @@ import { useFormik } from "formik"
 
 const Survey=(props)=>{
     const {survey,refetch,setVisible}=props
-    const [selectedSex, setSelectedSex] = useState(survey.sex);
+    const [selectedGender, setSelectedGender] = useState(survey.gender);
     const [selectedSector, setSelectedSector] = useState(survey.sector);
     const [send,setSend]=useState(false)
     const title=useRef(survey.title)
@@ -28,16 +28,16 @@ const Survey=(props)=>{
      }
 
     const edit = async (e) => {
-    await updateSurveyFunc({_id:survey._id,title:title.current.value,sex:selectedSex,sector:selectedSector,age:ages,questions:questions}).then(()=>refetch()) 
+    await updateSurveyFunc({_id:survey._id,title:title.current.value,gender:selectedGender,sector:selectedSector,age:ages,questions:questions}).then(()=>refetch()) 
     refetch()
     }
 
  
    
-    const sex = [
-        { label: 'לא מוגבל',icon:'pi pi-circle',command:()=>{setSelectedSex('לא מוגבל')} },
-        { label: 'זכר',command:()=>{setSelectedSex('זכר')} },
-        { label: 'נקבה',command:()=>{setSelectedSex('נקבה')}}
+    const gender = [
+        { label: 'לא מוגבל',icon:'pi pi-circle',command:()=>{setSelectedGender('לא מוגבל')} },
+        { label: 'זכר',command:()=>{setSelectedGender('זכר')} },
+        { label: 'נקבה',command:()=>{setSelectedGender('נקבה')}}
     ];
     const sector = [
         { label: 'לא מוגבל',command:()=>{setSelectedSector('לא מוגבל')} },
@@ -50,9 +50,9 @@ const Survey=(props)=>{
     const [ages, setAges] = useState(survey.age);
     const items = [
         {
-            label: selectedSex||'מגדר',
+            label: selectedGender||'מגדר',
             icon: 'pi pi-user',
-            items: sex,
+            items: gender,
         },
         {
             label: selectedSector||'מגזר',
