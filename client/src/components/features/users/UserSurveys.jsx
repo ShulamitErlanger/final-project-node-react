@@ -25,8 +25,11 @@ const{
     let filteredSurveys=[]
 
 const filt=()=>{
-filteredSurveys=surveys?.filter(s=>((s.sex===myUser?.sex || s.sex==='לא מוגבל') && (s.sector===myUser?.sector || s.sector==='לא מוגבל') && (s.age[0]<=age&&s.age[1]>=age||s.age==='') ) && (myUser?.surveys?.find(us=>us===s._id)==undefined))}
-    const token=localStorage.getItem('token')
+    if(myUser?.roles==='admin')
+        filteredSurveys=surveys
+    else{
+filteredSurveys=surveys?.filter(s=>((s.sex===myUser?.sex || s.sex==='לא מוגבל') && (s.sector===myUser?.sector || s.sector==='לא מוגבל') && (s.age[0]<=age&&s.age[1]>=age||s.age==='') ) && (myUser?.surveys?.find(us=>us===s._id)==undefined))}}
+
 
     const d = new Date(myUser?.birthDate);
     const y1=d.getFullYear()

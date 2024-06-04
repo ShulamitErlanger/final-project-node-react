@@ -68,7 +68,7 @@ font-size: medium;}
   height: 50px;
   border-color:#14B8A6;
  }
- .p-inputtext, .p-component{
+ .p-inputtext.p-component{
   border-color:#14B8A6;
   /* color: #14B8A6; */
 
@@ -79,6 +79,9 @@ font-size: medium;}
  .p-menubar{
   color: #14B8A6;
   block-size: 100px;
+  padding: 4rem;
+  margin-top: 0%;
+  top:0%
  }
 
  #userCard{
@@ -106,14 +109,56 @@ font-size: medium;}
   position: fixed;
   width: 99%;
 }
-.p-menubar .p-component{
+.p-menubar.p-component{
   padding: 30;
 
 }
-.bar{
+span.bar{
   font-size: larger;
+  padding-left: 20px;
+  padding-right: 4px;
 
 }
 .link{
   margin-left: 3px;
+}
+span.pi.pi::before{
+
+  color:#14B8A6;
+
+}
+i.pi.pi-sort-numeric-up-alt::before{
+color:#14B8A6;
+
+}
+a { text-decoration: none; 
+}
+#butUserSurvey .p-button-icon.p-c.p-button-icon-left.pi.pi-save::before{
+  color:white;
+}
+.p-button-icon.p-c.p-button-icon-left.pi.pi-user-plus::before, .p-button-icon.p-c.p-button-icon-left.pi.pi-user::before, .p-button-icon.p-c.p-button-icon-left.pi.pi-check::before{
+color:white;
+}
+#radios{
+  font-size: 8pt;
+}
+div.p-radiobutton-box{
+  width: 18px;
+  height: 19px;
+}
+legend.p-fieldset-legend.p-unselectable-text{
+  margin-right: 2px;
+}
+div.p-fieldset-content{
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#pr_id_17.p-fieldset.p-component{
+  padding: 0%;
+
+}
+#autoCompl2 .p-autocomplete-input.p-inputtext.p-component.p-autocomplete-input, #autoCompl1 .p-autocomplete-input.p-inputtext.p-component.p-autocomplete-input{
+  width:400px;
+  height: 50px;
 }

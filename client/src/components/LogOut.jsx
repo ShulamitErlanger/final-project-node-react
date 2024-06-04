@@ -15,7 +15,7 @@ export default function Logout() {
     const navigate=useNavigate();
     useEffect(()=>{
         dispatch(removeToken())
-        dispatch(apiSlice.util.resetApiState())
+       // dispatch(apiSlice.util.resetApiState())
         navigate("/")
     })
 

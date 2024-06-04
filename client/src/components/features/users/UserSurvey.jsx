@@ -36,7 +36,7 @@ const answer = (e) => {
                 </div> <div style={{ flex: 1 }}> 
                 </div>
             </div>  <footer style={{ textAlign: 'center', padding: '10px' }}>
-                <p> <Button onClick={async () => {console.log('click');
+                <p> <Button id="butUserSurvey" onClick={async () => {console.log('click');
                     await addSurveyForUser(); await count(); await answer(); window.location.reload(true); setVisible(false)
                 }} label='&nbsp;שמור' icon="pi pi-save" /> </p>
             </footer>
