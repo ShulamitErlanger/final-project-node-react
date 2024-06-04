@@ -1,9 +1,12 @@
 const Survey = require("../models/Survey");
 const addSurvey=async(req,res)=>{
+<<<<<<< HEAD
+    let {title,sex,sector,age,questions} = req.body
+=======
     let {title,gender,sector,age,questions} = req.body
     console.log("add survey");
+>>>>>>> d398ea9a2d795831ce01eeec6f610d4d318dc71a
     if (!title) {
-        console.log('!title');
         return res.status(400).json({message:'required field is missing'})
         }
         if(questions){
@@ -42,11 +45,8 @@ const getAllSurveys=async(req,res)=>{
 
     if(!surveys)
     {
-       // console.log('nooooooooooooooooooooooooooooooooooooooooooooo');
-       // console.log('3');
         return res.status(401).json({message:"not found"})
     }
-   // console.log(surveys[0]);
     return res.json(surveys)
 }
 const getSurveyById=async(req,res)=>{
@@ -85,29 +85,17 @@ const updateSurvey=async(req,res)=>{
         if(sector){
         const arr1=["חרדי","חילוני","דתי לאומי","מסורתי","לא משתייך",'לא מוגבל']
         const sec=arr1.find(sector=>sector==sector)
-        if(!sec){console.log('!sec');
+        if(!sec){
             return res.status(401).json({message:"status is not valid"})}
         survey.sector=sector
         }
         if(age)
             survey.age=age
-       
-        //console.log(survey.questions);
+
 
         if(questions){
-            console.log('-----------------------');
-           // console.log(survey.questions[0].body);
-            // {console.log('88888888888888888888888');
             survey.questions=questions
-            console.log(survey.questions[1]);
-        //console.log(survey.questions);
-        // if(questions)
-        //     survey.questions=questions
-        // if(newQuestions)
-        //     survey.questions=[...survey.questions,newQuestions]
-        console.log('---------------------------');
-        //console.log(survey.questions);
-        console.log(survey.questions[0]);}
+        }
         const MyUpdatesurvey=await survey.save()
         return res.status(201).json({success:true,
             message:`survey ${survey.title}updated successfuly`,
@@ -144,12 +132,12 @@ if(!survey){
 
 const changeStatus=async(req,res)=>{
     const {_id,status}=req.body
-   //console.log(status);
+
     const survey=await Survey.findById(_id).exec()
 
     if(!survey){
 
-       //console.log('!survey');
+
 
     return res.status(401).json({message:"not found"})
     }
@@ -157,12 +145,10 @@ const changeStatus=async(req,res)=>{
     
         if(status){
             
-         //   console.log(status);
             const arr1=["creating","in process","closed","completed" ]
             const s=arr1.find(s=>s==status)
             if(!s)
             {
-             //   console.log('!s');
 
                  return res.status(401).json({message:"status is not valid"})
             }
@@ -171,7 +157,6 @@ const changeStatus=async(req,res)=>{
         
        
         const MyUpdatesurvey=await survey.save()
-       // console.log('after');
         return res.status(201).json({success:true,
             message:`survey ${survey.title} updated successfuly`,
             })}

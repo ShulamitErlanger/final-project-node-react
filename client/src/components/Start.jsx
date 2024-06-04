@@ -47,11 +47,7 @@ const Start=(props)=>{
         },[loginSuccess,userIsSuccess])
     
     const handleSubmit = async (e) => {
-        console.log(username.current.value);
-       // e.preventDefault();
        await loginFunc({username:username.current.value,password:password.current.value})
-       
-        console.log(data);
         };
     
     return(

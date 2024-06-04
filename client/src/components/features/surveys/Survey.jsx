@@ -76,9 +76,7 @@ const Survey=(props)=>{
             return errors;
         },
         onSubmit: async() => {
-            console.log("submit");
              await edit();
-             console.log("after");
              await setSend(true);
              refetch();
  

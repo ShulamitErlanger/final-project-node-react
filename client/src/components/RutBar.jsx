@@ -6,7 +6,6 @@ import {useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import "../index.css";
 import DecodeToken from './DecodeToken';
-import apiSlice from '../app/apiSlice';
 import { Menubar } from 'primereact/menubar';
 export default function TemplateDemo() {
     const navigate=useNavigate();

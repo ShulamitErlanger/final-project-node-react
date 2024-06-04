@@ -1,33 +1,18 @@
 const Survey = require("../models/Survey");
 const addQuestion=async(req,res)=>{
-   // console.log('arrive q');
     const {_id,body,answers} = req.body
-    console.log('---------------------');
-    console.log(answers);
-    console.log('---------------------');
     if(!body){
-        console.log('!body');
         return res.status(409).json({message:`Required field is missing`})
     }
         
     const survey=await Survey.findById(_id).exec()
     if (!survey) 
     {
-        console.log(!survey);
         return res.status(400).json({message:`There No survey with id: ${_id}`})
     }
         
     const arr=[...survey.questions,{body:body,answers:answers}]
     survey.questions=arr
-    console.log(survey.questions);
-   // let index=arr.length-1
-    // if(answers){
-    //     if(survey.questions[index].body===body)
-    //     {
-    //         answers.forEach(a=>addAnswer(_id,survey.questions[index]._id,a))
-    //     }
-
-    // }
     const MyUpdateSurvey=await survey.save()
        return res.status(200).json({success:true,
             message:`question was added successfuly`,
@@ -57,8 +42,6 @@ const addQuestion=async(req,res)=>{
 
 const updateQuestion=async(req,res)=>{
     const {_id,questionId,body}=req.body
-    //console.log(body);
-   // console.log('----------------------------------------');
     if(!body)
     return res.status(409).json({message:`Required field is missing`})
     const survey=await Survey.findById(_id).exec()
@@ -89,30 +72,24 @@ const deleteQuestion=async(req,res)=>{
 
 const chooseSeg=async(req,res)=>{
     const{_id,questionId,kind,note}=req.body
-  //  console.log(kind+' '+note);
     if(!kind in ["תרשים עוגה","היסטוגרמה","גרף"]){
-   //     console.log('not valid kind');
         return res.status(401).json({message:"kind is not valid"})
     }
     const survey=await Survey.findById(_id).exec()
     if(!survey){
-    //    console.log('!survey');
         return res.status(401).json({message:`There No survey with id: ${_id}`})
     }
     const question=survey.questions.find(q=>q._id==questionId)
     if(!question){
-    //    console.log('!question');
         return res.status(401).json({message:`There No question with id: ${questionId}`})
     }
     if(kind)
     {
-    //    console.log('kind');
          question.segmentation.kind=kind
     }
        
     if(note)
     {
-      //  console.log('note');
         question.segmentation.note=note
     }
     const MyUpdateSurvey=await survey.save()
@@ -126,7 +103,7 @@ module.exports={addQuestion,deleteQuestion,updateQuestion,chooseSeg}
 /*const Survey=require('../models/Survey')
 const addQuestion=async(req,res)=>{
     const{_id,body}=req.body
-    console.log(body);
+
     if(!body){
         return res.status(409).json({message:"require"})
     }
@@ -136,7 +113,6 @@ const addQuestion=async(req,res)=>{
         return res.status(400).json({message:"Survey not foundd"})    }
     const arr=[...survey.questions,{body}]
     survey.questions=arr
-        console.log(survey.questions);
     const updatesurvey= await survey.save()
     return res.status(200).json({success:true,
         message:`question successfuly`})

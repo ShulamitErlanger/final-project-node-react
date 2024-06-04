@@ -22,14 +22,14 @@ const sendEmail =  (to,title,body)=>{
 
 
 const sendEmailToUser = (to,title,body)=>{
-    console.log("mail");
+
   sendEmail(to,title,body)
       .then(info => {
-          console.log('Email sent: ', info.response);
+
           return true
       })
       .catch(error => {
-          console.log('Error sending email: ', error);
+
           return false
       });
 }

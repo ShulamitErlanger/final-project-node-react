@@ -1,4 +1,4 @@
-
+import React, { useEffect, useRef, useState } from 'react';
 import { useRegisterMutation } from './authApiSlice';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
@@ -10,7 +10,6 @@ import { RadioButton } from "primereact/radiobutton";
 import { useFormik } from 'formik';
 import { classNames } from 'primereact/utils';
 import { AutoComplete } from 'primereact/autocomplete';
-import { useRef, useState } from 'react';
 import { Panel } from 'primereact/panel';
 import { Fieldset } from 'primereact/fieldset';
 const Register = (props) => {
@@ -18,7 +17,13 @@ const Register = (props) => {
 
     const [registerFunc, { isError, error, isSuccess, data }] =
         useRegisterMutation()
-   
+    // useEffect(()=>{
+    // if(isSuccess){
+    // dispatch(setToken(data))
+    // navigate("/blogs")
+    // }
+    // },[isSuccess])
+
     var name = useRef('')
     var password = useRef('')
     var birthDate = useRef('')
@@ -62,7 +67,7 @@ const Register = (props) => {
     const [textu, setTextu] = useState('')
     const [textp, setTextp] = useState('')
 
-   
+    /**//*/*//*/*////////////////// ////////////////////////////////////////////////////////////*/ */
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -104,7 +109,7 @@ const Register = (props) => {
     const getFormErrorMessage = (name) => {
         return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>;
     };
-  
+    /****************************************************************************************** */
     const footerContent = (
         <div>
             <Button label="בטל" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />
@@ -114,6 +119,8 @@ const Register = (props) => {
 
     return (
         <div className="newUser">
+
+
             <Dialog header="הרשמה" visible={visible} style={{ minWidth: '50vw', maxWidth: '70vw', textAlign: 'center' }} onHide={() => setVisible(false)} footer={footerContent}>
                 <div>
                     <div className="inline-flex flex-column gap-2">
@@ -121,7 +128,7 @@ const Register = (props) => {
                             שם פרטי
                         </label>
 
-                        <AutoComplete id="autoCompl1" style={{ width: '400px' }} label="Name" inputRef={name} value={formik.values.name}
+                        <AutoComplete id="autoCompl1" style={{ width: '400px' }} label="Name" inputRef={name} value={formik.values.name} /*placeholder={title.current}*/
                             name='name'
                             className={classNames({ 'p-invalid': isFormFieldInvalid('name') })}
                             onChange={(e) => {
@@ -137,7 +144,7 @@ const Register = (props) => {
                         <label htmlFor="username" className="font-semibold">
                             שם משתמש
                         </label>
-                        <AutoComplete id="autoCompl2" style={{ width: '400px' }}  label="Username"  inputRef={username} value={formik.values.username}
+                        <AutoComplete id="autoCompl2"style={{ width: '400px' }} label="Username" inputRef={username} value={formik.values.username}
                             name='username'
                             className={classNames({ 'p-invalid': isFormFieldInvalid('username') })}
                             onChange={(e) => {
@@ -181,72 +188,80 @@ const Register = (props) => {
                         </InputText>
                     </div><br /><br /><br/><br />
                     <div className="inline-flex flex-column gap-2">
-                        <label htmlFor="gender" className="font-semibold">
-                            מגדר
+                    <label htmlFor="gender" className="font-semibold">
+                           מגדר
                         </label>
-                        <Fieldset dir='rtl'style={{ width: '400px', textAlign:'center',margin:'auto', height:'50px'}}>
-                            <p className="m-0">
+                    <Fieldset dir='rtl'style={{ width: '400px', textAlign:'center',margin:'auto', height:'50px'}}>
+    <p className="m-0">
+       
+    
+                   
 
-                                <div className="bg-white-alpha-20 border-#black p-3">
+                    {/* <div className="bg-white-alpha-20 border-#black p-3"> */}
 
-                                    <div className="flex align-items-center gap-2">
+                        <div className="flex align-items-center gap-2">
 
-                                        <div className="flex align-items-center gap-2" ref={gender}>
+                            <div className="flex align-items-center gap-2" ref={gender}>
+
+                              
+                                <RadioButton inputId="ingredient2" name="female" value="נקבה" onChange={(e) => { setIngredient(e.value); gender.current.value = e.value }}
+                                    checked={ingredient === 'נקבה'}
+                                />  <label htmlFor="ingredient2" className="ml-2">נקבה&nbsp;</label>
+                            </div>
+                            <div className="flex align-items-center gap-2">
 
                                 
-                                    <RadioButton inputId="ingredient2" name="female" value="נקבה" onChange={(e) => { setIngredient(e.value); gender.current.value = e.value }}
-                                        checked={ingredient === 'נקבה'}
-                                    /><label htmlFor="ingredient2" className="ml-2">נקבה&nbsp;</label>
-                                        </div>
-                                    <div className="flex align-items-center gap-2">
+                                <RadioButton inputId="ingredient1" name="male" value="זכר" onChange={(e) => { setIngredient(e.value); gender.current.value = e.value }}
+                                    checked={ingredient === 'זכר'}
 
-                                    
-                                    <RadioButton inputId="ingredient1" name="male" value="זכר" onChange={(e) => { setIngredient(e.value); gender.current.value = e.value }}
-                                        checked={ingredient === 'זכר'}
+                                /><label htmlFor="ingredient1" className="ml-2">זכר&nbsp;</label>
+                            </div>
+                            <div className="flex align-items-center gap-2" ref={gender}>
 
-                                    /><label htmlFor="ingredient1" className="ml-2">זכר&nbsp;</label>
-                                    </div>
-                                    <div className="flex align-items-center gap-2" ref={gender}>
-        
-        
-                                        <RadioButton inputId="ingredient2" name="clear" value={"לא נבחר"} onChange={(e) => { setIngredient(e.value); gender.current.value = e.value }}
-                                            checked={false}
-                                        />  <label htmlFor="ingredient2" className="ml-2">נקה בחירה&nbsp;</label>
-                                    </div>
-                                </div>
-                                </div>
-                            </p>
-                        </Fieldset></div><br/><br/><br /><br/>
-                        <div className="inline-flex flex-column gap-2">
-                            <label htmlFor="sector" className="font-semibold">
-                            מגזר
-                            </label>
-                            <Fieldset dir='rtl'style={{ width: '400px', textAlign:'center',margin:'auto', height:'50px'}}>
-                                <p className="m-0">
-                                    <div className="flex justify-content-right gap-3">
-                                        {categories.map((category) => {
-                                            return (
-                                                <div key={category.key} className="flex align-items-center">
-
-                                                    <RadioButton inputId={category.key} name="category" value={category}
-                                                        onChange={(e) => { setSelectedCategory(e.value); sector.current.value = e.value }}
-                                                        
-                                                    checked={selectedCategory.key=="F"?false:selectedCategory.key === category.key}
-                                                    /> <label id="radios"htmlFor={category.key} className="ml-2">{category.name}</label>
-                                                </div>
-                                    );
-                                })}
-                                    </div>
-                                </p>
-                            </Fieldset>
+                              
+                                <RadioButton inputId="ingredient2" name="clear" value={"לא נבחר"} onChange={(e) => { setIngredient(e.value); gender.current.value = e.value }}
+                                    checked={false}
+                                />  <label htmlFor="ingredient2" className="ml-2">נקה בחירה&nbsp;</label>
+                            </div>
                         </div>
+                    {/* </div> */}
+                    </p>
+</Fieldset></div><br/><br/><br /><br/>
+<div className="inline-flex flex-column gap-2">
+                    <label htmlFor="sector" className="font-semibold">
+                        מגזר
+                        </label>
+                    <Fieldset dir='rtl'style={{ width: '400px', textAlign:'center',margin:'auto', height:'50px'}}>
+    <p className="m-0">
+                       
+                        <div className="flex justify-content-right gap-3">
+                            {categories.map((category) => {
+                                return (
+                                    <div key={category.key} className="flex align-items-center">
+                                       
+
+                                        <RadioButton inputId={category.key} name="category" value={category}
+                                            onChange={(e) => { setSelectedCategory(e.value); sector.current.value = e.value }}
+                                            checked={selectedCategory.key=="F"?false:selectedCategory.key === category.key}
+                                        /> <label id="radios"htmlFor={category.key} className="ml-2">{category.name}</label>
+                                        
+                                    </div>
+                                );
+                            })}
+                           
+                        </div></p>
+</Fieldset></div>
                     </div>
+                    
 
 
-                   
+                    {/* <div className="flex align-items-center gap-2">
+                            <Button label="Sign-In" onClick={(e) => {register();setVisible(false)}} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <Button label="Cancel" onClick={setVisible(false)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                        </div> */}
+                
             </Dialog>
         </div>
     )
 }
 export default Register
-
