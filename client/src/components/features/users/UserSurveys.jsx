@@ -26,8 +26,6 @@ const{
     } = useGetSurveysQuery({status:status})
     const [searchText, setSearchText] = useState('');
     const [filteredSurveys, setFilteredSurveys] = useState([]);
-    let aa="10-20"
-    console.log(surveys);
     const age = myUser ? new Date().getFullYear() - new Date(myUser?.birthDate).getFullYear() : 0;
     
     const debouncedSearch = useDebounce(searchText, 300);
@@ -46,7 +44,7 @@ const{
             surveysToDisplay = surveysToDisplay.filter(survey =>
                 (survey.gender === myUser.gender || survey.gender === 'לא מוגבל') &&
                 (((Array.isArray(survey.sector) ? survey.sector : [survey.sector]).find(s => s === myUser.sector)) || ((Array.isArray(survey.sector) ? survey.sector : [survey.sector]).includes('לא מוגבל'))) &&
-                (((Array.isArray(survey.age) ? Object.values(survey.age) : Object.values([survey.age])).find(a =>{ console.log("a");console.log(age);console.log(parseInt(`${a}`.split('-')[0],10)); return parseInt(`${a}`.split('-')[0],10) <= age && parseInt(`"${a}"`.split('-')[2],10)>=age})) || ((Array.isArray(survey.age) ? survey.age : [survey.age]).includes('לא מוגבל'))) && 
+                (((Array.isArray(survey.age) ? Object.values(survey.age) : Object.values([survey.age])).find(a =>{ return parseInt(`${a}`.split('-')[0],10) <= age && parseInt(`"${a}"`.split('-')[2],10)>=age})) || ((Array.isArray(survey.age) ? survey.age : [survey.age]).includes('לא מוגבל'))) && 
                 !myUser.surveys.includes(survey._id)
             );
         }

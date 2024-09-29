@@ -28,7 +28,7 @@ const SendSurvey=(props)=>{
         const age=(Date.now()-d)/1000/60/60/24/365
                 return (u.gender===survey.gender || survey.gender==='לא מוגבל') &&
                 (((Array.isArray(survey.sector) ? survey.sector : [survey.sector]).find(s => s === u.sector)) || ((Array.isArray(survey.sector) ? survey.sector : [survey.sector]).includes('לא מוגבל')))&&
-                (((Array.isArray(survey.age) ? Object.values(survey.age) : Object.values([survey.age])).find(a =>{ console.log("a");console.log(age);console.log(parseInt(`${a}`.split('-')[0],10)); return parseInt(`${a}`.split('-')[0],10) <= age && parseInt(`"${a}"`.split('-')[2],10)>=age || ((Array.isArray(survey.age) ? survey.age : [survey.age]).includes('לא מוגבל'))})) || ((Array.isArray(survey.age) ? survey.age : [survey.age]).includes('לא מוגבל')))}
+                (((Array.isArray(survey.age) ? Object.values(survey.age) : Object.values([survey.age])).find(a =>{ return parseInt(`${a}`.split('-')[0],10) <= age && parseInt(`"${a}"`.split('-')[2],10)>=age || ((Array.isArray(survey.age) ? survey.age : [survey.age]).includes('לא מוגבל'))})) || ((Array.isArray(survey.age) ? survey.age : [survey.age]).includes('לא מוגבל')))}
 
     
     useEffect(()=>{

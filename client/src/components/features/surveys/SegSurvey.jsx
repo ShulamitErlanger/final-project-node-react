@@ -31,7 +31,7 @@ const SegSurvey=(props)=>{
     const changeStatus = (e) => {
 
 
-        ChangeStatusFunc({_id:survey._id,status:'completed'}).then(()=>{console.log('in trouble');refetch()}) 
+        ChangeStatusFunc({_id:survey._id,status:'completed'}).then(()=>{refetch()}) 
        
    };
    

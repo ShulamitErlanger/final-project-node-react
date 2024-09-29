@@ -25,7 +25,6 @@ const AddSurvey=(props)=>{
     const [visibleS,setVisibleS]=useState(false);
     const [addSurveyFunc,{data:survey={},isError:addSurveyIsError,error:addSurveyError,isSuccess:addSurveyIsSuccess}]=useAddSurveyMutation()
     const add = async (e) => { 
-        console.log(questions);
         let selectSector;
     selectSector= await selectedSectors.map(select=>select.name)
 let selectAge;

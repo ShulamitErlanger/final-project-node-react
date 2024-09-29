@@ -127,8 +127,6 @@ const Register = (props) => {
                             name='name'
                             className={classNames({ 'p-invalid': isFormFieldInvalid('name') })}
                             onChange={(e) => {
-                                console.log(e.value);
-
                                 setTextn(e.value)
                                 formik.setFieldValue('name', e.value);
                             }}

@@ -51,7 +51,7 @@ const segment=(kind)=>{
     kind=='היסטוגרמה' || select[index].select.cname=='היסטוגרמה'?Bar():kind=='תרשים מקלות מורכב' ||select[index].select.cname=='תרשים מקלות מורכב'?BigBar():
     Pie() 
 }
-const [selectedCity, setSelectedCity] = useState(select[index].select?select[index].select:select?'תרשים עוגה':console.log('selectedCity'));
+const [selectedCity, setSelectedCity] = useState(select[index].select?select[index].select:'תרשים עוגה');
 const [selectedWichData, setSelectedWichData] = useState(selectWich[chooseIndex]?.choose?selectWich[chooseIndex]?.choose:selectWich?'כללי':'selectedFrame');
 
 const countries = [

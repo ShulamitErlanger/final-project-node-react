@@ -24,9 +24,7 @@ const UserSurvey=(props)=>{
         if (select) {
             await Promise.all(select.map(q => changeAnswerDataFunc({ _id: survey._id, questionId: q._id, answerId: select[select.indexOf(select.find(i => i._id === q._id))].select })));
             refetch();
-        } else {
-            console.log('no select');
-        }
+        } 
     };
 
     const handleButtonClick = async () => {
