@@ -1,9 +1,11 @@
 import { Button } from "primereact/button"
 import {useAddQuestionMutation}from './questions/questionApiSlice'
 import Question from "./questions/Question"
+import QuestionDialog from "./questions/QuestionDialog"
 import { useRef, useState } from "react"
-import {useChangeStatusMutation, useUpdateSurveyMutation } from "./surveyApiSlice"
+import {useAddSurveyMutation,useChangeStatusMutation, useUpdateSurveyMutation } from "./surveyApiSlice"
 import { InputText } from "primereact/inputtext"
+import { Dialog } from "primereact/dialog"
 import { StyleClass } from 'primereact/styleclass';
 import { Dropdown } from 'primereact/dropdown';        
 import { Slider } from "primereact/slider"
@@ -13,27 +15,38 @@ import { AutoComplete } from "primereact/autocomplete"
 import { classNames } from "primereact/utils"
 import SendSurvey from "./SendSurvey"
 import { useFormik } from "formik"
-
+import { Inplace, InplaceContent, InplaceDisplay } from "primereact/inplace"
 const Survey=(props)=>{
-    const {survey,refetch,setVisible}=props
+    const {survey,refetch,setVisible1,visible1}=props
     const [selectedGender, setSelectedGender] = useState(survey.gender);
     const [selectedSector, setSelectedSector] = useState(survey.sector);
     const [send,setSend]=useState(false)
     const title=useRef(survey.title)
-    let [questions,setQuestions]=useState(survey.questions.map(q=>{return{_id:q._id,body:q.body,answers:q.answers.map(a=>{return{_id:a._id,body:a.body,createdAt:a.createdAt}}),createdAt:q.createdAt}}))
+const [text,setText]=useState(survey.title)
+    let [questions,setQuestions]=useState(survey.questions.map(q=>{return{_id:q._id,body:q.body,createdAt:q.createdAt,answers:q.answers.map(a=>{return{_id:a._id,body:a.body,createdAt:a.createdAt}}),createdAt:q.createdAt}}))
+    let [newQuestions,setNewQuestions]=useState([]);
     const [updateSurveyFunc, {isError3, error3, isSuccess3,data3}] = useUpdateSurveyMutation()
+    const [changeStatusFunc, {isError, error, isSuccess,data}] =useChangeStatusMutation()
     const addQuestion=()=>{
-        setQuestions([...questions,{_id:null,body:'שאלה חדשה',answers:[{_id:null,body:'תשובה חדשה',createdAt:null}],createdAt:null}])
+        setQuestions([...questions,{_id:null,body:'שאלה חדשה',createdAt:null,answers:[{_id:null,body:'enter an answer',createdAt:null}]}])
         refetch()
      }
 
     const edit = async (e) => {
-    await updateSurveyFunc({_id:survey._id,title:title.current.value,gender:selectedGender,sector:selectedSector,age:ages,questions:questions}).then(()=>refetch()) 
-    refetch()
+    await updateSurveyFunc({_id:survey._id,title:title.current.value,gender:selectedGender.name,sector:selectedSector.name,age:ages,questions:questions,newQuestions:newQuestions}).then(()=>refetch()) 
     }
 
  
-   
+    const changestatus = (e) => {
+        // e.preventDefault();
+         changeStatusFunc({_id:survey._id,status:"in process"}).then(refetch())
+      }
+  
+      const toggleBtnRef = useRef(null);
+      let [icon,setIcon] =useState('pi pi-save')
+      const changeIcon=()=>{
+          icon==='pi pi-save'?setIcon('pi pi-send'):setIcon('pi pi-save')
+      }
     const gender = [
         { label: 'לא מוגבל',icon:'pi pi-circle',command:()=>{setSelectedGender('לא מוגבל')} },
         { label: 'זכר',command:()=>{setSelectedGender('זכר')} },
@@ -89,7 +102,27 @@ return isFormFieldInvalid(name) ?  <small className="p-error">{formik.errors[nam
 }
 
    
+const selectedCountryTemplate = (option, props) => {
+    if (option) {
+        return (
+            <div className="flex align-items-center">
+                <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`mr-2 flag flag-${option.code}`} style={{ width: '18px' }} />
+                <div>{option.name}</div>
+            </div>
+        );
+    }
 
+    return <span>{props.placeholder}</span>;
+};
+
+const countryOptionTemplate = (option) => {
+    return (
+        <div className="flex align-items-center">
+            <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`mr-2 flag flag-${option.code}`} style={{ width: '18px' }} />
+            <div>{option.name}</div>
+        </div>
+    );
+};
   
     return(
         <>
@@ -100,6 +133,7 @@ return isFormFieldInvalid(name) ?  <small className="p-error">{formik.errors[nam
                 name='title'
                 className={classNames({ 'p-invalid': isFormFieldInvalid('title') })}
                 onChange={(e) => {
+                    setText(e.value)
                     formik.setFieldValue('title', e.value);
                 }}
                 />
@@ -108,8 +142,8 @@ return isFormFieldInvalid(name) ?  <small className="p-error">{formik.errors[nam
         </div> 
         <div style={{ display: 'flex' }}>
             <div style={{ position: 'sticky', top: 200, height: '0vh', width: '300px',fontFamily:'Yehuda CLM'}}>
-                <h2>&nbsp;&nbsp;&nbsp;?למי מיועד הסקר</h2>
-                <PanelMenu model={items} className="w-full md:w-20rem"></PanelMenu>
+            <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?למי מיועד הסקר</h2>
+            <PanelMenu model={items} className="w-full md:w-20rem"></PanelMenu>
                 <Accordion className="w-full md:w-20rem">
                     <AccordionTab header={<div><i className='pi pi-sort-numeric-up-alt'></i>&nbsp;&nbsp;גיל</div>}>
                         <div>
@@ -125,7 +159,7 @@ return isFormFieldInvalid(name) ?  <small className="p-error">{formik.errors[nam
             </div> 
             <div style={{ flex:1 ,textAlign: 'center' }}>
                 {questions?.map((q,i)=><Question question={q}questions={questions} index={i} refetch={refetch}/>)} 
-                {send && <SendSurvey visible={send} setVisible={setSend} setVisibleS={setVisible} refetch={refetch} survey={survey}status={"in process"}/>}
+                {send && <SendSurvey visible={send} setVisible={setSend} setVisibleS={setVisible1} refetch={refetch} survey={survey}/>}
             </div>
         </div>
         </>

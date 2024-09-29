@@ -1,12 +1,72 @@
 .App {
   text-align: center;
 }
+.App {
 
-.App-logo {
+  overflow: auto;
+  
+  min-height: 100vh; /* Full height of the viewport */
+  
+  height: 100%;
+  
+  width: 100%;
+  
+  margin: 0; /* Remove default margins */
+  
+  padding: 0; /* Remove default padding */
+  
+  /* display: flex; */
+  
+  /* flex-direction: column; /* Ensure it expands */
+  
+  /*justify-content: center; /* Center content vertically */
+  
+  /*align-items: center; Center content horizontally */
+  
+  background:url('../public/image/newback2.png');
+  
+  background-repeat: no-repeat;
+  
+  background-size: cover;
+  
+  background-attachment: fixed;
+  
+  }
+  /* .p-menubar.p-component {
+    background-image: url('../public/image/הרוב-קובע.gif');
+    background-size: 200px auto; 
+    background-position: right;
+    background-repeat: no-repeat;
+} */
+
+/* .p-menubar.p-component {
+  background-image: url('../public/image/הרוב-קובע.gif');
+  background-size: 200px auto; /* Adjust the size as needed */
+  /* background-position: calc(100% - 40px) top; /* Adjust the offset as needed */
+  /* background-repeat: no-repeat; */
+/* }  */
+
+
+.p-menubar.p-component {
+  background-image: url('../public/image/הרוב-קובעע.gif');
+  background-size: 280px auto; /* Adjust the size as needed */
+  background-position: calc(100% - 5%) top; /* Adjust the offset as needed */
+  background-repeat: no-repeat;
+
+  /* top: -200px; /* Adjust the value to move it higher */
+  /* margin-top: -50px; */ 
+}
+  .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
+div {
+  background-repeat: repeat-y;
+  background-size: cover;
+  font-family: "Yehuda CLM", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+} 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

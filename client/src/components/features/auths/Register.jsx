@@ -78,22 +78,17 @@ const Register = (props) => {
         validate: (data) => {
             let errors = {};
             if (!data.name) {
-                console.log("name");
-                console.log(data);
+               
                 errors.name = 'שדה חובה';
                 
 
             }
             if (!data.username) {
-                console.log("username");
-
-                console.log(data);
+                
                 errors.username = 'שדה חובה';
             } if (!data.password) {
-                console.log("password");
                 errors.password = 'שדה חובה';
             }
-            console.log(data);
 
 
             return errors;
@@ -171,8 +166,8 @@ const Register = (props) => {
                         />
                         {getFormErrorMessage('password')}
 
-                        <br /><br />
-                    </div>
+                        
+                    </div><br /><br />
                     <div className="inline-flex flex-column gap-2" >
                         <label htmlFor="birthDate" className="font-semibold">
                             תאריך לידה

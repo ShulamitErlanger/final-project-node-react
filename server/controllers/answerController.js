@@ -50,7 +50,7 @@ const deleteAnswer=async(req,res)=>{
     const answer=question.answers.find(a=>a._id==answerId)
     if(!answer)
         return res.status(401).json({message:`There No answer with id: ${questionId}`})
-    survey.questions.answers=question.answers.splice(question.answers.indexOf(answer),1)
+    question.answers.splice(question.answers.indexOf(answer),1)
     const MyUpdateSurvey=await survey.save()
     return res.status(200).json({success:true,message:`${survey.title} updated`})
 }

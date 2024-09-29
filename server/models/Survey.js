@@ -14,13 +14,9 @@ const surveySchema=new mongoose.Schema({
         enum:["creating","in process","closed","completed"],
         default:"creating"
     },
-    // birthDate:{
-    //     type:Date,
-    //     immuteable:true
-    // },
     age:{
-        type:[Number],
-        default:[0,120]
+        type:[String],
+        default:['לא מוגבל']
     },
     gender:{
         type:String,

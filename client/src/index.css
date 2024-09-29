@@ -1,3 +1,5 @@
+
+
 body {
   margin: 0;
   font-family: 'Yehuda CLM';
@@ -10,14 +12,18 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',monospace;
 }
+
 html {
   font-size: 14px;
 }
+
 .card {
   /* background: var(--surface-card); */
+  /* margin-top: 60px; */
   padding: 1rem;
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -30,28 +36,44 @@ div {
     font-weight: 500;
     font-style: normal;
   } 
+
   
  button {
     font-family: "Varela Round", sans-serif;
     font-weight: 400;
     font-style: normal;
   } 
+
 .App{
-    background:url('../public/images/back.png');
+    background:url('../public/image/newback2.png');
     background-repeat: no-repeat;
     background-size: cover;
+    
+    background-position: "center";
     background-attachment: fixed;
+
+}
+.nav{
+  background:url('../public/image/הרוב-קובע.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  background-position: "center";
+  background-attachment: fixed;
+
 
 }
 .answersCard{
   border:'1px';
   border-color: '#e5e7eb';
+
 }
 .newUser{
   background-color: #14B8A6;
 }
 .p-fieldset ,.p-fieldset-legend{
   border-color:#14B8A6;
+
 }
 .p-fluid .p-inputtext{
   border-color:#14B8A6;
@@ -63,27 +85,27 @@ div {
   font-family: 'Yehuda CLM';
 font-weight: 600;
 font-size: medium;}
-#password1,#calendar1,#username1,#email1, #name1 .p-autocomplete-input, #username1 .p-autocomplete-input{
-  width:100%;
-  height: 50px;
-  border-color:#14B8A6;
- }
+
  .p-inputtext.p-component{
   border-color:#14B8A6;
   /* color: #14B8A6; */
-
+  
  }
  #pr_id_193_header{
   font-family: 'Yehuda CLM';
  }
+ /*.p-dialog-content, .p-dialog-header, .p-dialog-footer{
+  background-color:#14B8A6;
+
+ } */
  .p-menubar{
   color: #14B8A6;
   block-size: 100px;
   padding: 4rem;
-  margin-top: 0%;
-  top:0%
- }
+margin-top: 0%;
 
+top:0% }
+ 
  #userCard{
   width: 60%;
   border-color: #14B8A6;
@@ -95,56 +117,70 @@ font-size: medium;}
 
 }
 .App{
-   overflow: auto;
-   min-height: 100%;
+  overflow: auto;
+  min-height: 100%;
   height: 100%;
   width:100%;
   margin-top: 0%;
 }
 .cardSurvey{
   margin-top: 110px;
-
+  
 }
 .nav{
   position: fixed;
   width: 99%;
+  z-index: 10000;
+
 }
 .p-menubar.p-component{
+
   padding: 30;
+
 
 }
 span.bar{
   font-size: larger;
   padding-left: 20px;
   padding-right: 4px;
-
 }
 .link{
   margin-left: 3px;
 }
 span.pi.pi::before{
 
+    color:#14B8A6;
+    
+}
+
+i.pi.pi-sort-numeric-up-alt::before{
   color:#14B8A6;
 
 }
-i.pi.pi-sort-numeric-up-alt::before{
-color:#14B8A6;
-
-}
-a { text-decoration: none; 
+a { text-decoration: none;
+  color:black 
 }
 #butUserSurvey .p-button-icon.p-c.p-button-icon-left.pi.pi-save::before{
   color:white;
 }
-.p-button-icon.p-c.p-button-icon-left.pi.pi-user-plus::before, .p-button-icon.p-c.p-button-icon-left.pi.pi-user::before, .p-button-icon.p-c.p-button-icon-left.pi.pi-check::before{
-color:white;
+ .p-button-icon.p-c.p-button-icon-left.pi.pi-user::before, .p-button-icon.p-c.p-button-icon-left.pi.pi-check::before{
+  color:white;
+
 }
+/* .p-autocomplete.p-component.p-inputwrapper{
+  width: 500px;
+  padding-right: ;
+} */
 #radios{
   font-size: 8pt;
 }
 div.p-radiobutton-box{
   width: 18px;
   height: 19px;
+
+
+
+
 }
 legend.p-fieldset-legend.p-unselectable-text{
   margin-right: 2px;
@@ -162,3 +198,203 @@ div.p-fieldset-content{
   width:400px;
   height: 50px;
 }
+
+/* #whitwB1{
+  color: white;
+} */
+
+#iconn{
+  color:aliceblue !important;
+}
+/* p-button-icon p-c p-button-icon-left pi pi-user-plus */
+.p-button-icon.p-c.p-button-icon-left.pi.pi-user-plus::before{
+  color:white !important;
+
+}
+#userCard.card{
+  margin: auto;
+}
+/* #surveyCard.card{
+  margin-right: auto;
+  width: 50px;
+
+} */
+video{
+  top:150px;
+}
+/* #about,#about3{
+  width: 500px;
+  height: 300px;
+  margin: auto;
+} */
+#about,#about3,#about2{
+  width: 500px;
+  max-height: 500px;
+  margin: auto;
+}
+ /* canvas{
+  width: 500px;
+  height: 300px;
+ } */
+  /* div.p-card-body{
+    margin: auto;
+    margin-top: 80px;
+  } */
+/*  */
+#surveyCard.card{
+  width: 700px; 
+  margin-right:'20%' !important;
+
+}
+ 
+  #seg.card{
+width: 500px; 
+ }
+ 
+   .p-button {
+    margin: 0;
+    display: inline-flex;
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+  position: static;}
+  .p-overlay-badge .p-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    transform-origin: 100% 0;
+    margin: 0;
+}
+  .p-overlay-badge {
+    position: relative;
+    z-index: 3;
+}
+.p-steps.p-component.p-readonly.m-2.pt-4{
+  position: relative;
+  z-index:0;
+
+}
+.canv{
+display:flex;
+flex-wrap: wrap;
+width: 40%;
+align-items:'center';
+text-align:'center';
+ margin-right:'auto';
+}
+.chart-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.chart {
+  flex: 1;
+}
+.chartTogether{
+text-align: center;
+align-items: center;
+margin-right: auto;
+}
+.charta {
+  width: 100%; /* Default full width */
+}
+.sizeOfChart{
+  size: '500px'; /* Default full width */
+
+}
+.vi{
+  margin-top: 200px;
+}
+@media screen and (min-width: 300px) {
+  .charta {
+    width: 100%; 
+  }
+  .sizeOfChart{
+    width: 50%;
+  }
+  /* .homePage{
+    
+  } */
+  .vi{
+    width:90%;
+  }
+  .chartTogether{
+    width:90%
+  }
+  .flex.flex-center.card.p-fluid.p-inputtext-lg
+{
+  width:100%
+}
+#segg.card{
+  width: 100%;
+   } 
+}
+/* Medium Size Screens */
+@media screen and (min-width: 600px) {
+  .charta {
+    width: 45%; /* 45% width for medium screens */
+  }
+  .vi{
+    width:80%;
+  }
+  .sizeOfChart{
+    width: 50%;
+  }
+  .chartTogether{
+    width:80%
+  }
+  .flex.flex-center.card.p-fluid.p-inputtext-lg
+{
+  width:100%
+}
+#segg.card{
+  width: 80%;
+   }
+   .right-column {
+    display: none;
+    background-color: #14B8A6;
+  }
+  
+  .right-column.hidden {
+    display: block;
+  }
+}
+
+/* Large Size Screens */
+@media screen and (min-width: 900px) {
+  .charta {
+    width: 30%; /* 30% width for large screens */
+
+  }
+  .vi{
+    width:60%;
+  }
+  .chartTogether{
+    text-align: center;
+    align-items: center;
+  }
+}
+.j{
+  text-align: center;
+  align-items: center;
+  size: 50px;
+}
+.pi.pi-bookmark-fill{
+  color:#14B8A6;
+
+}
+#surveysAcord{
+  border-color: #14B8A6;
+}
+#segg.card{
+  width: 500px;
+   }
+/* .logoImg{
+  margin-top: 40%;
+} */
+
+  

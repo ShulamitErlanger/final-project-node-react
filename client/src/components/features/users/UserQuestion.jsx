@@ -1,11 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, {useState } from 'react';
 import { RadioButton } from 'primereact/radiobutton';
-import { Card } from 'primereact/card';
 import { Fieldset } from 'primereact/fieldset';
-
+import '../../../index.css';
 const UserQuestion=(props)=> {
-const {select,setSelect,refetch,question,survey,index}=props
-//const index=select.indexOf(select.find(q=>q._id==question._id))
+const {select,setSelect,refetch,question,survey}=props
+const index=select.indexOf(select.find(q=>q._id==question._id))
 let bodyAnswers=question.answers.map(a=>{return {key:a._id,name:a.body}});
 const categories = bodyAnswers
 const [selectedCategory, setSelectedCategory]=useState(select[index].select||'');
@@ -29,17 +28,3 @@ const [selectedCategory, setSelectedCategory]=useState(select[index].select||'')
 }
 export default UserQuestion
 
-
-/*
-import React from 'react'; 
-
-export default function DisabledDemo() {
-    return (
-      
-    )
-}
-        
-
-
-
-        */

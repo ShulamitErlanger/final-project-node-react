@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 
-export default function BasicDemo() {
+const Diagram=()=>{
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
     const [colorsGroup,setColorsGroup]=useState(['rgb(20, 220, 185)',
@@ -55,8 +55,11 @@ export default function BasicDemo() {
 
     return (
         <div className="card">
-            <Chart type="bar" data={chartData} options={chartOptions} />
-        </div>
+ <Chart type="bar" data={chartData} options={chartOptions} />
+            <Chart type='pie' data={chartData} options={chartOptions}/>
+            <Chart type="line" data={chartData} options={chartOptions} />        </div>
     )
 }
+export default Diagram
+
         

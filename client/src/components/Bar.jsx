@@ -1,10 +1,7 @@
 import React from "react";
 import { Menubar } from 'primereact/menubar';
 import {useNavigate} from "react-router-dom"
-import { TabPanel, TabView } from "primereact/tabview";
-import Surveys from "./features/surveys/Surveys";
-import UserSurveys from "./features/users/UserSurveys";
-import SegmentSurveys from './features/surveys/SegmentSurveys'
+
 const Bar = (props) => {
 
     const navigate=useNavigate()
@@ -20,19 +17,19 @@ const Bar = (props) => {
 
     const barArr =role==2? [
         {
-            label:"כל הסקרים", 
+            label:"my surveys", 
             command: myAccount
         },
         {
-            label:"סקרי משתמש", 
+            label:"user surveys", 
             command: ()=>{navigate(`/UserSurveys`)}
         },
         {
-            label:"פילוח", 
+            label:"segmentation", 
             command: ()=>{navigate(`/surveySegmentation`)}
         },
         {
-            label:"סקרים מפולחים", 
+            label:"segmented", 
             command: ()=>{navigate(`/segments`)}
         }
     ]:role==1?
@@ -56,7 +53,7 @@ const Bar = (props) => {
 
     return (
         <div >
-            <Menubar model={barArr} style={{backgroundColor:'#00bbbb',position:'fixed',width:'100%',zIndex:100,top:0,left:0,borderRadius:'0px',height:'130px',fontSize:'25px',fontFamily:'Yehuda CLM',justifyContent:'center',opacity:0.95,}}/>
+            <Menubar model={barArr} />
         </div>
     )
 }

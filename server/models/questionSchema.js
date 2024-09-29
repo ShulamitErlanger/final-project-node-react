@@ -9,12 +9,19 @@ const questionSchema=new mongoose.Schema({
     segmentation:{
         kind:{
             type:String,
-            enum:["תרשים עוגה","היסטוגרמה","גרף"],
+            enum:["תרשים מקלות מורכב","תרשים עוגה","גרף","היסטוגרמה"],
             default:"תרשים עוגה"},
         note:{
             type:String
-        } 
+        },
+        choose:{
+        type:String,
+        enum:["גיל","מגדר","מגזר"],
+        default:"מגזר"
     }
+    }
+  
+
 },{
         timestamps:true
     

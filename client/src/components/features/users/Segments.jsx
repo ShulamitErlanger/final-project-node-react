@@ -2,61 +2,110 @@
 import { useGetSurveysQuery } from '../surveys/surveyApiSlice';
 
 import Segment from './Segment';
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 
 import { Dialog } from 'primereact/dialog';
-
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
 import SegmentItem from './SegmentItem';
 import { ScrollTop } from 'primereact/scrolltop';
+
 const Segments=(props)=>{
-const {data :surveys=[],isLoading,isError,error, refetch}= useGetSurveysQuery({status:"completed"})
+const {data :surveys=[],isLoading,isError,error, refetch}= useGetSurveysQuery({status:"completed", sector: '', gender: '', birthDate: ''})
 
-const [sortKey, setSortKey] = useState('');
-const [sortOrder, setSortOrder] = useState(0);
-const [sortField, setSortField] = useState('');
-const [visible, setVisible] = useState(false);
-const [visibleNew, setVisibleNew] = useState(false);
-const sortOptions = [
-    { label: 'Price High to Low', value: '!price' },
-    { label: 'Price Low to High', value: 'price' }
-];
-const [add,setAdd]=useState(false)
-const [survey,setSurvey]=useState(false)
-const[edit,setEdit]=useState(false)
-const[del,setDel]=useState(false)
-   
+const [searchText, setSearchText] = useState('');
+    const [filteredSurveys, setFilteredSurveys] = useState([]);
 
-const onSortChange = (event) => {
-    const value = event.value;
+    useEffect(() => {
+        if (searchText === '') {
+            setFilteredSurveys(surveys); // Show all surveys when search text is empty
+        } else {
+            const filteredResults = surveys.filter(survey =>
+                survey.title && survey.title.toLowerCase().includes(searchText.toLowerCase())
+            );
+            setFilteredSurveys(filteredResults);
+        }
+    }, [surveys, searchText]);
 
-    if (value.indexOf('!') === 0) {
-        setSortOrder(-1);
-        setSortField(value.substring(1, value.length));
-        setSortKey(value);
-    } else {
-        setSortOrder(1);
-        setSortField(value);
-        setSortKey(value);
-    }
+    const handleSearchChange = (e) => {
+        const { value } = e.target;
+        setSearchText(value);
+    };
+    const sortSurveysByUpdateDate = () => {
+        const sortedSurveys = [...filteredSurveys].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+        setFilteredSurveys(sortedSurveys);
+    };
+    
+    const toggleSortDirection = () => {
+        const sortedSurveys = [...filteredSurveys].reverse();
+        setFilteredSurveys(sortedSurveys);
+    };
+    
+    
+    const [isSortingAscending, setIsSortingAscending] = useState(true);
+const [sortText, setSortText] = useState("בסדר עולה");
+
+
+
+const [iconn,setIconn]=useState("pi pi-sort-amount-up");
+const [isAscending, setIsAscending] = useState(true);
+
+const handleSortButtonClick = () => {
+    setIsAscending(!isAscending);
+    setSortText(isAscending ? "בסדר יורד" : "בסדר עולה");
+    setIconn(isAscending ? "pi pi-sort-amount-down" : "pi pi-sort-amount-up");
+    if (isSortingAscending) {
+                toggleSortDirection();}
+                else{
+                            sortSurveysByUpdateDate();
+
+                }
 };
+    
 
 
 
 
 return (
     <>
-      <div className="cardSurvey" style={{marginTop:'130px'}}> 
-        <div style={{ display: 'flex' }}>
-            <div style={{ flex: 1 /*,width:'80%'*/ }}>
-                
-            </div>
-            <div style={{ flex: 2/*,marginLeft:'25%'*/}}>
-                 {surveys.map((s)=><SegmentItem survey={s}refetch={refetch}/>)}
-                <ScrollTop/>
-            </div>
-        </div>
-    </div> 
+       <div className="cardSurvey" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+         <div style={{ flex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' ,marginRight:'20%' }}>
+            {filteredSurveys.map((s) => <SegmentItem key={s.id} survey={s} refetch={refetch} />)}
+
             <ScrollTop />
+</div>
+            <div className='right-column' style={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    position: 'fixed',
+                    right: '0',
+                    top: '130px',
+                    bottom: '0',
+                    padding: '20px',
+                    backgroundColor: '#f9f9f9',
+                    overflowY: 'auto',
+                    width:'300px'
+                }}>
+                    <br/>
+                    <InputText dir='rtl' placeholder="חפש סקר לפי שם..." value={searchText} onChange={handleSearchChange} /><br/>
+                    {/* Other content */}
+                    <p dir="rtl"style={{marginRight:5}}>מיון לפי תאריך:</p>
+                    <Button
+    icon={iconn}
+    style={{ color: '#10bbbb', backgroundColor: '#e5e7eb', marginBottom: '20px' }}
+    label={sortText}
+    onClick={handleSortButtonClick}
+    rounded
+/>
+
+<br/>
+                <div style={{color:"#14B8A6", fontSize:'20pt'}}> שמחים שבחרת לענות <br/>"הרוב קובע"<br/>צעד קטן לאדם<br/>התקדמות גדולה לאנושות <br/>מקוים שנהנית</div><br/>
+                               <img  className="logoImg" style={{width:'250px'}}src="image/הרוב-קובעע.gif" alt="My Image" />
+            </div>
+            </div>
+                
 </>
 )
 

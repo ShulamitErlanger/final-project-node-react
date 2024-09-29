@@ -3,7 +3,9 @@ import { useGetSurveysQuery } from '../surveys/surveyApiSlice';
 import UserSurveyItem from './UserSurveyItem';
 import { useGetUserQuery } from './userApiSlice';
 import { Button } from 'primereact/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { InputText } from 'primereact/inputtext';
+
 const UserSurveys=(props)=>{
 const status="in process";
 const{
@@ -22,34 +24,142 @@ const{
     isSuccess:survesIsSuccess,
     refetch
     } = useGetSurveysQuery({status:status})
-    let filteredSurveys=[]
-
-const filt=()=>{
-    if(myUser?.roles==='admin')
-        filteredSurveys=surveys
-    else{
-filteredSurveys=surveys?.filter(s=>((s.sex===myUser?.sex || s.sex==='לא מוגבל') && (s.sector===myUser?.sector || s.sector==='לא מוגבל') && (s.age[0]<=age&&s.age[1]>=age||s.age==='') ) && (myUser?.surveys?.find(us=>us===s._id)==undefined))}}
-
-
-    const d = new Date(myUser?.birthDate);
-    const y1=d.getFullYear()
-    const y2=new Date().getFullYear()
-    const age=(y2-y1)
-    filt(); 
-    const [visible1,setVisible1]=useState(false)
-   /// surveys?.forEach(s=>console.log(s.gender,' ',s.sector,' ',s.title))
-   // filteredSurveys=surveys?.filter(s=>(s.gender===myUser?.gender || s.gender==='לא מוגבל')&& (s.sector===myUser.sector || s.sector==='לא מוגבל') && s.age[0]<=age&&s.age[1]>=age)
-    if (isLoading) return <h1>Loading</h1>
-    if(isError) return <h2>{error}</h2>
+    const [searchText, setSearchText] = useState('');
+    const [filteredSurveys, setFilteredSurveys] = useState([]);
+    let aa="10-20"
+    console.log(surveys);
+    const age = myUser ? new Date().getFullYear() - new Date(myUser?.birthDate).getFullYear() : 0;
+    
+    const debouncedSearch = useDebounce(searchText, 300);
+    
+    useEffect(() => {
+        if (surveys) {
+            filterSurveys();
+        }
+    }, [surveys, myUser, debouncedSearch]);
+    
+    const filterSurveys = () => {
+        let surveysToDisplay = [...surveys];
+    
+    
+        if (myUser && myUser.roles !== 'admin') {
+            surveysToDisplay = surveysToDisplay.filter(survey =>
+                (survey.gender === myUser.gender || survey.gender === 'לא מוגבל') &&
+                (((Array.isArray(survey.sector) ? survey.sector : [survey.sector]).find(s => s === myUser.sector)) || ((Array.isArray(survey.sector) ? survey.sector : [survey.sector]).includes('לא מוגבל'))) &&
+                (((Array.isArray(survey.age) ? Object.values(survey.age) : Object.values([survey.age])).find(a =>{ console.log("a");console.log(age);console.log(parseInt(`${a}`.split('-')[0],10)); return parseInt(`${a}`.split('-')[0],10) <= age && parseInt(`"${a}"`.split('-')[2],10)>=age})) || ((Array.isArray(survey.age) ? survey.age : [survey.age]).includes('לא מוגבל'))) && 
+                !myUser.surveys.includes(survey._id)
+            );
+        }
+    
+      
+    
+    
+    
+        if (debouncedSearch) {
+            surveysToDisplay = surveysToDisplay.filter(survey =>
+                survey.title && survey.title.toLowerCase().includes(debouncedSearch.toLowerCase())
+            );
+        }
+    
+        setFilteredSurveys(surveysToDisplay);
+    };
+    
+    const handleSearchChange = (e) => {
+        const { value } = e.target;
+        setSearchText(value);
+    };
+    const sortSurveysByUpdateDate = () => {
+        const sortedSurveys = [...filteredSurveys].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+        setFilteredSurveys(sortedSurveys);
+    };
+    
+    const toggleSortDirection = () => {
+        const sortedSurveys = [...filteredSurveys].reverse();
+        setFilteredSurveys(sortedSurveys);
+    };
+    
+    
+    const [isSortingAscending, setIsSortingAscending] = useState(true);
+    const [sortText, setSortText] = useState("בסדר עולה");
+    
+    
+    
+    
+    const [iconn,setIconn]=useState("pi pi-sort-amount-up");
+    const [isAscending, setIsAscending] = useState(true);
+    
+    const handleSortButtonClick = () => {
+        setIsAscending(!isAscending);
+        setSortText(isAscending ? "בסדר יורד" : "בסדר עולה");
+        setIconn(isAscending ? "pi pi-sort-amount-down" : "pi pi-sort-amount-up");
+        if (isSortingAscending) {
+                    toggleSortDirection();}
+                    else{
+                                sortSurveysByUpdateDate();
+    
+                    }
+    };
 
 
     return (
         <>
-        <div className="cardSurvey" id='cardSurveyId'>
-            {filteredSurveys?.map((s)=><UserSurveyItem refetch ={refetch} survey={s} user={myUser}/>)}
-            <ScrollTop />
+        <div className="cardSurvey" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+            <div style={{ flex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' ,marginRight:'20%' }}>
+                {filteredSurveys.map((survey) => (
+
+                    <UserSurveyItem key={survey.id} user={myUser} refetch={refetch} survey={survey} />
+                ))}
+                <ScrollTop />
+            </div>
+
+            <div style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                position: 'fixed',
+                right: '0',
+                top: '130px',
+                bottom: '0',
+                padding: '20px',
+                backgroundColor: '#f9f9f9',
+                overflowY: 'auto'
+            }}>
+                <br/>
+               
+                <InputText dir='rtl' placeholder="חפש סקר לפי שם..." value={searchText} onChange={handleSearchChange} /><br/>
+                {/* Other content */}
+                <p dir="rtl"style={{marginRight:5}}>מיון לפי תאריך:</p>
+                    <Button
+    icon={iconn}
+    style={{ color: '#10bbbb', backgroundColor: '#e5e7eb', marginBottom: '20px' }}
+    label={sortText}
+    onClick={handleSortButtonClick}
+    rounded
+/> 
+                <div style={{color:"#14B8A6", fontSize:'20pt'}}> שמחים שבחרת לענות <br/>"הרוב קובע"<br/>!!!!בהצלחה<br/>מחכים להציג לך <br/>!תוצאות אמת<br/>!שווה לעקוב</div><br/>
+                               <img  className="logoImg" style={{width:'250px'}}src="image/הרוב-קובעע.gif" alt="My Image" />
+
+            </div>
         </div>
-         </>
-    )
+    </>
+);
+};
+
+function useDebounce(value, delay) {
+const [debouncedValue, setDebouncedValue] = useState(value);
+
+useEffect(() => {
+    const handler = setTimeout(() => {
+        setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+        clearTimeout(handler);
+    };
+}, [value, delay]);
+
+return debouncedValue;
 }
+
 export default UserSurveys

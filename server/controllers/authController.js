@@ -27,11 +27,12 @@ const register=async(req,res)=>{
     if (!name || !username || !password) {
         return res.status(400).json({message:'required field is missing'})
         }
-    if(password===process.env.ADMIN)
-         roles="admin"
+ 
     const duplicate=await User.findOne({username:username}).lean()
     if(duplicate)
       return  res.status(409).json({message:"duplicate username"})
+      if(password===process.env.ADMIN)
+         roles="admin"
     const hashedPwd = await bcrypt.hash(password, 10)
     const userObject= {username,password:hashedPwd,name,birthDate,gender,sector,email,roles}
     const user = await User.create(userObject)

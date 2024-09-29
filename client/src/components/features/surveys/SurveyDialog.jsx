@@ -12,16 +12,16 @@ import { RadioButton } from "primereact/radiobutton";
 // import { useNavigate } from 'react-router-dom';
 const SurveyDialog = (props) => {
     
-const {survey,type}=props
+const {survey,type,refetch}=props
 // const dispatch = useDispatch()
 // const navigate = useNavigate()
 const title=useRef()
-const [addFunc, {isError, error, isSuccess,data,refetch}] = useAddSurveyMutation()
+const [addFunc, {isError, error, isSuccess,data}] = useAddSurveyMutation()
 var [visible, setVisible] = useState(true);
 
 const add = (e) => {
         //e.preventDefault();
-    addFunc({/*_id:survey._id,*/title:title.current.value}).then(()=>refetch())};
+    addFunc({/*_id:survey._id,*/title:title.current.value})};
 // 
 return (
 <div>
@@ -38,11 +38,12 @@ return (
                             <label htmlFor="title" className="text-primary-50 font-semibold">
                                 title
                             </label>
-                            <InputText id="name" label="Title" className="bg-white-alpha-20 border-none p-3 text-primary-50"ref={title}  /*defaultValue={survey.title}*/></InputText>
+                            <InputText id="name" label="Title" className="bg-white-alpha-20 border-none p-3 text-primary-50"ref={title}></InputText>
                         </div>
                             <div className="flex align-items-center gap-2">
                             <Button label="save" onClick={(e) => {hide(e); add()}} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                             <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                       
                         </div>
                     </div>
                 )}

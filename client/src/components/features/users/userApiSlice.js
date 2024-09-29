@@ -10,7 +10,7 @@ providesTags:["Users"]
 }),
 getUser: build.query({
     query:(id)=>({
-    url: '/api/users/id?id='+id.id
+    url: '/api/users/id'
     }),
     invalidatesTags:["Users"]
     

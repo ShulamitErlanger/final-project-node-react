@@ -1,11 +1,6 @@
 const Survey = require("../models/Survey");
 const addSurvey=async(req,res)=>{
-<<<<<<< HEAD
-    let {title,sex,sector,age,questions} = req.body
-=======
     let {title,gender,sector,age,questions} = req.body
-    console.log("add survey");
->>>>>>> d398ea9a2d795831ce01eeec6f610d4d318dc71a
     if (!title) {
         return res.status(400).json({message:'required field is missing'})
         }
@@ -61,7 +56,7 @@ const getSurveyById=async(req,res)=>{
 }
 
 const updateSurvey=async(req,res)=>{
-    const {_id,title,color,gender,sector,age,questions}=req.body
+    const {_id,title,gender,sector,birthDate,age,questions}=req.body
    const survey=await Survey.findById(_id).exec()
     if(!survey){
     return res.status(401).json({message:"not found"})
@@ -71,9 +66,7 @@ const updateSurvey=async(req,res)=>{
             survey.title=title
         }
         
-        if(color){
-            survey.color=color;
-        }
+       
         if(gender){
             const arr=['זכר','נקבה','לא מוגבל'];
             const gender2=arr.find(s=>s==gender);
@@ -115,19 +108,7 @@ if(!survey){
             message:`one survey deleted successfuly`
             })
         }
-        /* const {id}=req.params
-    const survey=await survey.findById(id).exec()
-if(!survey){
-    return res.status(401).json({message:"not found"})
-
-    }
-     if(survey.id==req.survey._id){
-        await survey.deleteOne()
-        return res.status(201).json({success:true,
-            message:`one survey deleted successfuly`
-            })
-        }
-    return res.status(405).json({message:"unaouthorised"})*/
+       
 
 
 const changeStatus=async(req,res)=>{

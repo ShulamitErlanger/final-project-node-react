@@ -7,43 +7,40 @@ import { Badge } from 'primereact/badge';
 import { Avatar } from 'primereact/avatar';
 import { Steps } from 'primereact/steps';
 import { Dialog } from 'primereact/dialog';
-
+import { Card } from 'primereact/card';
 import { Divider } from 'primereact/divider';
 import Segment from './Segment'
 const SegmentItem=(props)=> {
     const {refetch,survey}=props
     const [visible,setVisible]=useState(false)
     const endContent = (
-        <React.Fragment>
-            <div className="flex align-items-center gap-3">
-                        <Button icon="pi pi-eye" className="p-button-rounded" style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}
+       
+                        <Button label="לצפיה בתוצאות הסקר"icon="pi pi-eye" className="p-button-rounded" style={{color:'#10aaaa',backgroundColor:'#e5e7eb'}}
                         onClick={()=>{setVisible(true)}}
                         ></Button>
                         
-                    </div>
-        </React.Fragment>
+
     );
    
     return (<>
        
-        <div className="card">
-            <h1>{survey.title}</h1>
+        <div className="card" id='segg'>
+            <Card>
+            <h1 dir='rtl'>{survey.title}</h1>
            
 
 <div className="card flex justify-content-center">
            
-            <Divider layout="vertical" />
           
-            <Divider layout="vertical" />
             <p style={{width:'30%',marginRight:0}}>
                 {endContent}
             </p>
-        </div>
+        </div></Card>
         </div>
      
 
         <Dialog 
-             header={survey.title} 
+             header="תוצאות הסקר"
             visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
             <p className="m-0">
                 <Segment refetch={refetch}survey={survey}/>

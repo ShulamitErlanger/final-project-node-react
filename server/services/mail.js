@@ -25,10 +25,12 @@ const sendEmailToUser = (to,title,body)=>{
 
   sendEmail(to,title,body)
       .then(info => {
+        console.log('Email sent: ', info.response);
 
           return true
       })
       .catch(error => {
+        console.log('Error sending email: ', error);
 
           return false
       });

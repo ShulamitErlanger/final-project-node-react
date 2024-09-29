@@ -2,20 +2,22 @@ import React, { useRef, useState } from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import Answer from '../answers/Answer';
 import { InputText } from 'primereact/inputtext';
-import { useDeleteQuestionMutation, useUpdateQuestionMutation } from './questionApiSlice';
-import { Toast } from 'primereact/toast';
-import { SpeedDial } from 'primereact/speeddial';
+import { useUpdateQuestionMutation } from './questionApiSlice';
 import {useAddAnswerMutation}from '../answers/answerApiSlice'
 import { StyleClass } from 'primereact/styleclass';
 import { Button } from 'primereact/button';
-import SegQuestion from '../SegQuestion';
 import { Divider } from 'primereact/divider';
+import './question.css'
+
 const Question=(props)=> {
     const [updateQuestionFunc, {isError, error, isSuccess,data}] =useUpdateQuestionMutation()
 
-    const {question,index,survey,refetch,setQuestions}=props
-    let {questions}=props 
-    const del=()=>{
+    const {question,index,survey,refetch}=props
+    let {questions,setQuestions,newQuestions,setNewQuestions}=props 
+    const [addAnswerFunc,{isError:addAnswerIsError,error:addAnswerError,isSuccess:addAnswerIsSuccess,data:addAnswerData={}}]=useAddAnswerMutation()
+    var [visible, setVisible] = useState(true);
+
+    const delet=()=>{
         questions.splice(index,1);
         refetch()
     }
@@ -24,31 +26,59 @@ const Question=(props)=> {
         refetch()
      }
     
-    const body=useRef(question.body!=' '?question.body:"שאלה חדשה")
+    const bodyQ=useRef(question.body!=' '?question.body:"שאלה חדשה")
     const toast = useRef(null);
     const toggleBtnRef = useRef(null);
-    return (
-        <div className="card">  
-                <Accordion multiple activeIndex={[0]} style={{width:'100%'}}>
-                <AccordionTab header={question.body!=' '?question.body:"שאלה חדשה"} > 
-                <div dir="rtl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Button label="&nbsp; הוסף תשובה " icon='pi pi-plus'rounded  onClick={addAnswer}> </Button> &nbsp;
-              <Button label="&nbsp; מחק שאלה" icon='pi pi-trash' rounded onClick={del} style={{color:'#10bbbb', backgroundColor:'#e5e7eb'}}></Button> </div>
-               
-                <div className="card p-fluid p-inputtext-lg" dir='rtl'>
-                <StyleClass nodeRef={toggleBtnRef} selector="@next" toggleClassName="p-disabled" />
-                <InputText ref={body}  defaultValue={body.current} onChange={()=>{if(questions){questions[index].body=body.current.value}}}/>
-            </div> 
+    const items = [
+        
+        {
+            label: 'Add',
+            icon: 'pi pi-plus',
+            command: async() => {
+                await addAnswer()
+                toast.current.show({ severity: 'info', summary: 'Add', detail: 'Data Added' });   
+                 refetch();
 
-            <Divider></Divider>
-            
-                    {question?.answers?.map((a,i)=>
-                    <p className="m-0">
-                        <Answer question={question} questions={questions} qIndex={index} index={i} survey={survey} answer={a}refetch={refetch}/>
-                     </p> 
-                      )}
-                 </AccordionTab>
-                 </Accordion>
-            </div>
+            }
+        },
+        
+        {
+            label: 'Delete',
+            icon: 'pi pi-trash',
+            command: async() => {
+                await delet();
+                toast.current.show({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
+                refetch();
+
+            }
+        },
+       
+    ];
+    return (
+        <div className="card">
+             <div style={{ position: 'relative', bottom:'50px', left:'10%', width:'10px' }}>
+         
+     </div>
+            <Accordion multiple activeIndex={[0]} style={{width:'100%'}}>
+            <AccordionTab  header={question.body!=' '?question.body:"שאלה חדשה"}> 
+            <div dir="rtl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Button  label="&nbsp; הוסף תשובה " icon='pi pi-plus'rounded  id="iconn"style={{color:'#ffffff'}} onClick={addAnswer}> </Button> &nbsp;
+          <Button label="&nbsp; מחק שאלה" icon='pi pi-trash' rounded onClick={delet} style={{color:'#10bbbb', backgroundColor:'#e5e7eb'}}></Button> </div>
+           
+            <div className="card p-fluid p-inputtext-lg" dir='rtl'>
+            <StyleClass nodeRef={toggleBtnRef} selector="@next" toggleClassName="p-disabled" />
+
+            <InputText ref={bodyQ}  defaultValue={bodyQ.current} onChange={()=>{if(questions){questions[index].body=bodyQ.current.value}}}/>
+        </div>          
+        <Divider></Divider>
+                {question?.answers?.map((a,i)=>
+                <p className="m-0">
+                    <Answer question={question} questions={questions} qIndex={index} index={i} survey={survey} answer={a}refetch={refetch}/>
+                 </p> 
+                  )}
+             </AccordionTab>
+             </Accordion>
+        </div>
+        
     )
 }
 export default Question

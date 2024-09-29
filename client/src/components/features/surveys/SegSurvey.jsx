@@ -1,28 +1,45 @@
 import { Button } from "primereact/button"
 
-import { useState } from "react"
+import { useState,useRef} from "react"
 import SegQuestion from "./SegQuestion";
-import { useChangeStatusMutation } from "./surveyApiSlice";
+import { useParams } from "react-router-dom"
+import { useChangeStatusMutation,useAddSurveyMutation,useUpdateSurveyMutation} from "./surveyApiSlice";
 import { useChooseSegQuestionMutation } from "./questions/questionApiSlice";
 import SendSurvey from "./SendSurvey";
+import { Inplace, InplaceContent, InplaceDisplay } from "primereact/inplace"
+import { InputText } from "primereact/inputtext"
+import { CascadeSelect } from 'primereact/cascadeselect';
 const SegSurvey=(props)=>{
    
-    const {survey,refetch,setVisible}=props
+    const {survey,refetch}=props
+    let editor = useRef('')
+    const [saveDisable,setSaveDisable]=useState(false)
+
     let [select, setSelect] = useState(survey.questions.map(q=>{return {_id:q._id,select:q.segmentation.kind}}));
     let [text, setText] = useState(survey.questions.map(q=>{return{_id:q._id,text:q.segmentation.note}}));
-    const [send,setSend]=useState(false)
+    let [wichDataSelect, setWichDataSelect]=useState(survey.questions.map(q=>{return{_id:q._id,choose:q.segmentation.choose}})||{_id:'',choose:''})   
     const [ChooseSegQuestionFunc, {isError, error, isSuccess,data}] =useChooseSegQuestionMutation()
+    const [ChangeStatusFunc, {isError1, error1, isSuccess1,data1}] =useChangeStatusMutation()
+
     const chooseSegment = () => {
-         select.map(q=>{ChooseSegQuestionFunc({_id:survey._id,questionId:q._id,kind:q.select,note:text[text.indexOf(text.find(i=>i._id==q._id))].text||' '})})
+        if(select)
+         select.map(q=>{ChooseSegQuestionFunc({_id:survey._id,questionId:q._id,kind:q.select.cname,note:text[text.indexOf(text.find(i=>i._id==q._id))].text})})
+        if(wichDataSelect){
+            wichDataSelect.map(q=>ChooseSegQuestionFunc({_id:survey._id,questionId:q._id,choose:q.choose.cname}).then(()=>refetch()))
+          }
     };
+    const changeStatus = (e) => {
+
+
+        ChangeStatusFunc({_id:survey._id,status:'completed'}).then(()=>{console.log('in trouble');refetch()}) 
+       
+   };
+   
     return(
         <>
-        <div style={{textAlign:'center',fontFamily:'Yehuda CLM'}}>
-        <h1>{survey.title}</h1></div>
-        {survey?.questions.map(q=> <SegQuestion select={select}setSelect={setSelect} text={text} setText={setText} question={q}/>)}
-        <br/><br/>
-        <Button onClick={()=>{chooseSegment();setSend(true);}} icon="pi pi-save" label="שמור" rounded /> 
-        {send && <SendSurvey visible={send} setVisible={setSend} setVisibleS={setVisible} refetch={refetch} survey={survey}status={"completed"}/>}
+        {survey?.questions.map(q=><SegQuestion selectWich={wichDataSelect} setSelectWich={setWichDataSelect} select={select} setSelect={setSelect} text={text} setText={setText} question={q}/>)}
+        <Button  onClick={chooseSegment} icon="pi pi-save" label="שמור" rounded style={{backgroundColor:"#e5e7eB", color:"#14B8A6"}}/> 
+        <Button  disabled={saveDisable} style={{backgroundColor:"#e5e7eB", color:"#14B8A6"}} onClick={async()=>{await chooseSegment(); await setSaveDisable(true); changeStatus();}} icon="pi pi-send" label="שלח" rounded /> 
         </> 
     )
 }
