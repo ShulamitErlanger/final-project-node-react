@@ -71,7 +71,6 @@ const PieSeg=(props)=> {
                 y: {
                     ticks: {
                         callback: function(value) {
-                            // return value + '%';
                         }
                     }
                 }
@@ -87,51 +86,7 @@ const PieSeg=(props)=> {
             <Chart type="pie" data={chartData} options={chartOptions} />
         </div>
     )
-//    var {labels,data,question}=props
-    
-//     const [borderColors,setBorderColors]=useState(['rgb(100, 255, 255)',
-//     'rgb(75, 192, 192)',
-//     'rgb(54, 162, 235)',
-//     'rgb(75, 180, 192)',
-//     'rgb(54, 162, 235)',
-//     'rgb(75, 192, 192)',
-//     'rgb(75, 180, 180)'
-//     ])
 
-
-//     const [borderWidthh,setBorderWidthh]=useState('1')
-
-
-//     useEffect(() => {
-//         const data2 = {
-//             labels: labels,
-//             datasets: [
-//                 {
-//                     label: question.body,
-//                     data: data,
-//                     backgroundColor: colorsGroup,
-//                     borderColor:borderColors,
-//                     borderWidth: borderWidthh
-//                 }
-//             ]
-//         };
-//         const options = {
-//             scales: {
-//                 y: {
-//                     beginAtZero: true
-//                 }
-//             }
-//         };
-
-//         setChartData(data2);
-//         setChartOptions(options);
-//     }, []);
-
-//     return (
-//         <div className="card"style={{textAlign:'center'}}>
-//        <Chart type="pie" data={chartData} options={chartOptions} />
-//         </div>
-//     )
 }
 export default PieSeg
         

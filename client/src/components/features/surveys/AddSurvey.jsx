@@ -1,8 +1,7 @@
 import { Button } from "primereact/button"
 import { useRef, useState } from "react"
 import Question from "./questions/Question"
-import { useAddSurveyMutation, useUpdateSurveyMutation} from "./surveyApiSlice"
-import { useAddQuestionMutation } from "./questions/questionApiSlice"
+import { useAddSurveyMutation} from "./surveyApiSlice"
 import { AutoComplete } from "primereact/autocomplete"
 import { useFormik } from 'formik';
 import { PanelMenu } from "primereact/panelmenu"
@@ -13,16 +12,10 @@ const AddSurvey=(props)=>{
     const {refetch,setVisibleNew}=props
     const [selectedGender, setSelectedGender] = useState()
     const [selectedSector, setSelectedSector] = useState()
-    const [selectedBirthDate, setSelectedBirthDate] = useState(Date)
     const title=useRef('סקר ללא שם')
     const [text,setText]=useState('')
-    const [ed,setEd]=useState(false)
-    const [quest,setQuest]=useState(false) 
     let [questions,setQuestions]=useState([])
     const [send,setSend]=useState(false)
-    const [addQuestionFunc,{isError:addQuestionIsError,error:addQuestionError,isSuccess:addQuestionIsSuccess,data:surveyQuestion}]=useAddQuestionMutation()
-    const [updateSurveyFunc, {isError:updateSurveyIsError, error:updateSurveyError, isSuccess:updateSurveyIsSuccess,data:updatesurvey}] = useUpdateSurveyMutation()
-    const [visibleS,setVisibleS]=useState(false);
     const [addSurveyFunc,{data:survey={},isError:addSurveyIsError,error:addSurveyError,isSuccess:addSurveyIsSuccess}]=useAddSurveyMutation()
     const add = async (e) => { 
         let selectSector;
@@ -31,11 +24,6 @@ let selectAge;
     selectAge= await selectedAges.map(age=>age.name)
        await addSurveyFunc({title:text,gender:selectedGender,sector:selectedSector,age:selectAge,questions:questions}).then(()=>refetch())
     }
-    const toastCenter = useRef(null);
-    const showMessage = (event, ref, severity) => {
-        const label = event.target.innerText;
-        ref.current.show({ severity: severity, summary: "שדה חובה", detail: "שדה כותרת הינו שדה חובה", life: 3000 });
-    };
     const addQuestion=async()=>{
        setQuestions([...questions,{body:'שאלה חדשה',answers:[{body:'תשובה חדשה'}]}])
     }
@@ -79,27 +67,7 @@ let selectAge;
         }
         
     ]
-    const selectedCountryTemplate = (option, props) => {
-        if (option) {
-            return (
-                <div className="flex align-items-center">
-                    <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`mr-2 flag flag-${option.code}`} style={{ width: '18px' }} />
-                    <div>{option.name}</div>
-                </div>
-            );
-        }
-
-        return <span>{props.placeholder}</span>;
-    };
-
-    const countryOptionTemplate = (option) => {
-        return (
-            <div className="flex align-items-center">
-                <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`mr-2 flag flag-${option.code}`} style={{ width: '18px' }} />
-                <div>{option.name}</div>
-            </div>
-        );
-    };
+   
     const formik = useFormik({
         initialValues: {
             title:survey.title
@@ -164,7 +132,7 @@ return isFormFieldInvalid(name) ?  <small className="p-error">{formik.errors[nam
     
     <Button label="הוסף שאלה" onClick={async()=>{addQuestion()}} icon="pi pi-plus" rounded style={{width:'50%',color:'#10bbbb', backgroundColor:'#e5e7eb',marginLeft:'19%'}}/> {/* This is the menu */}
     <br/><br/>
-    <Button label="שמור סקר" type='submit' onClick={formik.handleSubmit /*setSend(true)*/} icon="pi pi-save" rounded style={{width:'50%',color:'#10bbbb', backgroundColor:'#e5e7eb',marginLeft:'19%'}}/> 
+    <Button label="שמור סקר" type='submit' onClick={formik.handleSubmit} icon="pi pi-save" rounded style={{width:'50%',color:'#10bbbb', backgroundColor:'#e5e7eb',marginLeft:'19%'}}/> 
         </div>
         
       <div style={{ flex: 1, textAlign: 'center' }}> 

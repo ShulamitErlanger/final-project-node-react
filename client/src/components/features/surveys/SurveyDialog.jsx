@@ -1,28 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {useAddSurveyMutation, useUpdateSurveyMutation} from './surveyApiSlice'
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
-import { addLocale } from 'primereact/api';
-import { Password } from 'primereact/password';
-import { RadioButton } from "primereact/radiobutton";
-
-// import { setToken } from './authSlice';
-// import { useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
 const SurveyDialog = (props) => {
     
-const {survey,type,refetch}=props
-// const dispatch = useDispatch()
-// const navigate = useNavigate()
+const {type}=props
 const title=useRef()
 const [addFunc, {isError, error, isSuccess,data}] = useAddSurveyMutation()
 var [visible, setVisible] = useState(true);
 
 const add = (e) => {
-        //e.preventDefault();
-    addFunc({/*_id:survey._id,*/title:title.current.value})};
-// 
+    addFunc({title:title.current.value})};
+
 return (
 <div>
 <div className="card flex justify-content-center">

@@ -8,14 +8,12 @@ import { setToken } from './features/auths/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate} from 'react-router-dom';
 import { useGetUserQuery } from './features/users/userApiSlice';
-import { useSendMailMutation } from './features/service/mailApiSlice';
 import DecodeToken from './DecodeToken';
 const Start=()=>{
     const username=useRef()
     const password=useRef()
     const[register,setRegister]=useState(false)
     const [loginFunc, {isError, error, isSuccess:loginSuccess,data}] = useLoginMutation();
-    const [sendMailFunc, {isError:sendIsError, error:sendError, isSuccess:sendIsSuccess,data:send}] = useSendMailMutation()
     
 
         const dispatch = useDispatch()
@@ -63,7 +61,7 @@ const Start=()=>{
                         <InputText placeholder='סיסמה' ref={password} id="password" type="password" className="w-12rem" />
                         <label className="w-6rem">סיסמה</label>
                     </div>
-                    <Button label="כניסה" icon="pi pi-user" className="w-10rem mx-auto" onClick={()=>{/*sendeE();*/handleSubmit()}}></Button>
+                    <Button label="כניסה" icon="pi pi-user" className="w-10rem mx-auto" onClick={()=>{handleSubmit()}}></Button>
                    
                 </div>
                 <div className="w-full md:w-2">
@@ -88,7 +86,7 @@ export default Start
 
 
 
-/**/
+
 
 
         

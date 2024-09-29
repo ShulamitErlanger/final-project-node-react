@@ -1,14 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { CascadeSelect } from 'primereact/cascadeselect';
 import { Editor } from "primereact/editor";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
-import BarSeg from "./BarSeg";
-import PieSeg from "./PieSeg";
-import LineSeg from "./LineSeg";
 import BigBarSeg from "./BigBarSeg";
 import BigSeg from "./BigSeg";
-import Data from "./Data";
 const SegQuestion=(props)=>{
     let {selectWich,setSelectWich,select,setSelect,question,text,setText}=props    
     const index=select.indexOf(select.find(s=>s._id==question._id))
@@ -18,8 +14,6 @@ const SegQuestion=(props)=>{
     const [pie, setPie] = useState(true);
     const [line, setLine] = useState(false);
     const [bigBar, setBigBar] = useState(false);
-    const [feature,setFeature]=useState()
-    const [d,setD]=useState(false)
    const labels=question.answers.map(a=>{return a.body})
    const data=question.answers.map(a=>a.count)
    const Bar=()=>{
@@ -72,7 +66,7 @@ const wichData = [
         return (<>
             <div className="flex align-items-center gap-2">
                 {option.states && <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png"
-                /*className={`flag flag-${option.code.toLowerCase()}`}*/ style={{ width: '18px' }} />}
+                 style={{ width: '18px' }} />}
                 {option.cname=='תרשים עוגה' && <i className="pi pi-chart-pie"/>}
                 {option.cname=='תרשים מקלות מורכב' && <i className="pi pi-sliders-v"/>}
                 {option.cname=='היסטוגרמה' && <i className="pi pi-chart-bar"/>}

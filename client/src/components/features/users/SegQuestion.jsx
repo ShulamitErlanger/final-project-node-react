@@ -1,10 +1,4 @@
-import React, { useRef, useState } from 'react';
-import BarSeg from '../surveys/BarSeg';
-import PieSeg from '../surveys/PieSeg';
-import LineSeg from '../surveys/LineSeg';
-import { Editor } from 'primereact/editor';
-import { InputTextarea } from "primereact/inputtextarea";
-import { Card } from 'primereact/card';
+import React, { useState } from 'react';
 import { Panel } from 'primereact/panel';
 import BigBarSeg from '../surveys/BigBarSeg';
 import BigSeg from '../surveys/BigSeg';
@@ -36,17 +30,14 @@ const SegQuestion=(props)=> {
            
                 
                 <p className="m-0">
-                    {/* {question.segmentation.note&&
-                <Editor readOnly value={question.segmentation.note} style={{ height: '120px' }} />} */}
-{/* <div className="card flex justify-content-center"> */}
+   
 {question.segmentation.note&&
      <Panel  style={{textAlign:'center'}} header={'בסתר הסקר'}>       
     <div
     dangerouslySetInnerHTML={{
         __html:question.segmentation.note 
 }}></div></Panel>}
-            
-        {/* </div> */}
+
 
               </p>
                 

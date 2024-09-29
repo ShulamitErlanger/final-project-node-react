@@ -1,7 +1,5 @@
 
-import React, { useRef, useState } from "react";
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
+import React, { useRef } from "react";
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
 import { useDeleteSurveyMutation } from "./surveyApiSlice";

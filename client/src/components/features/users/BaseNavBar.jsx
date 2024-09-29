@@ -1,15 +1,6 @@
 import { TabMenu } from "primereact/tabmenu";
 
 const BaseNavBar=()=>{
-    
-    // const{
-    //     data:myUser,
-    //     isLoading:userIsLoading,
-    //     isError:userIsError,
-    //     error:userError,
-    //     isSuccess:userIsSuccess,
-    //     refetch:userRefetch
-    //     } = useGetUserQuery({id:''})
         const items = [
             { label: 'home', icon: 'pi pi-home',url:'/'},
             { label: 'login', icon: 'pi pi-check-circle',url:'/login'},

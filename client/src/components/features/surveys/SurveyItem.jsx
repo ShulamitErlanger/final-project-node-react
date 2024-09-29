@@ -6,7 +6,6 @@ import { Steps } from 'primereact/steps';
 import { Dialog } from 'primereact/dialog';
 import Survey from './Survey';
 import { Divider } from 'primereact/divider';
-import { useChangeStatusMutation } from './surveyApiSlice';
 import SegSurvey from './SegSurvey';
 import Segment from '../users/Segment';
 import { Card } from 'primereact/card';
@@ -27,11 +26,6 @@ const SurveyItem=(props)=> {
         }
     }, [survey.status]);
     const [activeIndex, setActiveIndex] = useState(status.indexOf(survey.status));
-    const [changeStatusFunc, {isError, error, isSuccess,data}] =useChangeStatusMutation()
-   const changestatus = () => {
-      // e.preventDefault();
-       changeStatusFunc({_id:survey._id,status:"closed"}).then(()=>refetch())
-       };
     const itemRenderer = (item, itemIndex) => {
         const isActiveItem = activeIndex === itemIndex;
         const backgroundColor = isActiveItem ? 'var(--primary-color)' : 'var(--surface-b)';

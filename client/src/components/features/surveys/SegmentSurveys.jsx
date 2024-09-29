@@ -87,7 +87,7 @@ const SegmentSurveys=(props)=>{
                     width:'300px'
                 }}>
                     <InputText dir='rtl' placeholder="חפש סקר לפי שם..." value={searchText} onChange={handleSearchChange} />
-                    {/* Other content */}<br/>
+                  <br/>
                     <p dir="rtl"style={{marginRight:5}}>מיון לפי תאריך:</p>
                     <Button
     icon={iconn}

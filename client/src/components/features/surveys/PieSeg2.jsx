@@ -78,7 +78,6 @@ useEffect(() => {
             y: {
                 ticks: {
                     callback: function(value) {
-                        // return value + '%';
                     }
                 }
             }

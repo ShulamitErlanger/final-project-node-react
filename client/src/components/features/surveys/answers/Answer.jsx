@@ -1,12 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { Toolbar } from 'primereact/toolbar';
+import React, { useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
-import { Inplace, InplaceContent, InplaceDisplay } from 'primereact/inplace';
-import { useDeleteAnswerMutation, useUpdateAnswerMutation } from './answerApiSlice';
 import { Button } from 'primereact/button';
-import { StyleClass } from 'primereact/styleclass';
-import { AutoComplete } from 'primereact/autocomplete';
-import { SplitButton } from 'primereact/splitbutton';
 
 const Answer=(props)=> {
     const {index,qIndex,answer,refetch}=props

@@ -10,12 +10,8 @@ import { Divider } from 'primereact/divider';
 import './question.css'
 
 const Question=(props)=> {
-    const [updateQuestionFunc, {isError, error, isSuccess,data}] =useUpdateQuestionMutation()
-
     const {question,index,survey,refetch}=props
     let {questions,setQuestions,newQuestions,setNewQuestions}=props 
-    const [addAnswerFunc,{isError:addAnswerIsError,error:addAnswerError,isSuccess:addAnswerIsSuccess,data:addAnswerData={}}]=useAddAnswerMutation()
-    var [visible, setVisible] = useState(true);
 
     const delet=()=>{
         questions.splice(index,1);

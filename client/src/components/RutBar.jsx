@@ -1,7 +1,3 @@
-
-
-import logo from '../logo.svg';
-
 import '../App.css';
 import {Link, useNavigate } from 'react-router-dom';
 import {useSelector } from 'react-redux';
@@ -70,8 +66,7 @@ export default function TemplateDemo() {
             ]
        
 
-    // const navBarlogo = <video alt="logo" src={logo} height="50" className="mr-2" autoPlay muted loop  onClick={()=>{navigate('/')}}></video>;
-
+   
     const {isUserLoggedIn} = useSelector((state)=>state.auth)
     const dispatch = useDispatch()
     return (

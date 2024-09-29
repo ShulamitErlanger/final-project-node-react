@@ -6,16 +6,13 @@ import { useChangeStatusMutation } from "./features/surveys/surveyApiSlice";
 
 
 const IsChange=(props)=>{
-   const {setVisible,setVisibleS,visible,survey,refetch}=props
+   const {setVisibleS,visible,survey,refetch}=props
    const [changeStatusFunc, {isError:changeStatusIsError, error:changeStatusError, isSuccess:changeStatusIsSuccess,data:changeStatus}] =useChangeStatusMutation()
    
    
 
    const changestatus = (e) => {
-    //    e.preventDefault();
        changeStatusFunc({_id:survey._id,status:"closed"}).then(refetch())
-       // window.location.reload(true)
-
        };
     const footerContent = (
         <div>

@@ -1,4 +1,3 @@
-import { Navigate } from 'react-router-dom'
 import logo from "../components/logo/userHomePage.mp4"
 const HomePageUser=()=>{
     return(

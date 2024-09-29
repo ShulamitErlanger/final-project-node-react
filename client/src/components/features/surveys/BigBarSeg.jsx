@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 
 const BigBarSeg = (props)=>{
-   const {labels,data,question,a}=props
+   const {labels,question,a}=props
    let c;
    if(a==='gender' || a==null &&question.segmentation.choose==='מגדר'){
     
@@ -34,18 +34,12 @@ const percent=(answer)=>{
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
 const colorsGroup = [
-    // 'rgb(64, 224, 208)',   // Turquoise
      'rgb(0, 255, 255)',    // Cyan
     'rgb(0, 191, 255)',    // Deep Sky Blue
-    // 'rgb(0, 0, 255)',      // Blue
     'rgb(75, 0, 130)',     // Indigo
-    // 'rgb(148, 0, 211)',    // Dark Violet
-    // 'rgb(238, 130, 238)',  // Violet
     'rgb(255, 20, 147)',   // Deep Pink
     'rgb(255, 0, 0)',      // Red
-    // 'rgb(255, 165, 0)',    // Orange
     'rgb(255, 255, 0)',    // Yellow
-    // 'rgb(0, 255, 0)',      // Lime
     'rgb(124, 252, 0)',    // Lawn Green
     'rgb(32, 178, 170)',   // Light Sea Green
     'rgb(72, 209, 204)',   // Medium Turquoise
@@ -65,7 +59,6 @@ question.answers.forEach(answer => {
                 label: genderName,
                 data: [],
                 backgroundColor: colorsGroup[Object.keys(datasets).length % colorsGroup.length],
-                // backgroundColor: `hsl(${Object.keys(datasets).length * (360 / Object.keys(answer.sector).length)}, 70%, 50%)`,
             };
         }
         datasets[genderName].data.push(genderValue);
@@ -80,7 +73,6 @@ if(a==="age" || a==null && question.segmentation.choose==='גיל'){
                     label: ageName,
                     data: [],
                     backgroundColor: colorsGroup[Object.keys(datasets).length % colorsGroup.length],
-                    // backgroundColor: `hsl(${Object.keys(datasets).length * (360 / Object.keys(answer.sector).length)}, 70%, 50%)`,
                 };
             }
             datasets[ageName].data.push(ageValue);

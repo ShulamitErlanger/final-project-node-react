@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useRegisterMutation } from './authApiSlice';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
@@ -10,19 +10,12 @@ import { RadioButton } from "primereact/radiobutton";
 import { useFormik } from 'formik';
 import { classNames } from 'primereact/utils';
 import { AutoComplete } from 'primereact/autocomplete';
-import { Panel } from 'primereact/panel';
 import { Fieldset } from 'primereact/fieldset';
 const Register = (props) => {
     const [visible, setVisible] = useState(true)
 
     const [registerFunc, { isError, error, isSuccess, data }] =
         useRegisterMutation()
-    // useEffect(()=>{
-    // if(isSuccess){
-    // dispatch(setToken(data))
-    // navigate("/blogs")
-    // }
-    // },[isSuccess])
 
     var name = useRef('')
     var password = useRef('')
@@ -31,11 +24,10 @@ const Register = (props) => {
     var sector = useRef({ key: '', name: '' })
     var username = useRef('')
     var email = useRef('')
-    const register = (e) => {
-        //e.preventDefault();
+    const register = async(e) => {
         if(sector?.current?.value?.name){sector=sector?.current?.value?.name}else{sector=undefined}
-        registerFunc({name:name.current.value, username:username.current.value, password:password.current.value, birthDate:birthDate.current.value, email:email.current.value, gender:gender.current.value, sector:sector})
-
+        await registerFunc({name:name.current.value, username:username.current.value, password:password.current.value, birthDate:birthDate.current.value, email:email.current.value, gender:gender.current.value, sector:sector})
+        window.location.reload(true);
     };
 
     const [value, setValue] = useState('');
@@ -66,8 +58,6 @@ const Register = (props) => {
     const [textn, setTextn] = useState('')
     const [textu, setTextu] = useState('')
     const [textp, setTextp] = useState('')
-
-    /**//*/*//*/*////////////////// ////////////////////////////////////////////////////////////*/ */
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -104,7 +94,7 @@ const Register = (props) => {
     const getFormErrorMessage = (name) => {
         return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>;
     };
-    /****************************************************************************************** */
+
     const footerContent = (
         <div>
             <Button label="בטל" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />
@@ -123,7 +113,7 @@ const Register = (props) => {
                             שם פרטי
                         </label>
 
-                        <AutoComplete id="autoCompl1" style={{ width: '400px' }} label="Name" inputRef={name} value={formik.values.name} /*placeholder={title.current}*/
+                        <AutoComplete id="autoCompl1" style={{ width: '400px' }} label="Name" inputRef={name} value={formik.values.name}
                             name='name'
                             className={classNames({ 'p-invalid': isFormFieldInvalid('name') })}
                             onChange={(e) => {
@@ -186,11 +176,6 @@ const Register = (props) => {
                         </label>
                     <Fieldset dir='rtl'style={{ width: '400px', textAlign:'center',margin:'auto', height:'50px'}}>
     <p className="m-0">
-       
-    
-                   
-
-                    {/* <div className="bg-white-alpha-20 border-#black p-3"> */}
 
                         <div className="flex align-items-center gap-2">
 
@@ -217,7 +202,6 @@ const Register = (props) => {
                                 />  <label htmlFor="ingredient2" className="ml-2">נקה בחירה&nbsp;</label>
                             </div>
                         </div>
-                    {/* </div> */}
                     </p>
 </Fieldset></div><br/><br/><br /><br/>
 <div className="inline-flex flex-column gap-2">
@@ -245,14 +229,6 @@ const Register = (props) => {
                         </div></p>
 </Fieldset></div>
                     </div>
-                    
-
-
-                    {/* <div className="flex align-items-center gap-2">
-                            <Button label="Sign-In" onClick={(e) => {register();setVisible(false)}} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
-                            <Button label="Cancel" onClick={setVisible(false)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
-                        </div> */}
-                
             </Dialog>
         </div>
     )

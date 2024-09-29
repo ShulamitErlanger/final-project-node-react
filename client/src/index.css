@@ -22,8 +22,6 @@ html {
 }
 
 .card {
-  /* background: var(--surface-card); */
-  /* margin-top: 60px; */
   padding: 1rem;
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -88,16 +86,12 @@ font-size: medium;}
 
  .p-inputtext.p-component{
   border-color:#14B8A6;
-  /* color: #14B8A6; */
   
  }
  #pr_id_193_header{
   font-family: 'Yehuda CLM';
  }
- /*.p-dialog-content, .p-dialog-header, .p-dialog-footer{
-  background-color:#14B8A6;
 
- } */
  .p-menubar{
   color: #14B8A6;
   block-size: 100px;
@@ -167,10 +161,7 @@ a { text-decoration: none;
   color:white;
 
 }
-/* .p-autocomplete.p-component.p-inputwrapper{
-  width: 500px;
-  padding-right: ;
-} */
+
 #radios{
   font-size: 8pt;
 }
@@ -199,14 +190,11 @@ div.p-fieldset-content{
   height: 50px;
 }
 
-/* #whitwB1{
-  color: white;
-} */
 
 #iconn{
   color:aliceblue !important;
 }
-/* p-button-icon p-c p-button-icon-left pi pi-user-plus */
+
 .p-button-icon.p-c.p-button-icon-left.pi.pi-user-plus::before{
   color:white !important;
 
@@ -214,33 +202,17 @@ div.p-fieldset-content{
 #userCard.card{
   margin: auto;
 }
-/* #surveyCard.card{
-  margin-right: auto;
-  width: 50px;
 
-} */
 video{
   top:150px;
 }
-/* #about,#about3{
-  width: 500px;
-  height: 300px;
-  margin: auto;
-} */
+
 #about,#about3,#about2{
   width: 500px;
   max-height: 500px;
   margin: auto;
 }
- /* canvas{
-  width: 500px;
-  height: 300px;
- } */
-  /* div.p-card-body{
-    margin: auto;
-    margin-top: 80px;
-  } */
-/*  */
+
 #surveyCard.card{
   width: 700px; 
   margin-right:'20%' !important;
@@ -316,9 +288,7 @@ margin-right: auto;
   .sizeOfChart{
     width: 50%;
   }
-  /* .homePage{
-    
-  } */
+
   .vi{
     width:90%;
   }
@@ -393,8 +363,6 @@ margin-right: auto;
 #segg.card{
   width: 500px;
    }
-/* .logoImg{
-  margin-top: 40%;
-} */
+
 
   

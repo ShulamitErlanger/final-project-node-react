@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import { useEffect, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 
-const UserSurveys=(props)=>{
+const UserSurveys=()=>{
 const status="in process";
 const{
     data:myUser,
@@ -126,7 +126,6 @@ const{
                 <br/>
                
                 <InputText dir='rtl' placeholder="חפש סקר לפי שם..." value={searchText} onChange={handleSearchChange} /><br/>
-                {/* Other content */}
                 <p dir="rtl"style={{marginRight:5}}>מיון לפי תאריך:</p>
                     <Button
     icon={iconn}

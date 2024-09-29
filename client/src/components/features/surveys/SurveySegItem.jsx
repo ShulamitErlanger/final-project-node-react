@@ -1,7 +1,6 @@
 import {Button} from "primereact/button"
 import {Card} from "primereact/card"
 import {Dialog} from "primereact/dialog"
-import {Divider} from "primereact/divider"
 import React, {useState} from "react"
 import SegSurvey from "./SegSurvey"
 const SurveySegItem=(props)=>{

@@ -1,6 +1,3 @@
-import { Button } from "primereact/button"
-
-import UserQuestion from "./UserQuestion"
 import SegQuestion from "./SegQuestion"
 const Segment=(props)=>{
     const {refetch,survey}=props

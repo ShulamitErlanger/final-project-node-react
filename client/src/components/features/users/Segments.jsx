@@ -1,16 +1,11 @@
-
 import { useGetSurveysQuery } from '../surveys/surveyApiSlice';
-
-import Segment from './Segment';
 import { useEffect,useState } from 'react';
-
-import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import SegmentItem from './SegmentItem';
 import { ScrollTop } from 'primereact/scrolltop';
 
-const Segments=(props)=>{
+const Segments=()=>{
 const {data :surveys=[],isLoading,isError,error, refetch}= useGetSurveysQuery({status:"completed", sector: '', gender: '', birthDate: ''})
 
 const [searchText, setSearchText] = useState('');
@@ -90,7 +85,6 @@ return (
                 }}>
                     <br/>
                     <InputText dir='rtl' placeholder="חפש סקר לפי שם..." value={searchText} onChange={handleSearchChange} /><br/>
-                    {/* Other content */}
                     <p dir="rtl"style={{marginRight:5}}>מיון לפי תאריך:</p>
                     <Button
     icon={iconn}

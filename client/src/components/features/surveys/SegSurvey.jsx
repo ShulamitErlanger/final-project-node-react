@@ -1,18 +1,11 @@
 import { Button } from "primereact/button"
-
-import { useState,useRef} from "react"
+import { useState} from "react"
 import SegQuestion from "./SegQuestion";
-import { useParams } from "react-router-dom"
-import { useChangeStatusMutation,useAddSurveyMutation,useUpdateSurveyMutation} from "./surveyApiSlice";
+import { useChangeStatusMutation} from "./surveyApiSlice";
 import { useChooseSegQuestionMutation } from "./questions/questionApiSlice";
-import SendSurvey from "./SendSurvey";
-import { Inplace, InplaceContent, InplaceDisplay } from "primereact/inplace"
-import { InputText } from "primereact/inputtext"
-import { CascadeSelect } from 'primereact/cascadeselect';
 const SegSurvey=(props)=>{
    
     const {survey,refetch}=props
-    let editor = useRef('')
     const [saveDisable,setSaveDisable]=useState(false)
 
     let [select, setSelect] = useState(survey.questions.map(q=>{return {_id:q._id,select:q.segmentation.kind}}));

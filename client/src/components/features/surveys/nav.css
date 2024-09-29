@@ -4,7 +4,6 @@ html {
 }
 
 body {
-  /* font-family: var(--font-family); */
   font-weight: normal;
   background: var(--surface-ground);
   color: var(--text-color);
@@ -16,38 +15,18 @@ body {
 a{
   text-decoration: none;
 }
-/* .search{
-  width: 150px;
-  height: 30px;
-  border-radius: 10px;
-  margin: 0;
-  direction: rtl;
-} */
-/* .nav {
-  background: var(--surface-card);
-  background-color: black;
-  padding: 2rem;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-  height: 80px;
-} */
+
 .p-menubar ul{
   width: 115%;
-  /* margin-left:35%; */
+
   justify-content: space-around ;
   font-size: 18px;
 }
-/* #bar1{
-  
-} */
+
 .bar{
   color:rgb(255, 255, 255);
    font-size:large;
-  /*display: flex;
-  justify-content:space-around;
-  font-family: 'Ellinia CLM';
-  position: relative;
-  bottom: 25px; */
+
 
 }
 .a{

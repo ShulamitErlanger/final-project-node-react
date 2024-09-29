@@ -54,10 +54,6 @@ const UserSurvey=(props)=>{
     {survey?.questions.map(q => <UserQuestion select={select} setSelect={setSelect} refetch={refetch} question={q} survey={survey} />)}
 
 </div>
-{/*            <div style={{ flex: 1 }}> 
-
-
-</div> */}
 
 </div>  <footer style={{ textAlign: 'center', padding: '10px' }}>
 <p>

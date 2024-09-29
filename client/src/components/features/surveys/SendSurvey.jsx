@@ -13,7 +13,6 @@ const SendSurvey=(props)=>{
    const [changeStatusFunc, {isError:changeStatusIsError, error:changeStatusError, changeStatusIsSuccess,data:changeStatus}] =useChangeStatusMutation()
    const [sendMailFunc, {isError:sendIsError, error:sendError, isSuccess:sendIsSuccess,data:send}] = useSendMailMutation()
    let surveysForUsers=[]
-  let exist;
     const {
     data:users,
     isLoading:il,
@@ -51,7 +50,7 @@ const SendSurvey=(props)=>{
  
    }
    const changestatus = async (e) => {
-   await changeStatusFunc({_id:survey?._id,status:"in process"})//.then(()=>refetch())
+   await changeStatusFunc({_id:survey?._id,status:"in process"})
    window.location.reload(true)
    }
     const footerContent = (

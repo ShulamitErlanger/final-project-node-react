@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
-import { ZIndexUtils } from 'primereact/utils';
 const BarSeg2=(props)=> {
    var {labels,data,question,s,a,i}=props
-  
-   let c;
-   
    const arr = Object.entries(data).reduce((acc, [o, count], index) => {
     acc[index] = count;
     return acc;

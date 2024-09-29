@@ -2,8 +2,6 @@ import {useEffect,useState } from "react"
 import BarSeg from "./components/features/surveys/BarSeg"
 import LineSeg from "./components/features/surveys/LineSeg"
 import PieSeg from "./components/features/surveys/PieSeg"
-// import BigBarSeg from "./componnents/surveys/BigBarSeg"
-
 import { useGetUsersQuery } from "./components/features/users/userApiSlice"
 import { Card } from "primereact/card"
 
@@ -118,7 +116,7 @@ const About=()=>{
                                     prevCountAge[0], prevCountAge[1], prevCountAge[2], prevCountAge[3], prevCountAge[4],
                                     prevCountAge[5], prevCountAge[6], prevCountAge[7], prevCountAge[8], prevCountAge[9], prevCountAge[10]+1
                                 ];
-                            } //// Add similar conditions for other age ranges
+                            } 
                     
                             return prevCountAge;
                         } else {
@@ -139,8 +137,6 @@ const About=()=>{
            <PieSeg labels={sectorLabels} data={countSector} question={''} /></Card><br/><br/><br/>
            <Card id="about3" className="charta">
            <LineSeg labels={agesLabels} data={countAge} question={''} /></Card></div>
-           {/* <Card id="about4" className="charta"> */}
-           {/* <BigBarSeg secLabels={sectorLabels} labels={sectorLabels} /></Card><br/><br/><br/> */}
 
            </div>
     </>

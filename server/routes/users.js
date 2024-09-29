@@ -9,5 +9,4 @@ router.get("/id",verifyJWT,getUserById)
 router.put("/update",verifyJWT,updateUser)
 router.delete("/delete",verifyJWT,deleteUser)
 router.put('/survey',verifyJWT,addSurvey)
-//router.delete("/delete/:id",userController.deleteUser)
 module.exports=router

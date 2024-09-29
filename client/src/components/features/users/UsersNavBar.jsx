@@ -1,16 +1,6 @@
 import { TabMenu } from "primereact/tabmenu";
-import { useGetUserQuery } from "./userApiSlice"
 
-const UsersNavBar=(props)=>{
-    //const {myUser}=props
-    // const{
-    //     data:myUser,
-    //     isLoading:userIsLoading,
-    //     isError:userIsError,
-    //     error:userError,
-    //     isSuccess:userIsSuccess,
-    //     refetch:userRefetch
-    //     } = useGetUserQuery({id:''})
+const UsersNavBar=()=>{
         const items = [
             { label: 'home', icon: 'pi pi-home',url:'/' },
             { label: 'login', icon: 'pi pi-check-circle',url:'/login'},

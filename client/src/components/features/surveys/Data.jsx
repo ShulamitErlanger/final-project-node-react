@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import BarSeg from "./BarSeg";
 import LineSeg from "./LineSeg";
 import PieSeg from "./PieSeg";

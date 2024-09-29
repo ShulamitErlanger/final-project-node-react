@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLoginMutation } from './authApiSlice';
 import { setToken } from './authSlice';
 import { useDispatch } from 'react-redux';
@@ -11,10 +11,8 @@ useLoginMutation()
 useEffect(()=>{
 if(isSuccess){
 dispatch(setToken(data))
-// navigate("./homePage")
 }
 },[isSuccess])
-// Function to handle form submission
 const handleSubmit = (e) => {
 e.preventDefault();
 loginFunc(formData)

@@ -1,58 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
-import { addLocale } from 'primereact/api';
-import { Password } from 'primereact/password';
-import { RadioButton } from "primereact/radiobutton";
-import { useAddQuestionMutation, useUpdateQuestionMutation } from './questionApiSlice';
+import { useAddQuestionMutation } from './questionApiSlice';
 
 
 const QuestionDialog = (props) => {
-    const {survey,type,questionId}=props  
+    const {survey}=props  
     const body=useRef('')
-  /**************************************!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!questionId************************************************/
 
-    
-   
-//  const Add=()=>{
     const [addFunc, {isError, error, isSuccess,data,refetch}] = useAddQuestionMutation()
     var [visible, setVisible] = useState(true);
 
     const add = (e) => {
-            //e.preventDefault();
         addFunc({_id:survey._id,body:body.current.value}).then(()=>refetch())};
-    // add()}
-   
 
-//   const Edit=()=>{
-//     const [editFunc, {isError, error, isSuccess,data}] = useUpdateQuestionMutation()
-//     var [visible, setVisible] = useState(true);
-//     const edit = (e) => {
-
-//     //e.preventDefault();
-//         editFunc({_id:survey._id,questionId:questionId, body:body.current.value})}
-//     edit()}
-    
-// useEffect(()=>{
-// if(isSuccess){
-// dispatch(setToken(data))
-// navigate("/blogs")
-// }
-// },[isSuccess])
-
-
-
-
-const [value, setValue] = useState('');
-const [date, setDate] = useState(null);
-const [ingredient, setIngredient] = useState('');
-   
-//const [selectedCategory, setSelectedCategory] = useState(categories[1]);
 return (
 <div>
 <div className="card flex justify-content-center">
-            {/* <Button label="Login" icon="pi pi-user" onClick={() => setVisible(true)} /> */}
             <Dialog
            
                  visible={visible}

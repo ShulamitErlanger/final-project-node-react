@@ -1,7 +1,6 @@
 const express=require("express")
 const verifyJWT=require('../middleware/verifyJWT')
 const verifyAdmin=require('../middleware/verifyAdmin')
-//const Survey=require("../models/Survey")
 const router =express.Router()
 const {addSurvey,getAllSurveys,updateSurvey,getSurveyById,deleteSurvey,changeStatus,incCount}=require("../controllers/surveyController")
 router.post('/add',[verifyJWT,verifyAdmin],addSurvey)
